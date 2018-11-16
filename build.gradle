@@ -1,0 +1,67 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        springBootVersion = '2.1.0.RELEASE'
+    }
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven {
+            url 'https://repo.spring.io/libs-milestone'
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+group = 'pl.floda'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-data-rest')
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    runtimeOnly('mysql:mysql-connector-java')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+springBoot {
+    mainClassName = 'floda.pl.floda3.Starting'
+}
+
+bootJar {
+//    This is overridden by the mainClassName in springBoot{} and added here for reference purposes.
+    mainClassName = 'floda.pl.floda3.Starting'
+
+//    This block serves the same purpose as the above thus commented out. Added here for reference purposes
+//    manifest {
+//        attributes 'Start-Class': 'org.baeldung.DemoApplication'
+//    }
+}
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
