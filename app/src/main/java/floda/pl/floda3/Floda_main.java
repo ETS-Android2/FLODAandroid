@@ -1,7 +1,9 @@
 package floda.pl.floda3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -11,14 +13,33 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Floda_main extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    User_info usr;
+    String idd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +65,12 @@ public class Floda_main extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         Intent i = getIntent();
-        TextView t= (TextView) findViewById(R.id.nav_name);
-        t.setText(i.getStringExtra("ID"));
+
+        idd=i.getStringExtra("ID");
+        getDetail(idd,new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
+
     }
 
     @Override
@@ -98,11 +122,59 @@ public class Floda_main extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences.Editor e= preferences.edit();
+            e.remove("ID");
+            e.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void getDetail(String id, RequestQueue q) {
+        String sql="http://www.serwer1727017.home.pl/2ti/floda/floda_ifo.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, sql, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray j = new JSONArray(response);
+                    JSONObject o = j.getJSONObject(0);
+                    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                    View header= navigationView.getHeaderView(0);
+                    usr = new User_info(o.getString("Name"),o.getString("email"),o.getString("ID"),o.getString("nick"),o.getString("Surname"),Boolean.getBoolean(o.getString("su")=="0"?"false":"true"));
+                    Log.e("cos",usr.getMail());
+                    TextView t= (TextView) header.findViewById(R.id.nav_name);
+                    TextView e= (TextView) header.findViewById(R.id.nav_email);
+                    t.setText(o.getString("Name")+" "+o.getString("Surname")+" ("+o.getString("nick")+")");
+                    e.setText(o.getString("email"));
+                    Log.e("id",o.getString("email"));
+                } catch (JSONException e) {
+                    Log.e("json",e.toString());
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("blad",error.toString());
+                //foo[0] =null;
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> h = new HashMap<>();
+                h.put("ID",idd);
+
+                return h;
+            }
+        };
+        q.add(stringRequest);
+
+        q.start();
+
+        Log.e("r", id);
+
     }
 }
