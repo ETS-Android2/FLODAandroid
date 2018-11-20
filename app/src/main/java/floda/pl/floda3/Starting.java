@@ -2,8 +2,10 @@ package floda.pl.floda3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -13,9 +15,17 @@ public class Starting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting);
+
+                ConstraintLayout constraintLayout = findViewById(R.id.startingbck);
+                AnimationDrawable drawable = (AnimationDrawable) constraintLayout.getBackground();
+                drawable.setEnterFadeDuration(0);
+                drawable.setExitFadeDuration(4500);
+                drawable.start();
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         String id = preferences.getString("ID","0");
         Log.e("Id",id);
+
         Thread welcomeThread = new Thread() {
 
             @Override

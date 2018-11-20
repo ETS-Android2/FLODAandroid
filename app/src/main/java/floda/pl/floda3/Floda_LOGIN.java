@@ -35,6 +35,11 @@ public class Floda_LOGIN extends AppCompatActivity {
     AlertDialog alert;
 
     @Override
+    public void onBackPressed() {
+        Log.e("cofanie nie mozliwe","1");
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_floda__login);
@@ -47,6 +52,7 @@ public class Floda_LOGIN extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
