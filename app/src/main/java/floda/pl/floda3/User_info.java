@@ -1,13 +1,13 @@
 package floda.pl.floda3;
 
-public class User_infos {
+public class User_info {
     String name;
     String mail;
-    String ID;
+    String ID=null;
     String nick;
     String surname;
     boolean su;
-    public User_infos(String name,String mail,String ID,String nick,String surname,boolean su){
+    public User_info(String name,String mail,String ID,String nick,String surname,boolean su){
         this.name=name;
         this.mail=mail;
         this.ID=ID;
@@ -35,4 +35,7 @@ public class User_infos {
         return surname;
     }
 
+    public boolean isSu() {
+        return su;
+    }
 }

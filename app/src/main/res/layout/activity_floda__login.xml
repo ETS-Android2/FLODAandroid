@@ -15,15 +15,15 @@
         android:contentDescription="TODO" android:paddingBottom="15dp"
         android:rotation="35"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/nav_email"
+        app:layout_constraintEnd_toEndOf="@+id/nav_email"
+        app:layout_constraintStart_toStartOf="@+id/nav_email"
+        app:layout_constraintTop_toTopOf="@+id/nav_email"
         app:layout_constraintVertical_bias="0.473"
         app:srcCompat="@drawable/leaf" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/nav_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

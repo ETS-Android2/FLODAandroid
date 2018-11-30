@@ -1,8 +1,9 @@
 package floda.pl.floda3.spring;
 
-import floda.pl.floda3.User_infos;
+import com.android.volley.toolbox.StringRequest;
+
 
 public interface connection {
-    User_infos getLoginAbout(String login, String password);
-    User_infos getLoginAboutID(String ID);
+    String getLoginAbout(String login, String password);
+    StringRequest getLoginAboutID(String ID);
 }
