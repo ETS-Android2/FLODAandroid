@@ -2,6 +2,7 @@ package floda.pl.floda3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -50,10 +51,11 @@ public class Floda_main extends AppCompatActivity
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.appbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Option unavailable yet", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -149,6 +151,9 @@ public class Floda_main extends AppCompatActivity
                     t.setText(o.getString("Name")+" "+o.getString("Surname")+" ("+o.getString("nick")+")");
                     e.setText(o.getString("email"));
                     Log.e("id",o.getString("email"));
+                    if(o.getString("su").contentEquals("1")){
+                        t.setTextColor(Color.RED);
+                    }
                     if(usr.isSu()){
 
                     }

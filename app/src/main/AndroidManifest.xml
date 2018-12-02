@@ -17,9 +17,7 @@
         <activity
             android:name=".Floda_LOGIN"
             android:screenOrientation="portrait"
-            android:theme="@style/NOACTIO">
-
-        </activity>
+            android:theme="@style/NOACTIO"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
@@ -33,7 +31,8 @@
             android:name=".Floda_main"
             android:label="@string/title_activity_floda_main"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Starting"
+        <activity
+            android:name=".Starting"
             android:theme="@style/NOACTIO">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,6 +40,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PlantDetail"></activity>
     </application>
 
 </manifest>
