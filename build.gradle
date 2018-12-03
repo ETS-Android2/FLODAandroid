@@ -5,9 +5,7 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
-        maven { url "https://repo.spring.io/release" }
-        maven { url "https://repo.spring.io/milestone" }
-        maven { url "https://repo.spring.io/snapshot" }
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
@@ -24,7 +22,6 @@ sourceCompatibility = 1.8
 
 
 dependencies {
-    implementation("org.springframework.android:spring-android-rest-template:2.0.0.M3")
 
 }
 
@@ -32,6 +29,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
+
     }
 }
 

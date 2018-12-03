@@ -1,6 +1,7 @@
 package floda.pl.floda3;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -85,7 +86,9 @@ public class ListOfPlants extends Fragment {
                 mAdapter = new Listplants(data, new Listplants.OnItemClickListener() {
                     @Override
                     public void onItemClick(pData item) {
-                        Toast.makeText(getContext(), "Item Clicked"+item.pname, Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(getContext(),PlantDetail.class);
+                        i.putExtra("ID",item.ID);
+                        startActivity(i);
                     }
                 });
 
@@ -129,10 +132,10 @@ public class ListOfPlants extends Fragment {
 
             public MyViewHolder(View v) {
                 super(v);
-                cv = (CardView) v.findViewById(R.id.card_view);
-                cname = (TextView) v.findViewById(R.id.plant_name);
-                cgenre = (TextView) v.findViewById(R.id.plant_genre);
-                cstatus = (TextView) v.findViewById(R.id.esponoff);
+                cv =  v.findViewById(R.id.card_view);
+                cname =  v.findViewById(R.id.plant_name);
+                cgenre =  v.findViewById(R.id.plant_genre);
+                cstatus =  v.findViewById(R.id.esponoff);
             }
 
             public void bind(final pData item, final OnItemClickListener listener) {
