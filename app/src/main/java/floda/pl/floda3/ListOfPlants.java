@@ -75,7 +75,7 @@ public class ListOfPlants extends Fragment {
                     JSONArray jsonArray = new JSONArray(response);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject o = jsonArray.getJSONObject(i);
-                        data.add(new pData(o.getString("Name"), o.getString("latin"), o.getString("sonda"),o.getString("ID")));
+                        data.add(new pData(o.getString("Name"), o.getString("latin"), o.getString("ison").contains("1")?"on":"off",o.getString("ID")));
                         Log.e("cs", o.getString("Name"));
 
                     }
@@ -132,10 +132,10 @@ public class ListOfPlants extends Fragment {
 
             public MyViewHolder(View v) {
                 super(v);
-                cv =  v.findViewById(R.id.card_view);
-                cname =  v.findViewById(R.id.plant_name);
-                cgenre =  v.findViewById(R.id.plant_genre);
-                cstatus =  v.findViewById(R.id.esponoff);
+                cv = (CardView) v.findViewById(R.id.card_view);
+                cname = (TextView) v.findViewById(R.id.plant_name);
+                cgenre = (TextView) v.findViewById(R.id.plant_genre);
+                cstatus = (TextView) v.findViewById(R.id.esponoff);
             }
 
             public void bind(final pData item, final OnItemClickListener listener) {
@@ -209,4 +209,3 @@ public class ListOfPlants extends Fragment {
         }
     }
 }
-
