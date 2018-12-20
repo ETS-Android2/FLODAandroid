@@ -6,20 +6,23 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="TEST" parent="android:Theme.Material.NoActionBar">
         <item name="android:colorPrimaryDark">@color/start</item>
         <item name="colorPrimary">@color/center</item>
         <item name="colorPrimaryDark">@color/end</item>
-        <item name="android:colorBackground">@color/background_material_light</item>
+        <item name="android:colorBackground">@color/BUTTONS</item>
         <item name="android:colorForeground">@color/accent_material_dark_1</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="NOACTIO" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/center</item>
         <item name="colorPrimaryDark">@color/end</item>
         <item name="android:statusBarColor">@color/end</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -29,6 +32,7 @@
     <style name="Theme.Chart" parent="android:Theme.Material" >
         <item name="android:colorAccent">@color/center</item>
         <item name="android:colorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
 </resources>
