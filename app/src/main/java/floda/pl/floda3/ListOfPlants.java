@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeoutException;
 
 
@@ -63,7 +64,7 @@ public class ListOfPlants extends Fragment {
         // Inflate the layout for this fragment
         List<pData> data;
         w = inflater.inflate(R.layout.fragment_list_of_plants, container, false);
-        mRecycleView = (RecyclerView) w.findViewById(R.id.listofplantrv);
+        mRecycleView = w.findViewById(R.id.listofplantrv);
         mRecycleView.setHasFixedSize(true);
         ProgressBar bar = w.findViewById(R.id.progressBar2);
         bar.setVisibility(View.VISIBLE);
@@ -71,47 +72,36 @@ public class ListOfPlants extends Fragment {
         mRecycleView.setLayoutManager(mLayoutManager);
         data = new ArrayList<>();
         String url = "http://serwer1727017.home.pl/2ti/floda/floda_list.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+            bar.setVisibility(View.INVISIBLE);
+            try {
+                JSONArray jsonArray = new JSONArray(response);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject o = jsonArray.getJSONObject(i);
+                    data.add(new pData(o.getString("Name"), o.getString("latin"), o.getString("ison").contains("1")?"on":"off",o.getString("ID"),o.getString("sonda")));
+                    Log.e("cs", o.getString("Name"));
 
-            @Override
-            public void onResponse(String response) {
-                bar.setVisibility(View.INVISIBLE);
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject o = jsonArray.getJSONObject(i);
-                        data.add(new pData(o.getString("Name"), o.getString("latin"), o.getString("ison").contains("1")?"on":"off",o.getString("ID")));
-                        Log.e("cs", o.getString("Name"));
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-                bar.setVisibility(View.INVISIBLE);
-                mAdapter = new Listplants(data, new Listplants.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(pData item) {
-                        Intent i = new Intent(getContext(),PlantDetail.class);
-                        i.putExtra("ID",item.ID);
-                        startActivity(i);
-                    }
-                });
-
-                mRecycleView.setAdapter(mAdapter);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+            bar.setVisibility(View.INVISIBLE);
+            mAdapter = new Listplants(data, item -> {
+                Intent i = new Intent(getContext(),PlantDetail.class);
+                i.putExtra("ID",item.nr);
+                startActivity(i);
+            });
 
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("error",error.toString());
-                //todo: zrobic snackbar ze bład z polaczeniem
-            }
+            mRecycleView.setAdapter(mAdapter);
+        }, error -> {
+            Log.e("error",error.toString());
+            //todo: zrobic snackbar ze bład z polaczeniem
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> h = new HashMap<>();
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                h.put("ID", sharedPreferences.getString("ID", "0"));
+                h.put("ID", Objects.requireNonNull(sharedPreferences.getString("ID", "0")));
                 return h;
             }
         };
@@ -138,19 +128,14 @@ public class ListOfPlants extends Fragment {
 
             public MyViewHolder(View v) {
                 super(v);
-                cv = (CardView) v.findViewById(R.id.card_view);
-                cname = (TextView) v.findViewById(R.id.plant_name);
-                cgenre = (TextView) v.findViewById(R.id.plant_genre);
-                cstatus = (TextView) v.findViewById(R.id.esponoff);
+                cv = v.findViewById(R.id.card_view);
+                cname = v.findViewById(R.id.plant_name);
+                cgenre = v.findViewById(R.id.plant_genre);
+                cstatus = v.findViewById(R.id.esponoff);
             }
 
             public void bind(final pData item, final OnItemClickListener listener) {
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        listener.onItemClick(item);
-                    }
-                });
+                itemView.setOnClickListener(v -> listener.onItemClick(item));
             }
         }
 
@@ -194,12 +179,14 @@ public class ListOfPlants extends Fragment {
         String pgenre;
         String pstatus;
         String ID;
+        String nr;
 
-        public pData(String pname, String pgenre, String pstatus, String ID) {
+        public pData(String pname, String pgenre, String pstatus, String ID,String nr) {
             this.pname = pname;
             this.pgenre = pgenre;
             this.pstatus = pstatus;
             this.ID = ID;
+            this.nr=nr;
         }
 
         public String getPgenre() {

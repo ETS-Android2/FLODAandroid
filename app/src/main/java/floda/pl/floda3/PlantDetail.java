@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.ArrayMap;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,10 +38,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,13 +65,20 @@ public class PlantDetail extends AppCompatActivity {
         tryb=0;
         timeof = new ArrayList<>();
         id = i.getStringExtra("ID");
+        Log.e("id", id);
         ID=id;
         Toolbar t = findViewById(R.id.plantdettool);
         setSupportActionBar(t);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.detailbar);
-        z = (TextView) t.findViewById(R.id.detailtitle);
-
+        z = t.findViewById(R.id.detailtitle);
+        nmax = new ArrayList<>();
+        smax = new ArrayList<>();
+        smin = new ArrayList<>();
+        tmax = new ArrayList<>();
+        tmin = new ArrayList<>();
+        wmax = new ArrayList<>();
+        wmin = new ArrayList<>();
         databaseGet(id, tryb);
     }
 
@@ -100,14 +103,21 @@ public class PlantDetail extends AppCompatActivity {
             }else{
                 tryb=0;
             }
-            datanaslonecznienie.clear();;
+            datanaslonecznienie.clear();
             datanawodnienie.clear();
             datatemperatura.clear();
-            datawilgotnosc.clear(); //todo zrob wyswietlanie dziennych statystyk
-            /*naslonecznienie.clear();
+            datawilgotnosc.clear();
+            naslonecznienie.clear();
             wilgotnosc.clear();
             temperatura.clear();
-            nawodnienie.clear();*/
+            nawodnienie.clear();
+            nmax.clear();
+            smax.clear();
+            smin.clear();
+            wmax.clear();
+            wmin.clear();
+            tmax.clear();
+            tmin.clear();
             databaseGet(ID,tryb);
         }
 
@@ -115,88 +125,135 @@ public class PlantDetail extends AppCompatActivity {
     }
 
     void databaseGet(String id, int nr) {
-
+        StringRequest stringRequest;
         datanawodnienie = new ArrayList<>();
         datanaslonecznienie = new ArrayList<>();
         datatemperatura = new ArrayList<>();
         datawilgotnosc = new ArrayList<>();
         String sql = "http://serwer1727017.home.pl/2ti/floda/detail/data.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, sql, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+        if (nr == 0) {
+            stringRequest = new StringRequest(Request.Method.POST, sql, response -> {
                 try {
-                    nmax = new ArrayList<>();
-                    smax = new ArrayList<>();
-                    smin = new ArrayList<>();
-                    tmax = new ArrayList<>();
-                    tmin = new ArrayList<>();
-                    wmax = new ArrayList<>();
-                    wmin = new ArrayList<>();
+
+                    JSONArray podst = new JSONArray(response);
+                    JSONObject det = podst.getJSONObject(0);
+
+                    JSONObject foo;
+                    z.setText(det.getString("name") + " (" + det.getString("Nazwa") + ")");
+                    for (int index = 1; index < podst.length(); index++) {
+
+                        foo = podst.getJSONObject(index);
+                        Log.e("Data", id + " " + foo.getString("sun") + " " + foo.getString("temperature") + " " + foo.getString("humidity"));
+                        datanawodnienie.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("soil"))));
+                        datanaslonecznienie.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("sun"))));
+                        datatemperatura.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("temperature"))));
+                        datawilgotnosc.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("humidity"))));
+                        timeof.add(index - 1, foo.getString("time"));
+
+                    }
+                    //todo filtr czasu i dodatkowe info
+                    //timeof.add(podst.length(), podst.getJSONObject(podst.length()).getString("time"));
+
+                    Log.e("ble", String.valueOf(response));
+                    nmax.add(new Entry(0, 200));
+                    nmax.add(new Entry(podst.length() - 2, 200));
+                    smax.add(new Entry(0, 50));
+                    smax.add(new Entry(podst.length() - 2, 50));
+                    smin.add(new Entry(0, 70));
+                    smin.add(new Entry(podst.length() - 2, 70));
+                    tmax.add(new Entry(0, 1));
+                    tmax.add(new Entry(podst.length() - 2, 1));
+                    tmin.add(new Entry(0, 10));
+                    tmin.add(new Entry(podst.length() - 2, 10));
+                    wmax.add(new Entry(0, 10));
+                    wmax.add(new Entry(podst.length() - 2, 10));
+                    wmin.add(new Entry(0, 50));
+                    wmin.add(new Entry(podst.length() - 2, 50));
+
+
+                    //TODO: Nalezy tutaj dodac funkcje zczytujaca na poczatek podstawowe dane a nastepnie poszczegolne na godzine
+
+                } catch (Exception e) {
+                    Log.e("Ustawianie danych", "eeeeeee blad");
+                }
+                nawodnienie();
+                naslonecznienie();
+                wilgotnosc();
+                temperatura();
+
+            }, error -> {
+
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> parms = new HashMap<>();
+                    parms.put("id", id);
+                    parms.put("nr", String.valueOf(nr));
+                    return parms;
+                }
+            };
+        } else {
+            stringRequest = new StringRequest(Request.Method.POST, sql, response -> {
+                try {
+                    datanawodnienie = new ArrayList<>();
+                    datanaslonecznienie = new ArrayList<>();
+                    datatemperatura = new ArrayList<>();
+                    datawilgotnosc = new ArrayList<>();
                     JSONArray podst = new JSONArray(response);
                     JSONObject det = podst.getJSONObject(0);
                     JSONObject foo;
                     z.setText(det.getString("name") + " (" + det.getString("Nazwa") + ")");
                     for (int index = 1; index < podst.length(); index++) {
                         foo = podst.getJSONObject(index);
-                        Log.e("Data",id+" "+foo.getString("sun")+" "+foo.getString("temperature")+" "+foo.getString("humidity"));
-                        datanawodnienie.add(new BarEntry(index-1, Integer.valueOf(foo.getString("soil"))));
-                        datanaslonecznienie.add(new BarEntry(index-1, Integer.valueOf(foo.getString("sun"))));
-                        datatemperatura.add(new BarEntry(index-1, Integer.valueOf(foo.getString("temperature"))));
-                        datawilgotnosc.add(new BarEntry(index-1, Integer.valueOf(foo.getString("humidity"))));
-                        timeof.add(index-1, foo.getString("time"));
+                        Log.e("Data", id + " " + foo.getString("sun") + " " + foo.getString("temperature") + " " + foo.getString("humidity"));
+                        datanawodnienie.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("soil"))));
+                        datanaslonecznienie.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("sun"))));
+                        datatemperatura.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("temperature"))));
+                        datawilgotnosc.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("humidity"))));
+                        timeof.add(index - 1, foo.getString("time"));
 
                     }
 
 
-                    timeof.add(det.length(), "out");
-
                     nmax.add(new Entry(0, 200));
-                    nmax.add(new Entry(podst.length() - 1, 200));
+                    nmax.add(new Entry(podst.length() - 2, 200));
                     smax.add(new Entry(0, 50));
-                    smax.add(new Entry(podst.length() - 1, 50));
+                    smax.add(new Entry(podst.length() - 2, 50));
                     smin.add(new Entry(0, 70));
-                    smin.add(new Entry(podst.length() - 1, 70));
+                    smin.add(new Entry(podst.length() - 2, 70));
                     tmax.add(new Entry(0, 1));
-                    tmax.add(new Entry(podst.length() - 1, 1));
+                    tmax.add(new Entry(podst.length() - 2, 1));
                     tmin.add(new Entry(0, 10));
-                    tmin.add(new Entry(podst.length() - 1, 10));
+                    tmin.add(new Entry(podst.length() - 2, 10));
                     wmax.add(new Entry(0, 10));
-                    wmax.add(new Entry(podst.length() - 1, 10));
+                    wmax.add(new Entry(podst.length() - 2, 10));
                     wmin.add(new Entry(0, 50));
-                    wmin.add(new Entry(podst.length() - 1, 50));
+                    wmin.add(new Entry(podst.length() - 2, 50));
 
-                    nawodnienie();
-                    naslonecznienie();
-                    wilgotnosc();
-                    temperatura();
-                    //TODO: Nalezy tutaj dodac funkcje zczytujaca na poczatek podstawowe dane a nastepnie poszczegolne na godzine
-
+                    Log.e("response", response);
                 } catch (Exception e) {
-                    Log.e("Ustawianie danych", String.valueOf(e));
+                    Log.e("Ustawianie danych", String.valueOf(e) + response);
                 }
                 nawodnienie();
                 naslonecznienie();
                 wilgotnosc();
                 temperatura();
-            }
-        }, new Response.ErrorListener() {
+            }, error -> {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parms = new HashMap<>();
-                parms.put("id", id);
-                parms.put("nr", String.valueOf(nr));
-                return parms;
-            }
-        };
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> parms = new HashMap<>();
+                    parms.put("id", ID);
+                    parms.put("nr", String.valueOf(nr));
+                    return parms;
+                }
+            };
+        }
         RequestQueue q = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
         q.add(stringRequest);
         q.start();
+
     }
 
 
@@ -254,12 +311,7 @@ public class PlantDetail extends AppCompatActivity {
         xAxis.setTextColor(Color.WHITE);
         xAxis.setGranularity(0.5f);
         xAxis.setLabelRotationAngle(45);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return timeof.get((int) value);
-            }
-        });
+        xAxis.setValueFormatter((value, axis) -> timeof.get((int) value));
         CombinedData data = new CombinedData();
         data.setData(setNawodnienie());
         data.setData(nawo);
@@ -296,9 +348,8 @@ public class PlantDetail extends AppCompatActivity {
         d.setValueTextColor(Color.WHITE);
         float barSpace = 0.02f; // x2 dataset
         float barWidth = 0.45f; // x2 dataset
-        BarData barData = new BarData(d);
         // barData.setBarWidth(barWidth);
-        return barData;
+        return new BarData(d);
 
     }
 
@@ -376,9 +427,8 @@ public class PlantDetail extends AppCompatActivity {
         d.setValueTextColor(Color.WHITE);
         float barSpace = 0.02f; // x2 dataset
         float barWidth = 0.45f; // x2 dataset
-        BarData barData = new BarData(d);
         // barData.setBarWidth(barWidth);
-        return barData;
+        return new BarData(d);
 
     }
 
@@ -413,12 +463,7 @@ public class PlantDetail extends AppCompatActivity {
         xAxis.setTextColor(Color.WHITE);
         xAxis.setGranularity(0.5f);
         xAxis.setLabelRotationAngle(45);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return timeof.get((int) value);
-            }
-        });
+        xAxis.setValueFormatter((value, axis) -> timeof.get((int) value));
         CombinedData data = new CombinedData();
         data.setData(setTemperatura());
         data.setData(temp);
@@ -456,9 +501,8 @@ public class PlantDetail extends AppCompatActivity {
         d.setValueTextColor(Color.WHITE);
         float barSpace = 0.02f; // x2 dataset
         float barWidth = 0.45f; // x2 dataset
-        BarData barData = new BarData(d);
         // barData.setBarWidth(barWidth);
-        return barData;
+        return new BarData(d);
 
     }
 
@@ -493,12 +537,7 @@ public class PlantDetail extends AppCompatActivity {
         xAxis.setTextColor(Color.WHITE);
         xAxis.setGranularity(0.5f);
         xAxis.setLabelRotationAngle(45);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return timeof.get((int) value);
-            }
-        });
+        xAxis.setValueFormatter((value, axis) -> timeof.get((int) value));
         CombinedData data = new CombinedData();
         data.setData(setWilgotnosc());
         data.setData(wilg);
