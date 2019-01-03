@@ -34,9 +34,10 @@ public class Starting extends AppCompatActivity {
                     super.run();
                     sleep(2000);  //Delay of 2 seconds
                 } catch (Exception e) {
-
+                    Log.e("e",e.toString());
                 } finally {
 
+                    assert id != null;
                     if(!id.equals("0")){
                         Intent i = new Intent(getBaseContext(),Floda_main.class);
                         i.putExtra("ID",id);

@@ -11,17 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -33,7 +29,6 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,6 +36,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class PlantDetail extends AppCompatActivity {
     String id;
@@ -52,7 +48,7 @@ public class PlantDetail extends AppCompatActivity {
     ArrayList<BarEntry> datawilgotnosc;
     ArrayList<BarEntry> datatemperatura;
     TextView z;
-
+    TextView ostatnie;
     int tryb;
     ArrayList<Entry> nmax, smax, smin, wmax, wmin, tmax, tmin; //nawodnienie min i max slonce max i min wilgotnosc min i max temperatura max i min
     ArrayList<String> timeof;
@@ -62,6 +58,7 @@ public class PlantDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant_detail);
         Intent i = getIntent();
+        ostatnie = findViewById(R.id.nw2);
         tryb=0;
         timeof = new ArrayList<>();
         id = i.getStringExtra("ID");
@@ -69,7 +66,7 @@ public class PlantDetail extends AppCompatActivity {
         ID=id;
         Toolbar t = findViewById(R.id.plantdettool);
         setSupportActionBar(t);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.detailbar);
         z = t.findViewById(R.id.detailtitle);
         nmax = new ArrayList<>();
@@ -155,20 +152,20 @@ public class PlantDetail extends AppCompatActivity {
                     //timeof.add(podst.length(), podst.getJSONObject(podst.length()).getString("time"));
 
                     Log.e("ble", String.valueOf(response));
-                    nmax.add(new Entry(0, 200));
-                    nmax.add(new Entry(podst.length() - 2, 200));
-                    smax.add(new Entry(0, 50));
-                    smax.add(new Entry(podst.length() - 2, 50));
-                    smin.add(new Entry(0, 70));
-                    smin.add(new Entry(podst.length() - 2, 70));
-                    tmax.add(new Entry(0, 1));
-                    tmax.add(new Entry(podst.length() - 2, 1));
-                    tmin.add(new Entry(0, 10));
-                    tmin.add(new Entry(podst.length() - 2, 10));
-                    wmax.add(new Entry(0, 10));
-                    wmax.add(new Entry(podst.length() - 2, 10));
-                    wmin.add(new Entry(0, 50));
-                    wmin.add(new Entry(podst.length() - 2, 50));
+                    nmax.add(new Entry(0, det.getInt("a_w_g")));
+                    nmax.add(new Entry(podst.length() - 2, det.getInt("a_w_g")));
+                    smax.add(new Entry(0, det.getInt("s_d_s")+40));
+                    smax.add(new Entry(podst.length() - 2, det.getInt("s_d_s")+40));
+                    smin.add(new Entry(0, det.getInt("s_d_s")-40));
+                    smin.add(new Entry(podst.length() - 2, det.getInt("s_d_s")-40));
+                    tmax.add(new Entry(0, det.getInt("s_d_t")+3));
+                    tmax.add(new Entry(podst.length() - 2, det.getInt("s_d_t")+3));
+                    tmin.add(new Entry(0, det.getInt("s_d_t")-3));
+                    tmin.add(new Entry(podst.length() - 2, det.getInt("s_d_t")-3));
+                    wmax.add(new Entry(0, det.getInt("s_d_w")+10));
+                    wmax.add(new Entry(podst.length() - 2, det.getInt("s_d_w")+10));
+                    wmin.add(new Entry(0, det.getInt("s_d_w")-10));
+                    wmin.add(new Entry(podst.length() - 2, det.getInt("s_d_w")-10));
 
 
                     //TODO: Nalezy tutaj dodac funkcje zczytujaca na poczatek podstawowe dane a nastepnie poszczegolne na godzine
@@ -185,7 +182,7 @@ public class PlantDetail extends AppCompatActivity {
 
             }) {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                protected Map<String, String> getParams(){
                     Map<String, String> parms = new HashMap<>();
                     parms.put("id", id);
                     parms.put("nr", String.valueOf(nr));
@@ -215,20 +212,26 @@ public class PlantDetail extends AppCompatActivity {
                     }
 
 
-                    nmax.add(new Entry(0, 200));
-                    nmax.add(new Entry(podst.length() - 2, 200));
-                    smax.add(new Entry(0, 50));
-                    smax.add(new Entry(podst.length() - 2, 50));
-                    smin.add(new Entry(0, 70));
-                    smin.add(new Entry(podst.length() - 2, 70));
-                    tmax.add(new Entry(0, 1));
-                    tmax.add(new Entry(podst.length() - 2, 1));
-                    tmin.add(new Entry(0, 10));
-                    tmin.add(new Entry(podst.length() - 2, 10));
-                    wmax.add(new Entry(0, 10));
-                    wmax.add(new Entry(podst.length() - 2, 10));
-                    wmin.add(new Entry(0, 50));
-                    wmin.add(new Entry(podst.length() - 2, 50));
+                    if(det.getString("a_w_g")!=null) {
+                        nmax.add(new Entry(0, det.getInt("a_w_g")));
+                        nmax.add(new Entry(podst.length() - 2, det.getInt("a_w_g")));
+                        ostatnie.setText("Ostatnie podlanie: "+"");
+                    }else{
+                        ostatnie.setText("Ostatnie podlanie: "+""+"podlewanie co "+det.getString("c_k_p")+(det.getInt("c_k_p")==1?"dzien":"dni"));
+                        //TODO trigger z automaycznym szukaniem i liczeniem daty!
+                    }
+                    smax.add(new Entry(0, det.getInt("s_d_s")+40));
+                    smax.add(new Entry(podst.length() - 2, det.getInt("s_d_s")+40));
+                    smin.add(new Entry(0, det.getInt("s_d_s")-40));
+                    smin.add(new Entry(podst.length() - 2, det.getInt("s_d_s")-40));
+                    tmax.add(new Entry(0, det.getInt("s_d_t")+3));
+                    tmax.add(new Entry(podst.length() - 2, det.getInt("s_d_t")+3));
+                    tmin.add(new Entry(0, det.getInt("s_d_t")-3));
+                    tmin.add(new Entry(podst.length() - 2, det.getInt("s_d_t")-3));
+                    wmax.add(new Entry(0, det.getInt("s_d_w")+10));
+                    wmax.add(new Entry(podst.length() - 2, det.getInt("s_d_w")+10));
+                    wmin.add(new Entry(0, det.getInt("s_d_w")-10));
+                    wmin.add(new Entry(podst.length() - 2, det.getInt("s_d_w")-10));
 
                     Log.e("response", response);
                 } catch (Exception e) {
@@ -242,7 +245,7 @@ public class PlantDetail extends AppCompatActivity {
 
             }) {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+                protected Map<String, String> getParams() {
                     Map<String, String> parms = new HashMap<>();
                     parms.put("id", ID);
                     parms.put("nr", String.valueOf(nr));
@@ -272,11 +275,9 @@ public class PlantDetail extends AppCompatActivity {
         d.setBarBorderColor(Color.WHITE);
         d.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.setValueTextColor(Color.WHITE);
-        float barSpace = 0.02f; // x2 dataset
-        float barWidth = 0.45f; // x2 dataset
-        BarData barData = new BarData(d);
+
         // barData.setBarWidth(barWidth);
-        return barData;
+        return new BarData(d);
 
     }
 
@@ -346,8 +347,7 @@ public class PlantDetail extends AppCompatActivity {
         d.setBarBorderColor(Color.WHITE);
         d.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.setValueTextColor(Color.WHITE);
-        float barSpace = 0.02f; // x2 dataset
-        float barWidth = 0.45f; // x2 dataset
+
         // barData.setBarWidth(barWidth);
         return new BarData(d);
 
@@ -384,12 +384,7 @@ public class PlantDetail extends AppCompatActivity {
         xAxis.setTextColor(Color.WHITE);
         xAxis.setGranularity(0.5f);
         xAxis.setLabelRotationAngle(45);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return timeof.get((int) value);
-            }
-        });
+        xAxis.setValueFormatter((value, axis) -> timeof.get((int) value));
         CombinedData data = new CombinedData();
         data.setData(setNaslonecznienie());
         data.setData(slo);
@@ -425,8 +420,7 @@ public class PlantDetail extends AppCompatActivity {
         d.setBarBorderColor(Color.WHITE);
         d.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.setValueTextColor(Color.WHITE);
-        float barSpace = 0.02f; // x2 dataset
-        float barWidth = 0.45f; // x2 dataset
+
         // barData.setBarWidth(barWidth);
         return new BarData(d);
 
@@ -499,8 +493,7 @@ public class PlantDetail extends AppCompatActivity {
         d.setBarBorderColor(Color.WHITE);
         d.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.setValueTextColor(Color.WHITE);
-        float barSpace = 0.02f; // x2 dataset
-        float barWidth = 0.45f; // x2 dataset
+
         // barData.setBarWidth(barWidth);
         return new BarData(d);
 

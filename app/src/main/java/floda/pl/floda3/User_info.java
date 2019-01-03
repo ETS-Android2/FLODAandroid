@@ -3,7 +3,7 @@ package floda.pl.floda3;
 public class User_info {
     String name;
     String mail;
-    String ID=null;
+    String ID;
     String nick;
     String surname;
     boolean su;

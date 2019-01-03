@@ -33,6 +33,7 @@
         <item name="android:colorAccent">@color/center</item>
         <item name="android:colorPrimary">@color/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_material_dark</item>
     </style>
 
 </resources>

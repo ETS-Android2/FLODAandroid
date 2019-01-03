@@ -1,6 +1,5 @@
 package floda.pl.floda3;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,11 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
@@ -43,54 +39,38 @@ public class Floda_LOGIN extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_floda__login);
-        Button singiup = (Button) findViewById(R.id.sing_up_login);
-        Button login = (Button) findViewById(R.id.login_in_login);
-        singiup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Floda_SING_UP.class);
-                startActivity(i);
-            }
+        Button singiup =  findViewById(R.id.sing_up_login);
+        Button login =  findViewById(R.id.login_in_login);
+        singiup.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), Floda_SING_UP.class);
+            startActivity(i);
         });
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder g = new AlertDialog.Builder(Floda_LOGIN.this);
-                LayoutInflater background = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
-                final View dialogView = background.inflate(R.layout.dialoglogin, null);
-                final EditText login = (EditText) dialogView.findViewById(R.id.login_edit);
-                final EditText password = (EditText) dialogView.findViewById(R.id.login_edit2);
-                final Button log = (Button) dialogView.findViewById(R.id.button);
-                final Button ca = (Button) dialogView.findViewById(R.id.button2);
+        login.setOnClickListener(v -> {
+            AlertDialog.Builder g = new AlertDialog.Builder(Floda_LOGIN.this);
+            LayoutInflater background = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+            final View dialogView = background.inflate(R.layout.dialoglogin, null);
+            final EditText login1 =  dialogView.findViewById(R.id.login_edit);
+            final EditText password =  dialogView.findViewById(R.id.login_edit2);
+            final Button log =  dialogView.findViewById(R.id.button);
+            final Button ca =  dialogView.findViewById(R.id.button2);
 
-                g.setView(dialogView);
+            g.setView(dialogView);
 
-                alert = g.create();
-                ca.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        alert.dismiss();
-                    }
-                });
-                log.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String r;
-                        //Database_connection database_connection = new Database_connection(new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
-                        getLoginAbout(login.getText().toString(), password.getText().toString(), new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
-                    }
-                });
-                alert.show();
-            }
+            alert = g.create();
+            ca.setOnClickListener(v1 -> alert.dismiss());
+            log.setOnClickListener(v12 -> {
+                //Database_connection database_connection = new Database_connection(new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
+                getLoginAbout(login1.getText().toString(), password.getText().toString(), new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
+            });
+            alert.show();
         });
     }
 
     public void getLoginAbout(String login, String password, RequestQueue q) {
         String sql = "http://www.serwer1727017.home.pl/2ti/floda/floda_login.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, sql, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, sql, response -> {
+
                 try {
                     JSONArray j = new JSONArray(response);
                     JSONObject o = j.getJSONObject(0);
@@ -98,12 +78,7 @@ public class Floda_LOGIN extends AppCompatActivity {
                     if (id.equals("0")) {
                         AlertDialog.Builder f = new AlertDialog.Builder(Floda_LOGIN.this);
                         f.setTitle("Failed to login");
-                        f.setNeutralButton("Try again", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                alert.show();
-                            }
-                        });
+                        f.setNeutralButton("Try again", (dialog, which) -> alert.show());
                         f.create().show();
 
                     } else {
@@ -112,7 +87,6 @@ public class Floda_LOGIN extends AppCompatActivity {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("ID",id);
-                        editor.commit();
                         editor.apply();
                         startActivity(i);
                     }
@@ -123,16 +97,15 @@ public class Floda_LOGIN extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+
+        }, error -> {
+
                 Log.e("blad", error.toString());
                 //foo[0] =null;
-            }
+
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams(){
                 Map<String, String> h = new HashMap<>();
                 h.put("login", login);
                 h.put("password", password);
