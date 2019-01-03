@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <Button
+        android:id="@+id/sonda"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/center"
+        android:backgroundTint="@color/center"
+        android:text="Dodaj nowa sonde"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/gatunek"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Dodaj nowy gatunek"
+        android:textSize="18sp" />
+</LinearLayout>

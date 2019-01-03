@@ -10,6 +10,26 @@
             android:checked="true"
             android:icon="@drawable/ic_local_florist_black_24dp"
             android:title="List of yours plant" />
+        <item
+            android:id="@+id/faq"
+            android:checked="false"
+            android:icon="@drawable/ic_help_black_24dp"
+            android:title="FAQ" />
+        <item
+            android:id="@+id/pedia"
+            android:checked="false"
+            android:icon="@drawable/ic_library_books_black_24dp"
+            android:title="FLODApedia" />
+        <item
+            android:id="@+id/forum"
+            android:checked="false"
+            android:icon="@drawable/ic_forum_black_24dp"
+            android:title="Forum" />
+        <item
+            android:id="@+id/users"
+            android:checked="false"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="Account list" />
     </group>
 
     <item android:title="Actions">

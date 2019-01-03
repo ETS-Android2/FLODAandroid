@@ -17,7 +17,7 @@
         <activity
             android:name=".Floda_LOGIN"
             android:screenOrientation="portrait"
-            android:theme="@style/NOACTIO"></activity>
+            android:theme="@style/NOACTIO" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -43,6 +43,12 @@
         <activity
             android:name=".PlantDetail"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".settings.ESPsettings"
+            android:label="@string/title_activity_espsettings"
+            android:theme="@style/AppThemeact" />
+        <activity android:name=".add.Floda_add_plant"
+            android:theme="@style/AppThemeact" ></activity>
     </application>
 
 </manifest>

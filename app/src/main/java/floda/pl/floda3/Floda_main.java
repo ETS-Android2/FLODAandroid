@@ -14,12 +14,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -51,8 +54,26 @@ public class Floda_main extends AppCompatActivity
         getSupportActionBar().setCustomView(R.layout.appbar);
         FloatingActionButton fab =  findViewById(R.id.fab);
 
-        fab.setOnClickListener(view -> Snackbar.make(view, "Option unavailable yet", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        fab.setOnClickListener(
+                v -> {
+                    AlertDialog alertDialog;
+                    AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                    LayoutInflater l = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                    View dialog= l.inflate(R.layout.addchose,null);
+                    Button sonda = dialog.findViewById(R.id.sonda);
+                    Button gatunek  = dialog.findViewById(R.id.gatunek);
+                    builder.setView(dialog);
+                    alertDialog=builder.create();
+                    alertDialog.show();
+                    sonda.setOnClickListener(v1 -> {
+                        alertDialog.hide();
+                    });
+                    gatunek.setOnClickListener(v1 -> {
+                        alertDialog.hide();
+                    });
+
+                }
+        );
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -70,6 +91,7 @@ public class Floda_main extends AppCompatActivity
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.content_fram, new ListOfPlants());
         t.commit();
+
 
     }
 

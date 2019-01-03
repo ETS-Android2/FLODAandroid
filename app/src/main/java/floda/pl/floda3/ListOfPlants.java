@@ -80,7 +80,7 @@ public class ListOfPlants extends Fragment {
             bar.setVisibility(View.INVISIBLE);
             mAdapter = new Listplants(data, item -> {
                 Intent i = new Intent(getContext(),PlantDetail.class);
-                i.putExtra("ID",item.nr);
+                i.putExtra("ID",item.ID);
                 startActivity(i);
             });
 
@@ -147,7 +147,7 @@ public class ListOfPlants extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull Listplants.MyViewHolder myViewHolder, int i) {
             myViewHolder.cname.setText(pdata.get(i).pname);
-            myViewHolder.cgenre.setText(pdata.get(i).pgenre);
+            myViewHolder.cgenre.setText("("+pdata.get(i).pgenre+")");
             myViewHolder.cstatus.setText(pdata.get(i).pstatus);
             myViewHolder.bind(pdata.get(i), listener);
         }

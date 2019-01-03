@@ -38,6 +38,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import floda.pl.floda3.settings.ESPsettings;
+
 public class PlantDetail extends AppCompatActivity {
     String id;
     String ID;
@@ -94,28 +96,35 @@ public class PlantDetail extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_ssettings) {
-            if(tryb==0){
-                tryb=1;
-            }else{
-                tryb=0;
-            }
-            datanaslonecznienie.clear();
-            datanawodnienie.clear();
-            datatemperatura.clear();
-            datawilgotnosc.clear();
-            naslonecznienie.clear();
-            wilgotnosc.clear();
-            temperatura.clear();
-            nawodnienie.clear();
-            nmax.clear();
-            smax.clear();
-            smin.clear();
-            wmax.clear();
-            wmin.clear();
-            tmax.clear();
-            tmin.clear();
-            databaseGet(ID,tryb);
+        switch(id) {
+            case R.id.action_ssettings:
+                if (tryb == 0) {
+                    tryb = 1;
+                } else {
+                    tryb = 0;
+                }
+                datanaslonecznienie.clear();
+                datanawodnienie.clear();
+                datatemperatura.clear();
+                datawilgotnosc.clear();
+                naslonecznienie.clear();
+                wilgotnosc.clear();
+                temperatura.clear();
+                nawodnienie.clear();
+                nmax.clear();
+                smax.clear();
+                smin.clear();
+                wmax.clear();
+                wmin.clear();
+                tmax.clear();
+                tmin.clear();
+                databaseGet(ID, tryb);
+                break;
+            case R.id.espsettings:
+                Intent a = new Intent(this, ESPsettings.class);
+                a.putExtra("ID",ID);
+                startActivity(a);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
