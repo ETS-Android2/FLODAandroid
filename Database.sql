@@ -5,47 +5,6 @@ create table FLODA_ustawienia_enum
   TEST int null
 );
 
-create table and_forum
-(
-  ID       int auto_increment,
-  Title    text                                not null,
-  Score    int       default 0                 null,
-  owner_id int                                 not null,
-  category text                                null,
-  Descr    text                                null,
-  date     timestamp default CURRENT_TIMESTAMP null,
-  constraint and_forum_ID_uindex
-    unique (ID)
-)
-  comment 'forum posts on cardview';
-
-alter table and_forum
-  add primary key (ID);
-
-create table and_forum_comment
-(
-  ID      int auto_increment,
-  `Desc`  text                                null,
-  user_id int                                 not null,
-  id_post int                                 null,
-  Date    timestamp default CURRENT_TIMESTAMP null,
-  VISIBLE int       default 1                 null,
-  constraint and_forum_comment_ID_uindex
-    unique (ID)
-);
-
-alter table and_forum_comment
-  add primary key (ID);
-
-create table and_forum_raters
-(
-  ID         int auto_increment,
-  ID_post    int not null,
-  ID_user    int null,
-  ID_comment int null,
-  constraint and_forum_raters_ID_uindex
-    unique (ID)
-);
 
 create index ID_comment
   on and_forum_raters (ID_comment);
@@ -189,44 +148,9 @@ create table floda_user_stats
 )
   comment 'statystyki o uzytkownikach';
 
-create table safeway_pl
-(
-  ID          int auto_increment
-    primary key,
-  roadname    text          null,
-  sidewalk    text          null,
-  road        text          null,
-  limroad     text          null,
-  addit       text          null,
-  hour        int default 0 null,
-  month       int default 1 null,
-  day_of_week int default 1 null
-);
 
-create table safeway_roads
-(
-  ID     int auto_increment
-    primary key,
-  road   text not null,
-  weight int  not null
-);
 
-create table usr_info
-(
-  usr_id      int auto_increment
-    primary key,
-  usr_name    tinytext charset utf8     not null,
-  usr_surname tinytext charset utf8     not null,
-  usr_country int                       not null,
-  usr_email   varchar(200) charset utf8 not null,
-  usr_teach   tinyint(1) default 0      null,
-  usr_admin   tinyint(1) default 0      null,
-  usr_team    tinytext charset utf8     not null,
-  usr_descr   text                      null,
-  usr_fb_page text                      null,
-  constraint usr_email_UNIQUE
-    unique (usr_email)
-);
+
 
 create trigger usr_info_AFTER_INSERT
   after INSERT
@@ -237,30 +161,6 @@ BEGIN
   SET id := (select usr_id from usr_info order by usr_id desc limit 1);
   INSERT INTO usr_log(usr_id) value (id);
 END;
-
-create table usr_log
-(
-  usr_id       int        default 0                 not null
-    primary key,
-  usr_login    varchar(200)                         not null,
-  usr_password varchar(200)                         not null,
-  usr_active   tinyint(1) default 1                 null,
-  usr_created  datetime   default CURRENT_TIMESTAMP null,
-  constraint usr_login_UNIQUE
-    unique (usr_login),
-  constraint usr_id
-    foreign key (usr_id) references usr_info (usr_id)
-      on delete cascade
-);
-
-create table web_log
-(
-  id        int auto_increment
-    primary key,
-  pitolenie text not null,
-  obrazek   text not null,
-  tytul     text null
-);
 
 create view dataget as
 select `s`.`ID`                     AS `ID`,
