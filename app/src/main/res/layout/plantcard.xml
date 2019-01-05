@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="6dp">
@@ -33,6 +32,7 @@
                 android:fontFamily="casual"
                 android:text="Roslinka w pokoju"
                 android:textAlignment="center"
+                android:textColor="@android:color/background_light"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 card_view:layout_constraintBottom_toTopOf="@+id/plant_genre"
@@ -62,8 +62,7 @@
                 android:text="Sonda: "
                 android:textStyle="italic"
                 card_view:layout_constraintBottom_toBottomOf="@+id/indicatorw"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="@+id/indicatorw" />
+                card_view:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/esponoff"
@@ -84,6 +83,7 @@
                 android:layout_marginBottom="4dp"
                 android:background="@android:color/holo_red_dark"
                 card_view:layout_constraintBottom_toBottomOf="parent"
+
                 card_view:layout_constraintEnd_toStartOf="@+id/indicators" />
 
             <ImageView

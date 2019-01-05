@@ -3,7 +3,6 @@ package floda.pl.floda3;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -36,7 +35,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import floda.pl.floda3.settings.ESPsettings;
 
@@ -49,7 +47,7 @@ public class PlantDetail extends AppCompatActivity {
     ArrayList<BarEntry> datanaslonecznienie;
     ArrayList<BarEntry> datawilgotnosc;
     ArrayList<BarEntry> datatemperatura;
-    TextView z;
+    TextView title,subtitle;
     TextView ostatnie;
     int tryb;
     ArrayList<Entry> nmax, smax, smin, wmax, wmin, tmax, tmin; //nawodnienie min i max slonce max i min wilgotnosc min i max temperatura max i min
@@ -68,9 +66,8 @@ public class PlantDetail extends AppCompatActivity {
         ID=id;
         Toolbar t = findViewById(R.id.plantdettool);
         setSupportActionBar(t);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.detailbar);
-        z = t.findViewById(R.id.detailtitle);
+         title = findViewById(R.id.detail_title);
+         subtitle = findViewById(R.id.detail_subtitle);
         nmax = new ArrayList<>();
         smax = new ArrayList<>();
         smin = new ArrayList<>();
@@ -145,7 +142,9 @@ public class PlantDetail extends AppCompatActivity {
                     JSONObject det = podst.getJSONObject(0);
 
                     JSONObject foo;
-                    z.setText(det.getString("name") + " (" + det.getString("Nazwa") + ")");
+                    title.setText(det.getString("name"));
+                    subtitle.setText(" (" + det.getString("Nazwa") + ")");
+
                     for (int index = 1; index < podst.length(); index++) {
 
                         foo = podst.getJSONObject(index);
@@ -208,7 +207,8 @@ public class PlantDetail extends AppCompatActivity {
                     JSONArray podst = new JSONArray(response);
                     JSONObject det = podst.getJSONObject(0);
                     JSONObject foo;
-                    z.setText(det.getString("name") + " (" + det.getString("Nazwa") + ")");
+                    title.setText(det.getString("name"));
+                    subtitle.setText(" (" + det.getString("Nazwa") + ")");
                     for (int index = 1; index < podst.length(); index++) {
                         foo = podst.getJSONObject(index);
                         Log.e("Data", id + " " + foo.getString("sun") + " " + foo.getString("temperature") + " " + foo.getString("humidity"));

@@ -3,6 +3,7 @@ package floda.pl.floda3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -70,8 +72,8 @@ public class ListOfPlants extends Fragment {
                 JSONArray jsonArray = new JSONArray(response);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject o = jsonArray.getJSONObject(i);
-                    data.add(new pData(o.getString("Name"), o.getString("latin"), o.getString("ison").contains("1")?"on":"off",o.getString("ID"),o.getString("sonda")));
-                    Log.e("cs", o.getString("Name"));
+                    data.add(new pData(o.getString("Name"), o.getString("latin"), o.getString("ison").contains("1") ? "on" : "off", o.getString("ID"), o.getString("sonda"), o.getString("normwilg"), o.getString("normsun"), o.getString("normtemp"), o.getString("normpod")));
+                    Log.e("cs", o.getString("normtemp"));
 
                 }
             } catch (JSONException e) {
@@ -117,13 +119,20 @@ public class ListOfPlants extends Fragment {
             TextView cname;
             TextView cgenre;
             TextView cstatus;
-
+            ImageView cwilg;
+            ImageView csun;
+            ImageView ctemp;
+            ImageView csoil;
             public MyViewHolder(View v) {
                 super(v);
                 cv = v.findViewById(R.id.card_view);
                 cname = v.findViewById(R.id.plant_name);
                 cgenre = v.findViewById(R.id.plant_genre);
                 cstatus = v.findViewById(R.id.esponoff);
+                cwilg = v.findViewById(R.id.indicatort);
+                csun = v.findViewById(R.id.indicatorh);
+                ctemp = v.findViewById(R.id.indicatorw);
+                csoil = v.findViewById(R.id.indicators);
             }
 
             public void bind(final pData item, final OnItemClickListener listener) {
@@ -149,6 +158,11 @@ public class ListOfPlants extends Fragment {
             myViewHolder.cname.setText(pdata.get(i).pname);
             myViewHolder.cgenre.setText("("+pdata.get(i).pgenre+")");
             myViewHolder.cstatus.setText(pdata.get(i).pstatus);
+            myViewHolder.cv.setCardBackgroundColor(pdata.get(i).pstatus.contains("on") ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
+            myViewHolder.ctemp.setBackgroundColor(pdata.get(i).temp ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
+            myViewHolder.csoil.setBackgroundColor(pdata.get(i).pod ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
+            myViewHolder.csun.setBackgroundColor(pdata.get(i).sun ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
+            myViewHolder.cwilg.setBackgroundColor(pdata.get(i).wilg ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
             myViewHolder.bind(pdata.get(i), listener);
         }
 
@@ -171,13 +185,21 @@ public class ListOfPlants extends Fragment {
         String pstatus;
         String ID;
         String nr;
+        boolean wilg;
+        boolean sun;
+        boolean temp;
+        boolean pod;
 
-        public pData(String pname, String pgenre, String pstatus, String ID,String nr) {
+        public pData(String pname, String pgenre, String pstatus, String ID, String nr, String wilg, String sun, String temp, String pod) {
             this.pname = pname;
             this.pgenre = pgenre;
             this.pstatus = pstatus;
             this.ID = ID;
             this.nr=nr;
+            this.wilg = wilg.startsWith("1") ? true : false;
+            this.sun = sun.startsWith("1") ? true : false;
+            this.temp = temp.startsWith("1") ? true : false;
+            this.pod = pod.startsWith("1") ? true : false;
         }
 
         public String getPgenre() {

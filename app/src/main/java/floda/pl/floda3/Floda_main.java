@@ -40,10 +40,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import floda.pl.floda3.add.Floda_add_plant;
+
 public class Floda_main extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     User_info usr;
     String idd;
+    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +55,7 @@ public class Floda_main extends AppCompatActivity
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.appbar);
-        FloatingActionButton fab =  findViewById(R.id.fab);
+        fab =  findViewById(R.id.fab);
 
         fab.setOnClickListener(
                 v -> {
@@ -66,7 +69,10 @@ public class Floda_main extends AppCompatActivity
                     alertDialog=builder.create();
                     alertDialog.show();
                     sonda.setOnClickListener(v1 -> {
+                        Intent i = new Intent(this.getBaseContext(),Floda_add_plant.class);
+                        i.putExtra("ID",idd);
                         alertDialog.hide();
+                        startActivity(i);
                     });
                     gatunek.setOnClickListener(v1 -> {
                         alertDialog.hide();
@@ -133,17 +139,23 @@ public class Floda_main extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-
-        if (id == R.id.p_list) {
-            t.replace(R.id.content_fram, new ListOfPlants());
-
-        } else if (id == R.id.log_out) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            SharedPreferences.Editor e= preferences.edit();
-            e.remove("ID");
-            e.apply();
-            Intent i = new Intent(this,Floda_LOGIN.class);
-            startActivity(i);
+        switch (id) {
+            case R.id.p_list:
+                t.replace(R.id.content_fram, new ListOfPlants());
+                fab.show();
+            break;
+            case R.id.log_out:
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor e = preferences.edit();
+                e.remove("ID");
+                e.apply();
+                Intent i = new Intent(this, Floda_LOGIN.class);
+                startActivity(i);
+            break;
+            case R.id.faq:
+                t.replace(R.id.content_fram,new Floda_faq());
+                fab.hide();
+                break;
         }
         t.commit();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
