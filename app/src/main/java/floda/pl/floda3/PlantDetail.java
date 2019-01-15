@@ -160,8 +160,13 @@ public class PlantDetail extends AppCompatActivity {
                     //timeof.add(podst.length(), podst.getJSONObject(podst.length()).getString("time"));
 
                     Log.e("ble", String.valueOf(response));
-                    nmax.add(new Entry(0, det.getInt("a_w_g")));
-                    nmax.add(new Entry(podst.length() - 2, det.getInt("a_w_g")));
+                    if(det.getInt("a_w_g")>0) {
+                        nmax.add(new Entry(0, det.getInt("a_w_g")));
+                        nmax.add(new Entry(podst.length() - 2, det.getInt("a_w_g")));
+                        ostatnie.setText("");
+                    }else{
+                        ostatnie.setText("PODLEWANIE");
+                    }
                     smax.add(new Entry(0, det.getInt("s_d_s")+40));
                     smax.add(new Entry(podst.length() - 2, det.getInt("s_d_s")+40));
                     smin.add(new Entry(0, det.getInt("s_d_s")-40));
@@ -221,13 +226,13 @@ public class PlantDetail extends AppCompatActivity {
                     }
 
 
-                    if(det.getString("a_w_g")!=null) {
+                    if(det.getInt("a_w_g")>0) {
                         nmax.add(new Entry(0, det.getInt("a_w_g")));
                         nmax.add(new Entry(podst.length() - 2, det.getInt("a_w_g")));
-                        ostatnie.setText("Ostatnie podlanie: "+"");
+                        ostatnie.setText("");
+
                     }else{
-                        ostatnie.setText("Ostatnie podlanie: "+""+"podlewanie co "+det.getString("c_k_p")+(det.getInt("c_k_p")==1?"dzien":"dni"));
-                        //TODO trigger z automaycznym szukaniem i liczeniem daty!
+                        ostatnie.setText("PODLEWANIE");
                     }
                     smax.add(new Entry(0, det.getInt("s_d_s")+40));
                     smax.add(new Entry(podst.length() - 2, det.getInt("s_d_s")+40));

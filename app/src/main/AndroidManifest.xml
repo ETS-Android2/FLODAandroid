@@ -47,8 +47,10 @@
             android:name=".settings.ESPsettings"
             android:label="@string/title_activity_espsettings"
             android:theme="@style/AppThemeact" />
-        <activity android:name=".add.Floda_add_plant"
-            android:theme="@style/AppTheme" ></activity>
+        <activity
+            android:name=".add.Floda_add_plant"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".add.Floda_list_genre"></activity>
     </application>
 
 </manifest>

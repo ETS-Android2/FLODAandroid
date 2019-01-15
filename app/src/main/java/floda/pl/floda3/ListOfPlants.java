@@ -127,7 +127,7 @@ public class ListOfPlants extends Fragment {
                 super(v);
                 cv = v.findViewById(R.id.card_view);
                 cname = v.findViewById(R.id.plant_name);
-                cgenre = v.findViewById(R.id.plant_genre);
+                cgenre = v.findViewById(R.id.lgenre);
                 cstatus = v.findViewById(R.id.esponoff);
                 cwilg = v.findViewById(R.id.indicatort);
                 csun = v.findViewById(R.id.indicatorh);
@@ -179,11 +179,11 @@ public class ListOfPlants extends Fragment {
 
     }
 
-    class pData {
+    public class pData {
         String pname;
         String pgenre;
         String pstatus;
-        String ID;
+        public String ID;
         String nr;
         boolean wilg;
         boolean sun;
