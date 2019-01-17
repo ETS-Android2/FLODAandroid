@@ -170,7 +170,7 @@
             android:text="Wybierz gatunek z listy" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/new_genre_dod_rosl"
             android:layout_width="wrap_content"
             android:layout_height="75dp"
             android:layout_margin="8dp"

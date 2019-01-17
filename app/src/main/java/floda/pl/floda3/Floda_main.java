@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import floda.pl.floda3.add.FLODA_add_new_genre;
 import floda.pl.floda3.add.Floda_add_plant;
 
 public class Floda_main extends AppCompatActivity
@@ -75,7 +76,10 @@ public class Floda_main extends AppCompatActivity
                         startActivity(i);
                     });
                     gatunek.setOnClickListener(v1 -> {
+                        Intent i = new Intent(this.getBaseContext(),FLODA_add_new_genre.class);
+                        i.putExtra("ID",idd);
                         alertDialog.hide();
+                        startActivity(i);
                     });
 
                 }

@@ -50,7 +50,8 @@
         <activity
             android:name=".add.Floda_add_plant"
             android:theme="@style/AppTheme" />
-        <activity android:name=".add.Floda_list_genre"></activity>
+        <activity android:name=".add.Floda_list_genre" />
+        <activity android:name=".add.FLODA_add_new_genre"></activity>
     </application>
 
 </manifest>

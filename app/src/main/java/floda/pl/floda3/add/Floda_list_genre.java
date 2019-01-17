@@ -1,19 +1,20 @@
 package floda.pl.floda3.add;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -31,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +43,10 @@ public class Floda_list_genre extends AppCompatActivity {
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    StringRequest f;
+    String[] foo;
+    Button back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,18 +58,32 @@ public class Floda_list_genre extends AppCompatActivity {
         data = new ArrayList<>();
         mLayoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(mLayoutManager);
-
+        AutoCompleteTextView szukaj = findViewById(R.id.szukajgat);
+/*        back.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.putExtra("ID", "0");
+            setResult(RESULT_OK, intent);
+            finish();
+        });*/
         String sql = "http://serwer1727017.home.pl/2ti/floda/add/genrelist.php";
-        StringRequest f = new StringRequest(Request.Method.POST, sql, response -> {
+        f = new StringRequest(Request.Method.POST, sql, response -> {
             try {
                 JSONArray z = new JSONArray(response);
-
+                data.clear();
                 for (int i = 0; i < z.length(); i++) {
                     JSONObject o = z.getJSONObject(i);
-                    data.add(new pData(o.getString("ID"), o.getString("Nazwa"),"mix: "+o.getString("mintemp")+" max:"+o.getString("maxtemp") , o.getString("humid"), o.getString("soil_alert"), o.getString("sun")));
 
+                    data.add(new pData(o.getString("ID"), o.getString("Nazwa"), o.getString("humid"), o.getString("mintemp"), o.getString("soil_alert"), o.getString("sun")));
 
                 }
+                foo = new String[data.size()];
+                for (int i = 0; i < data.size(); i++) {
+                    foo[i] = data.get(i).genre;
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                        android.R.layout.select_dialog_item, foo);
+                szukaj.setAdapter(adapter);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -82,14 +102,34 @@ public class Floda_list_genre extends AppCompatActivity {
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                return super.getParams();
+                Map<String, String> parms = new HashMap<>();
+                parms.put("szukaj", szukaj.getText().toString());
+                return parms;
             }
         };
         RequestQueue q = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
         q.add(f);
         q.start();
 
+        szukaj.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                q.add(f);
+                q.start();
+            }
+        });
     }
+
     public static class Listplants extends RecyclerView.Adapter<Floda_list_genre.Listplants.MyViewHolder> {
         List<Floda_list_genre.pData> pdata;
         Floda_list_genre.Listplants.OnItemClickListener listener;
@@ -100,7 +140,7 @@ public class Floda_list_genre extends AppCompatActivity {
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
             CardView cv;
-            TextView cgenre,ctemp,chumid,cwater,csun;
+            TextView cgenre, ctemp, chumid, cwater, csun;
 
 
             public MyViewHolder(View v) {
@@ -156,16 +196,16 @@ public class Floda_list_genre extends AppCompatActivity {
     }
 
     class pData {
-        String ID,genre,temp,soil,sun,humid;
+        String ID, genre, temp, soil, sun, humid;
 
 
-        public pData(String ID,String genre,String humid,String temp,String soil,String sun) {
-           this.ID=ID;
+        public pData(String ID, String genre, String humid, String temp, String soil, String sun) {
+            this.ID = ID;
             this.genre = genre;
-            this.soil=soil;
-            this.sun=sun;
-            this.temp=temp;
-            this.humid=humid;
+            this.soil = soil;
+            this.sun = sun;
+            this.temp = temp;
+            this.humid = humid;
 
         }
     }

@@ -33,15 +33,39 @@
         app:layout_constraintStart_toStartOf="@+id/toolbar3"
         app:layout_constraintTop_toTopOf="@+id/toolbar3" />
 
+    <ImageView
+        android:id="@+id/s"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/szukajgat"
+        app:layout_constraintEnd_toEndOf="@+id/szukajgat"
+        app:layout_constraintStart_toStartOf="@+id/szukajgat"
+        app:layout_constraintTop_toTopOf="@+id/szukajgat"
+        app:srcCompat="@android:color/background_light" />
+
+    <AutoCompleteTextView
+        android:id="@+id/szukajgat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:backgroundTint="@android:color/background_light"
+        android:fontFamily="@font/nova_square"
+        android:hint="Szukaj"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
+        android:textColorHint="@android:color/background_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/genrelist"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
+        app:layout_constraintTop_toBottomOf="@+id/szukajgat" />
 
     <ImageButton
         android:id="@+id/back"
@@ -57,14 +81,4 @@
         app:srcCompat="@drawable/ic_arrow_back_black_24dp"
         tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/yes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:background="#0000"
-        app:layout_constraintBottom_toTopOf="@+id/genrelist"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar3"
-        app:layout_constraintTop_toTopOf="@+id/toolbar3"
-        app:srcCompat="@drawable/ic_check_black_24dp" />
 </android.support.constraint.ConstraintLayout>
