@@ -51,12 +51,20 @@
         <item>Never</item>
     </string-array>
     <string-array name="wilgotnosc_gleby">
+        <item value="0">Wybierz opcje</item>
         <item value="0">*(0j-Suchy czujnik)*</item>
         <item value="0">*(100j-szklanka z woda)*</item>
-        <item value="1">Sucho (ponizej 35j)</item>
-        <item value="2">Wilgotno (36-60j)</item>
-        <item value="3">Mokro (61-80j)</item>
-        <item value="3">Stoi woda (powyzej 80j)</item>
+        <item value="w1">Sucho (ponizej 35j)</item>
+        <item value="w2">Wilgotno (36-60j)</item>
+        <item value="w3">Mokro (61-80j)</item>
+        <item value="w4">Stoi woda (powyzej 80j)</item>
+    </string-array>
+    <string-array name="naslonecznienie">
+        <item value="0">Wybierz opcje</item>
+        <item value="n5">Pełne słonce (6 full hours of direct sunlight)</item>
+        <item value="n6">Częściowe słońce/Częściowy cień(3-6 hours of sunlight each day)</item>
+        <item value="n7">Lekko nasłoneczniony (ambient)</item>
+        <item value="n8">Pełny cień (less than 3 hours of direct sunlight each day)</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
         <item>15</item>
