@@ -1,18 +1,4 @@
-create table FLODA_ustawienia_enum
-(
-  ID   int auto_increment
-    primary key,
-  TEST int null
-);
-
-
-create index ID_comment
-  on and_forum_raters (ID_comment);
-
-alter table and_forum_raters
-  add primary key (ID);
-
-create table floda_codes
+﻿create table floda_codes
 (
   ID     int  not null,
   Type   text null,
@@ -20,6 +6,53 @@ create table floda_codes
   Email  text null
 );
 
+-- auto-generated definition
+create table FLODA_pre_settings
+(
+  CODE    varchar(5) null,
+  val1    int        null,
+  val2    int        null,
+  comment text       null,
+  constraint FLODA_pre_settings_CODE_uindex
+    unique (CODE)
+)
+  comment 'predefinied settings for Floda main database';
+
+-- auto-generated definition
+create table floda_user_stats
+(
+  id          int(6) auto_increment,
+  id_kto      int(6)                             not null,
+  description text                               null,
+  arg2        text                               null,
+  arg3        text                               null,
+  time        datetime default CURRENT_TIMESTAMP null,
+  constraint id
+    unique (id),
+  constraint kto
+    foreign key (id_kto) references floda_user_detail (ID)
+)
+  comment 'statystyki o uzytkownikach';
+
+-- auto-generated definition
+create table FLODA_connections
+(
+  ID           int auto_increment
+    primary key,
+  whose        int  null,
+  ID_sondy     int  null,
+  Name         text null,
+  ID_from_base int  null,
+  constraint baza
+    foreign key (ID_from_base) references FLODA_main_database (ID),
+  constraint sonda
+    foreign key (ID_sondy) references floda_sonda_settings (id_device),
+  constraint whose
+    foreign key (whose) references floda_user_detail (ID)
+)
+  comment 'powiazania uzytkownika z informacjami z sond';
+
+-- auto-generated definition
 create table floda_sonda_settings
 (
   id_device          int                                    not null
@@ -28,7 +61,6 @@ create table floda_sonda_settings
   PASS_optional_wifi text                                   null comment 'Haslo do awaryjnej sieci wifi',
   Delay_time         bigint       default 0                 null comment 'Czas pomiedzy uploadem do serwera',
   acess_password     varchar(255) default ''                null comment 'Haslo do dodania sondy do swojego profilu',
-  podlanie           timestamp                              null,
   is_on              tinyint(1)   default 0                 null,
   arg41              text                                   null,
   arg42              text                                   null,
@@ -36,6 +68,7 @@ create table floda_sonda_settings
 )
   comment 'Ustawienia konkretnej sondy';
 
+-- auto-generated definition
 create table floda_log
 (
   id          int(8) auto_increment
@@ -55,23 +88,7 @@ create table floda_log
 )
   comment 'informacje zbierane z sondy';
 
-create trigger czy_podlany
-  after INSERT
-  on floda_log
-  for each row
-begin
-  declare soil integer;
-  set @soil := (select soil from floda_log where nr_floda = NEW.nr_floda order by id desc limit 1);
-  if (@soil < NEW.soil - 20) then
-    update floda_log set watered=NOW() where id = new.id;
-  else
-    update floda_log
-    set watered=(select watered from floda_log where nr_floda = new.nr_floda order by id desc limit 1)
-    where id = new.id;
-  end if;
-
-end;
-
+-- auto-generated definition
 create table floda_user_detail
 (
   ID        int auto_increment,
@@ -95,20 +112,26 @@ create table floda_user_detail
 alter table floda_user_detail
   add primary key (ID);
 
+-- auto-generated definition
 create table FLODA_main_database
 (
   ID        int auto_increment
     primary key,
-  Nazwa     varchar(255)                        null comment 'nazwa/gatunek',
-  s_d_s     int                                 null comment 'srednie dobowe naslonecznienie w luxach, (dodac podzial na zacienione itd)',
-  a_w_g     int                                 null comment 'alert o zbyt niskej wilgotnosci gleby (ustawiany na podstawie jaka wilgotnosc gleby powinna byc do rosliny)(oparte o podzial podstawowych ustawien)',
-  c_k_p     int                                 null comment 'druga opcja do podlewania czyli czas co jaki kwiat powinno sie podlac (dni)
+  Nazwa     varchar(255)                         null comment 'nazwa/gatunek',
+  s_d_s     int        default 0                 null comment 'srednie dobowe naslonecznienie w luxach, (dodac podzial na zacienione itd)',
+  s_d_s_x   int        default 0                 null,
+  a_w_g     int        default 0                 null comment 'alert o zbyt niskej wilgotnosci gleby (ustawiany na podstawie jaka wilgotnosc gleby powinna byc do rosliny)(oparte o podzial podstawowych ustawien) ',
+  a_w_g_x   int        default 0                 null,
+  c_k_p     int        default 0                 null comment 'druga opcja do podlewania czyli czas co jaki kwiat powinno sie podlac (dni)
 ',
-  s_d_t     int                                 null comment 'srednia dzienna temperatura (odchył o -5C do +10C) ustawiane na podstawie wlasnych badz ustalonych perferencji',
-  s_d_w     int                                 null comment 'srednia dzienna wilgotnosc ustalana na podstawie wlasnych ustawien albo wczesniej ustawionych odchył +-10%',
-  id_autora int                                 null comment 'id_autora',
-  www       varchar(250)                        null comment 'strona internetowa ze szczególowymi informacjami',
-  kiedy     timestamp default CURRENT_TIMESTAMP null,
+  s_d_t     int        default 0                 null comment 'srednia dzienna min temperatura ',
+  s_d_t_x   int        default 0                 null comment 'max dzienna temp',
+  s_d_w     int        default 0                 null comment 'srednia dzienna wilgotnosc ustalana na podstawie wlasnych ustawien albo wczesniej ustawionych',
+  s_d_w_x   int        default 0                 null,
+  www       varchar(250)                         null comment 'strona internetowa ze szczególowymi informacjami',
+  id_autora int                                  null comment 'id_autora',
+  kiedy     timestamp  default CURRENT_TIMESTAMP null,
+  display   tinyint(1) default 1                 null,
   constraint FLODA_main_database_Nazwa_uindex
     unique (Nazwa),
   constraint autor
@@ -116,51 +139,23 @@ create table FLODA_main_database
 )
   comment 'baza dbania o rosliny';
 
-create table FLODA_connections
-(
-  ID           int auto_increment
-    primary key,
-  whose        int  null,
-  ID_sondy     int  null,
-  Name         text null,
-  ID_from_base int  null,
-  constraint baza
-    foreign key (ID_from_base) references FLODA_main_database (ID),
-  constraint sonda
-    foreign key (ID_sondy) references floda_sonda_settings (id_device),
-  constraint whose
-    foreign key (whose) references floda_user_detail (ID)
-)
-  comment 'powiazania uzytkownika z informacjami z sond';
+create definer = root@`%` event be on schedule
+  every '3' HOUR
+    starts '2019-01-08 00:23:13'
+  enable
+  do
+  begin
+  CREATE temporary table csd as
+  select d.id_device,current_timestamp - c.date < d.Delay_time as ison
+  from floda_sonda_settings d
+         left join floda_log c on c.nr_floda = d.id_device
+  group by d.id_device
+  order by c.date desc;
+  update floda_sonda_settings s left join csd d on d.id_device = s.id_device
+  set s.is_on=IF(isnull(d.ison), 0, d.ison);
+  drop temporary table csd;
 
-create table floda_user_stats
-(
-  id          int(6) auto_increment,
-  id_kto      int(6)                             not null,
-  description text                               null,
-  arg2        text                               null,
-  arg3        text                               null,
-  time        datetime default CURRENT_TIMESTAMP null,
-  constraint id
-    unique (id),
-  constraint kto
-    foreign key (id_kto) references floda_user_detail (ID)
-)
-  comment 'statystyki o uzytkownikach';
-
-
-
-
-
-create trigger usr_info_AFTER_INSERT
-  after INSERT
-  on usr_info
-  for each row
-BEGIN
-  DECLARE id integer;
-  SET id := (select usr_id from usr_info order by usr_id desc limit 1);
-  INSERT INTO usr_log(usr_id) value (id);
-END;
+end;
 
 create view dataget as
 select `s`.`ID`                     AS `ID`,
@@ -181,7 +176,11 @@ select `s`.`ID`                     AS `ID`,
        `ger`.`humidity`             AS `humidity`,
        `ger`.`sun`                  AS `sun`,
        `ger`.`date`                 AS `date`,
-       `ger`.`watered`              AS `watered`
+       `ger`.`watered`              AS `watered`,
+       `database2`.`s_d_t_x`        AS `s_d_t_x`,
+       `database2`.`a_w_g_x`        AS `a_w_g_x`,
+       `database2`.`s_d_w_x`        AS `s_d_w_x`,
+       `database2`.`s_d_s_x`        AS `s_d_s_x`
 from ((`24939152_0000008`.`FLODA_connections` `s` left join `24939152_0000008`.`FLODA_main_database` `database2` on ((`s`.`ID_from_base` = `database2`.`ID`)))
        left join `24939152_0000008`.`floda_log` `ger` on ((`ger`.`nr_floda` = `s`.`ID_sondy`)))
 order by `database2`.`kiedy`;
@@ -197,18 +196,4 @@ select `a`.`nr_floda`                   AS `nr_floda`,
        `a`.`date`                       AS `date`
 from `24939152_0000008`.`floda_log` `a`
 group by monthname(`a`.`date`),dayofmonth(`a`.`date`),`a`.`nr_floda`;
-
-create function be() returns tinyint
-begin
-  CREATE temporary table csd as
-  select d.id_device,current_timestamp - c.date < d.Delay_time as ison
-  from floda_sonda_settings d
-         left join floda_log c on c.nr_floda = d.id_device
-  group by d.id_device
-  order by c.date desc;
-  update floda_sonda_settings s left join csd d on d.id_device = s.id_device
-  set s.is_on=IF(isnull(d.ison), 0, d.ison);
-  drop temporary table csd;
-  return 1;
-end;
 

@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Nova+Square');
+.title{
+    width: 100%;
+    text-align: center;
+}
+h1{
+    font-size: 500%;
+    color:white;
+    font-family: 'Nova Square', cursive;
+}
+body{
+    background-color: #252525;
+
+
+}
+.content{
+    color:white;
+    padding: 10px 10px 10px 10px;
+    width: 94%;
+    height: auto;
+    text-align: justify;
+
+}

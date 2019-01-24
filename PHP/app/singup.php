@@ -1,4 +1,5 @@
 <?php
+	if(isset($_POST["name"]) && isset($_POST["mail"])){
 	$mail=$_POST["mail"];
 	$name=$_POST["name"];
 	$surname=$_POST["surname"];
@@ -12,13 +13,15 @@
 	
 	if($conn->affected_rows<1){
 
-		echo ("Takie konto juz istnieje!");
+		echo ("Takie konto już istnieje");
 		
 	}else{
-		mail($mail,"Witamy $nick, w beta testach projektu FLODA!","Potwierdz swoje konto w projekcie dzieki temu linkowi \n http://serwer1727017.home.pl/2ti/floda/app/confirmmail.php?mail=$mail"); 
-		echo ('Link potwierdzajacy zostal wyslany na maila!');
+		mail($mail,"Witamy $nick, w beta testach projektu FLODA!","Potwierdź swoje konto w projekcie dzięki temu linkowi \n http://serwer1727017.home.pl/2ti/floda/app/confirmmail.php?mail=$mail"); 
+		echo ('Link potwierdzający został wysłany na maila');
 	} 
-	
+	}else{
+		echo "brak parametru";
+	}
 	
 	
 
