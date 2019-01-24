@@ -2,6 +2,7 @@ package floda.pl.floda3;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,6 +37,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import floda.pl.floda3.settings.ESPsettings;
 
@@ -42,16 +45,17 @@ public class PlantDetail extends AppCompatActivity {
     String id;
     String ID;
     CombinedChart nawodnienie, naslonecznienie, wilgotnosc, temperatura;
-    LineData nawo,temp,wilg,slo;
+    LineData nawo, temp, wilg, slo;
     ArrayList<BarEntry> datanawodnienie;
     ArrayList<BarEntry> datanaslonecznienie;
     ArrayList<BarEntry> datawilgotnosc;
     ArrayList<BarEntry> datatemperatura;
-    TextView title,subtitle;
+    TextView title, subtitle;
     TextView ostatnie;
-    int tryb;
+    int tryb=0;
     ArrayList<Entry> nmax, smax, smin, wmax, wmin, tmax, tmin; //nawodnienie min i max slonce max i min wilgotnosc min i max temperatura max i min
     ArrayList<String> timeof;
+    String www = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +63,14 @@ public class PlantDetail extends AppCompatActivity {
         setContentView(R.layout.activity_plant_detail);
         Intent i = getIntent();
         ostatnie = findViewById(R.id.nw2);
-        tryb=0;
         timeof = new ArrayList<>();
         id = i.getStringExtra("ID");
         Log.e("id", id);
-        ID=id;
+        ID = id;
         Toolbar t = findViewById(R.id.plantdettool);
         setSupportActionBar(t);
-         title = findViewById(R.id.detail_title);
-         subtitle = findViewById(R.id.detail_subtitle);
+        title = findViewById(R.id.detail_title);
+        subtitle = findViewById(R.id.detail_subtitle);
         nmax = new ArrayList<>();
         smax = new ArrayList<>();
         smin = new ArrayList<>();
@@ -81,8 +84,13 @@ public class PlantDetail extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.floda_detail, menu);
-        return true;
+        if (tryb == 0) {
+            getMenuInflater().inflate(R.menu.floda_detail, menu);
+            return true;
+        } else {
+            getMenuInflater().inflate(R.menu.floda_detail_dzienne, menu);
+            return true;
+        }
     }
 
     @Override
@@ -93,7 +101,7 @@ public class PlantDetail extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        switch(id) {
+        switch (id) {
             case R.id.action_ssettings:
                 if (tryb == 0) {
                     tryb = 1;
@@ -119,8 +127,17 @@ public class PlantDetail extends AppCompatActivity {
                 break;
             case R.id.espsettings:
                 Intent a = new Intent(this, ESPsettings.class);
-                a.putExtra("ID",ID);
+                a.putExtra("ID", ID);
                 startActivity(a);
+                break;
+            case R.id.poradnik:
+                if (www != null && www.contains("http://www.")) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(www));
+                    startActivity(i);
+                } else {
+                    Toast.makeText(this, "Brak poradnika", Toast.LENGTH_LONG).show();
+                }
                 break;
         }
 
@@ -160,26 +177,43 @@ public class PlantDetail extends AppCompatActivity {
                     //timeof.add(podst.length(), podst.getJSONObject(podst.length()).getString("time"));
 
                     Log.e("ble", String.valueOf(response));
-                    if(det.getInt("a_w_g")>0) {
+                    if (det.getInt("a_w_g") != 0) {
                         nmax.add(new Entry(0, det.getInt("a_w_g")));
                         nmax.add(new Entry(podst.length() - 2, det.getInt("a_w_g")));
                         ostatnie.setText("");
-                    }else{
-                        ostatnie.setText("PODLEWANIE");
-                    }
-                    smax.add(new Entry(0, det.getInt("s_d_s")+40));
-                    smax.add(new Entry(podst.length() - 2, det.getInt("s_d_s")+40));
-                    smin.add(new Entry(0, det.getInt("s_d_s")-40));
-                    smin.add(new Entry(podst.length() - 2, det.getInt("s_d_s")-40));
-                    tmax.add(new Entry(0, det.getInt("s_d_t")+3));
-                    tmax.add(new Entry(podst.length() - 2, det.getInt("s_d_t")+3));
-                    tmin.add(new Entry(0, det.getInt("s_d_t")-3));
-                    tmin.add(new Entry(podst.length() - 2, det.getInt("s_d_t")-3));
-                    wmax.add(new Entry(0, det.getInt("s_d_w")+10));
-                    wmax.add(new Entry(podst.length() - 2, det.getInt("s_d_w")+10));
-                    wmin.add(new Entry(0, det.getInt("s_d_w")-10));
-                    wmin.add(new Entry(podst.length() - 2, det.getInt("s_d_w")-10));
 
+                    } else {
+                        if (det.getInt("c_k_p") != 0) {
+                            ostatnie.setText("PODLEWANIE");
+                        } else {
+                            ostatnie.setText("");
+                        }
+                    }
+                    if (det.getInt("s_d_s_x") != 0) {
+                        smax.add(new Entry(0, det.getInt("s_d_s_x")));
+                        smax.add(new Entry(podst.length() - 2, det.getInt("s_d_s_x")));
+                    }
+                    if (det.getInt("s_d_s") != 0) {
+                        smin.add(new Entry(0, det.getInt("s_d_s")));
+                        smin.add(new Entry(podst.length() - 2, det.getInt("s_d_s")));
+                    }
+                    if (det.getInt("s_d_t_x") != 0) {
+                        tmax.add(new Entry(0, det.getInt("s_d_t_x")));
+                        tmax.add(new Entry(podst.length() - 2, det.getInt("s_d_t_x")));
+                    }
+                    if (det.getInt("s_d_t") != 0) {
+                        tmin.add(new Entry(0, det.getInt("s_d_t")));
+                        tmin.add(new Entry(podst.length() - 2, det.getInt("s_d_t")));
+                    }
+                    if (det.getInt("s_d_w_x") != 0) {
+                        wmax.add(new Entry(0, det.getInt("s_d_w_x")));
+                        wmax.add(new Entry(podst.length() - 2, det.getInt("s_d_w_x")));
+                    }
+                    if (det.getInt("s_d_w") != 0) {
+                        wmin.add(new Entry(0, det.getInt("s_d_w")));
+                        wmin.add(new Entry(podst.length() - 2, det.getInt("s_d_w")));
+                    }
+                    www = det.getString("www");
 
                     //TODO: Nalezy tutaj dodac funkcje zczytujaca na poczatek podstawowe dane a nastepnie poszczegolne na godzine
 
@@ -195,7 +229,7 @@ public class PlantDetail extends AppCompatActivity {
 
             }) {
                 @Override
-                protected Map<String, String> getParams(){
+                protected Map<String, String> getParams() {
                     Map<String, String> parms = new HashMap<>();
                     parms.put("id", id);
                     parms.put("nr", String.valueOf(nr));
@@ -226,27 +260,43 @@ public class PlantDetail extends AppCompatActivity {
                     }
 
 
-                    if(det.getInt("a_w_g")>0) {
+                    if (det.getInt("a_w_g") != 0) {
                         nmax.add(new Entry(0, det.getInt("a_w_g")));
                         nmax.add(new Entry(podst.length() - 2, det.getInt("a_w_g")));
                         ostatnie.setText("");
 
-                    }else{
-                        ostatnie.setText("PODLEWANIE");
+                    } else {
+                        if (det.getInt("c_k_p") != 0) {
+                            ostatnie.setText("PODLEWANIE");
+                        } else {
+                            ostatnie.setText("");
+                        }
                     }
-                    smax.add(new Entry(0, det.getInt("s_d_s")+40));
-                    smax.add(new Entry(podst.length() - 2, det.getInt("s_d_s")+40));
-                    smin.add(new Entry(0, det.getInt("s_d_s")-40));
-                    smin.add(new Entry(podst.length() - 2, det.getInt("s_d_s")-40));
-                    tmax.add(new Entry(0, det.getInt("s_d_t")+3));
-                    tmax.add(new Entry(podst.length() - 2, det.getInt("s_d_t")+3));
-                    tmin.add(new Entry(0, det.getInt("s_d_t")-3));
-                    tmin.add(new Entry(podst.length() - 2, det.getInt("s_d_t")-3));
-                    wmax.add(new Entry(0, det.getInt("s_d_w")+10));
-                    wmax.add(new Entry(podst.length() - 2, det.getInt("s_d_w")+10));
-                    wmin.add(new Entry(0, det.getInt("s_d_w")-10));
-                    wmin.add(new Entry(podst.length() - 2, det.getInt("s_d_w")-10));
-
+                    if (det.getInt("s_d_s_x") != 0) {
+                        smax.add(new Entry(0, det.getInt("s_d_s_x")));
+                        smax.add(new Entry(podst.length() - 2, det.getInt("s_d_s_x")));
+                    }
+                    if (det.getInt("s_d_s") != 0) {
+                        smin.add(new Entry(0, det.getInt("s_d_s")));
+                        smin.add(new Entry(podst.length() - 2, det.getInt("s_d_s")));
+                    }
+                    if (det.getInt("s_d_t_x") != 0) {
+                        tmax.add(new Entry(0, det.getInt("s_d_t_x")));
+                        tmax.add(new Entry(podst.length() - 2, det.getInt("s_d_t_x")));
+                    }
+                    if (det.getInt("s_d_t") != 0) {
+                        tmin.add(new Entry(0, det.getInt("s_d_t")));
+                        tmin.add(new Entry(podst.length() - 2, det.getInt("s_d_t")));
+                    }
+                    if (det.getInt("s_d_w_x") != 0) {
+                        wmax.add(new Entry(0, det.getInt("s_d_w_x")));
+                        wmax.add(new Entry(podst.length() - 2, det.getInt("s_d_w_x")));
+                    }
+                    if (det.getInt("s_d_w") != 0) {
+                        wmin.add(new Entry(0, det.getInt("s_d_w")));
+                        wmin.add(new Entry(podst.length() - 2, det.getInt("s_d_w")));
+                    }
+                    www = det.getString("www");
                     Log.e("response", response);
                 } catch (Exception e) {
                     Log.e("Ustawianie danych", String.valueOf(e) + response);
@@ -276,14 +326,14 @@ public class PlantDetail extends AppCompatActivity {
 
     BarData setNawodnienie() { /* woda */
         nawo = new LineData();
-        LineDataSet set = new LineDataSet(nmax, "Brak wody");
+        LineDataSet set = new LineDataSet(nmax, "Potrzeba podlania");
         set.setCircleRadius(1f);
         set.setLineWidth(2.5f);
         set.setColor(Color.RED);
         set.setFillColor(Color.WHITE);
         set.setDrawValues(false);
         nawo.addDataSet(set);
-        BarDataSet d = new BarDataSet(datanawodnienie, "pkt");
+        BarDataSet d = new BarDataSet(datanawodnienie, "j");
         d.setColor(Color.BLUE);
         d.setBarBorderWidth(1f);
         d.setBarBorderColor(Color.WHITE);
@@ -333,7 +383,7 @@ public class PlantDetail extends AppCompatActivity {
         //data.setData();
         xAxis.setAxisMaximum(data.getXMax() + 0.25f);
         nawodnienie.setData(data);
-        Description foo =new Description();
+        Description foo = new Description();
         foo.setText("");
         nawodnienie.setDescription(foo);
         nawodnienie.invalidate();
@@ -374,7 +424,7 @@ public class PlantDetail extends AppCompatActivity {
         naslonecznienie.setBackgroundColor(Color.TRANSPARENT);
 
         naslonecznienie.setDrawOrder(new CombinedChart.DrawOrder[]{
-                CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE,CombinedChart.DrawOrder.LINE
+                CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.LINE
         });
         Legend l = naslonecznienie.getLegend();
         l.setWordWrapEnabled(true);
@@ -447,7 +497,7 @@ public class PlantDetail extends AppCompatActivity {
         temperatura.setBackgroundColor(Color.TRANSPARENT);
 
         temperatura.setDrawOrder(new CombinedChart.DrawOrder[]{
-                CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE,CombinedChart.DrawOrder.LINE
+                CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.LINE
         });
         Legend l = temperatura.getLegend();
         l.setWordWrapEnabled(true);
@@ -520,7 +570,7 @@ public class PlantDetail extends AppCompatActivity {
         wilgotnosc.setBackgroundColor(Color.TRANSPARENT);
 
         wilgotnosc.setDrawOrder(new CombinedChart.DrawOrder[]{
-                CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE,CombinedChart.DrawOrder.LINE
+                CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.LINE
         });
         Legend l = wilgotnosc.getLegend();
         l.setWordWrapEnabled(true);

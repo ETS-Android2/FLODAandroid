@@ -30,7 +30,7 @@ import java.util.Map;
 import floda.pl.floda3.R;
 
 public class Floda_add_plant extends AppCompatActivity {
-    Button test, list, newge;
+    Button test, list, new_genre_dod_rosl;
     TextInputEditText log, has;
     StringRequest stringRequest;
     String id_genre = "";
@@ -44,7 +44,7 @@ public class Floda_add_plant extends AppCompatActivity {
         log = findViewById(R.id.nrsondy);
         has = findViewById(R.id.haslosondy);
         list = findViewById(R.id.list_of_genre);
-        newge = findViewById(R.id.new_genre_dod_rosl);
+        new_genre_dod_rosl = findViewById(R.id.new_genre_dod_rosl);
         test.setOnClickListener(v -> {
             Log.e("d", log.getText().toString() + " " + has.getText().toString());
             if (log.getText().length() != 0) {
@@ -88,6 +88,10 @@ public class Floda_add_plant extends AppCompatActivity {
             startActivityForResult(i, 1);
 
         });
+        new_genre_dod_rosl.setOnClickListener(v->{
+            Intent i = new Intent(this, FLODA_add_new_genre.class);
+            startActivityForResult(i, 2);
+        });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -106,9 +110,10 @@ public class Floda_add_plant extends AppCompatActivity {
                 id_genre = data.getStringExtra("ID");
                 /*Toast d = Toast.makeText(this,id_genre,Toast.LENGTH_LONG);
                  d.show();*/
-                newge.setText("Wybrano gatunek o numerze: " + id_genre);
-                newge.setBackgroundColor(getColor(R.color.center));
+                new_genre_dod_rosl.setText("Wybrano gatunek o numerze: " + id_genre);
+                new_genre_dod_rosl.setBackgroundColor(getColor(R.color.center));
                 list.setEnabled(false);
+                new_genre_dod_rosl.setEnabled(false);
             }
         }
     }

@@ -174,10 +174,30 @@ public class Floda_list_genre extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull Floda_list_genre.Listplants.MyViewHolder myViewHolder, int i) {
             myViewHolder.cgenre.setText(pdata.get(i).genre);
-            myViewHolder.ctemp.setText(pdata.get(i).temp);
-            myViewHolder.chumid.setText(pdata.get(i).humid);
-            myViewHolder.cwater.setText(pdata.get(i).soil);
-            myViewHolder.csun.setText(pdata.get(i).sun);
+            if (!pdata.get(i).temp.contains("0-0°C")) {
+                myViewHolder.ctemp.setText(pdata.get(i).temp);
+            } else {
+                myViewHolder.ctemp.setText("Brak ustalen");
+            }
+
+            if (!pdata.get(i).humid.contains("0-0%")) {
+                myViewHolder.chumid.setText(pdata.get(i).humid);
+            } else {
+                myViewHolder.chumid.setText("Brak ustalen");
+            }
+
+            if (!pdata.get(i).soil.contains("0j.") && !pdata.get(i).soil.contains("co 0 dni")) {
+                myViewHolder.cwater.setText(pdata.get(i).soil);
+            } else {
+                myViewHolder.cwater.setText("Brak ustalen");
+            }
+
+            if (!pdata.get(i).sun.contains("0-0 lux/day")) {
+                myViewHolder.csun.setText(pdata.get(i).sun);
+            } else {
+                myViewHolder.csun.setText("Brak ustalen");
+            }
+
 
             myViewHolder.bind(pdata.get(i), listener);
         }

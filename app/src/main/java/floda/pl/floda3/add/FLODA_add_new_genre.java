@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -21,6 +22,8 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 
+import java.util.Objects;
+
 import floda.pl.floda3.R;
 
 public class FLODA_add_new_genre extends AppCompatActivity {
@@ -31,6 +34,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
     Spinner pod_warnspin, naslonecz_spinner;
     ConstraintLayout con_naslonecznienie;
     Button send_button;
+    ImageButton back_arrow_add;
     int activated = 0;
 
     @Override
@@ -65,6 +69,10 @@ public class FLODA_add_new_genre extends AppCompatActivity {
         pod_il_dni = findViewById(R.id.pod_il_dni);
         pod_warnspin = findViewById(R.id.pod_warnspin);
         link_poradnik = findViewById(R.id.link_poradnik);
+        back_arrow_add = findViewById(R.id.back_arrow_add);
+        back_arrow_add.setOnClickListener(v->{
+            super.onBackPressed();
+        });
         pod_dni.setOnClickListener(v -> {
             pod_il_dni.setVisibility(View.VISIBLE);
             pod_warnspin.setVisibility(View.INVISIBLE);
@@ -148,7 +156,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
             if (bool_podlewanie.isChecked()) {
                 if (pod_dni.isChecked()) {
                     if (pod_il_dni.getText().toString().length() > 0) {
-                        sql += "podlweanie=" + pod_il_dni.getText().toString();
+                        sql += "podlewanie=" + pod_il_dni.getText().toString()+"&";
                     } else {
                         Toast.makeText(this, "Pusta ilosc dni w podlewaniu!", Toast.LENGTH_LONG).show();
                         return;
@@ -156,7 +164,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                 } else {
                     if (pod_warn.isChecked()) {
                         if (pod_warnspin.getSelectedItemPosition() > 2) {
-                            sql += "podlweanie=w" + (pod_warnspin.getSelectedItemPosition() - 1);
+                            sql += "podlewanieZ=w" + (pod_warnspin.getSelectedItemPosition() - 1)+"&";
                         } else {
                             Toast.makeText(this, "Nie wybrales pozycji z listy rozwijanej podlewania", Toast.LENGTH_LONG).show();
                             return;
@@ -169,8 +177,8 @@ public class FLODA_add_new_genre extends AppCompatActivity {
             }
             if (bool_naslonecznienie.isChecked()) {
                 if (sun_man.isChecked()) {
-                    if (Integer.valueOf(sun_min.getText().toString()) < Integer.valueOf(sun_max.getText().toString()) && sun_min.getText().toString() != "" && sun_max.getText().toString() != "") {
-                        sql += "&naslonecznieniemin=" + sun_min.getText().toString() + "&naslonecznieniemax=" + sun_max.getText().toString();
+                    if (Integer.valueOf(sun_min.getText().toString()) < Integer.valueOf(sun_max.getText().toString()) && !Objects.equals(sun_min.getText().toString(), "") && !Objects.equals(sun_max.getText().toString(), "")) {
+                        sql += "naslonecznieniemin=" + sun_min.getText().toString() + "&naslonecznieniemax=" + sun_max.getText().toString()+"&";
                     } else {
                         Toast.makeText(this, "Nieprawidłowa wartość wpisana w nasloneczneniu", Toast.LENGTH_LONG).show();
                         return;
@@ -178,7 +186,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                 } else {
                     if (sun_sett.isChecked()) {
                         if (naslonecz_spinner.getSelectedItemPosition() > 0) {
-                            sql += "&naslonecznienie=n" + (naslonecz_spinner.getSelectedItemPosition());
+                            sql += "naslonecznienieZ=n" + (naslonecz_spinner.getSelectedItemPosition())+"&";
                         } else {
                             Toast.makeText(this, "Nie wybrales pozycji z listy rozwijanej naslonecznienia", Toast.LENGTH_LONG).show();
                             return;
@@ -190,8 +198,8 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                 }
             }
             if (bool_temperatura.isChecked()) {
-                if (Integer.valueOf(min_temp.getText().toString()) < Integer.valueOf(max_temp.getText().toString()) && min_temp.getText().toString() != "" && max_temp.getText().toString() != "") {
-                    sql += "&tempmin=" + min_temp.getText().toString() + "&tempmax=" + max_temp.getText().toString();
+                if (Integer.valueOf(min_temp.getText().toString()) < Integer.valueOf(max_temp.getText().toString()) && !Objects.equals(min_temp.getText().toString(), "") && !Objects.equals(max_temp.getText().toString(), "")) {
+                    sql += "tempmin=" + min_temp.getText().toString() + "&tempmax=" + max_temp.getText().toString()+"&";
                 } else {
                     Toast.makeText(this, "Nieprawidłowa wartość wpisana w temperaturze", Toast.LENGTH_LONG).show();
                     return;
@@ -199,8 +207,8 @@ public class FLODA_add_new_genre extends AppCompatActivity {
             }
             if (bool_wilgotnosc.isChecked()) {
 
-                if (Integer.valueOf(min_wilg.getText().toString()) < Integer.valueOf(max_wilg.getText().toString()) && min_wilg.getText().toString() != "" && max_wilg.getText().toString() != "") {
-                    sql += "&wilgmin=" + min_wilg.getText().toString() + "&wilgmax=" + max_wilg.getText().toString();
+                if (Integer.valueOf(min_wilg.getText().toString()) < Integer.valueOf(max_wilg.getText().toString()) && !Objects.equals(min_wilg.getText().toString(), "") && !Objects.equals(max_wilg.getText().toString(), "")) {
+                    sql += "wilgmin=" + min_wilg.getText().toString() + "&wilgmax=" + max_wilg.getText().toString()+"&";
                 } else {
                     Toast.makeText(this, "Nieprawidłowa wartość wpisana w wilgotnosci", Toast.LENGTH_LONG).show();
                     return;
@@ -208,7 +216,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
             }
             if (bool_poradnik.isChecked()) {
                 if (link_poradnik.getText().toString().contains("http://") && link_poradnik.getText().toString().length() > 7) {
-                    sql += "&www=" + link_poradnik.getText().toString();
+                    sql += "www=" + link_poradnik.getText().toString()+"&";
                 } else {
                     Toast.makeText(this, "Usunieto http:// lub nic nie zostalo dopisane", Toast.LENGTH_LONG).show();
                     return;
@@ -216,17 +224,25 @@ public class FLODA_add_new_genre extends AppCompatActivity {
             }
             if (genre_name.getText().length() > 0) {
                 genre_name.setText(genre_name.getText().toString().replaceAll("[0-9]", ""));
-                sql += "&name=" + genre_name.getText().toString();
+                Intent i = getIntent();
+                sql += "name=" + genre_name.getText().toString()+"&autor="+i.getStringExtra("ID")+"&";
 
             } else {
                 Toast.makeText(this, "Nazwa nie moze byc pusta!", Toast.LENGTH_LONG).show();
                 return;
             }
             StringRequest stringRequest = new StringRequest(Request.Method.GET, sql, response -> {
-                Intent i = getIntent();
-                i.putExtra("ID", response);
-                setResult(RESULT_OK, i);
-                finish();
+                if(response.contains("z")) {
+                    Intent i = getIntent();
+                    response=response.replace("z","");
+                    i.putExtra("ID",response ); //todo id
+                    setResult(RESULT_OK, i);
+                    Toast.makeText(this,"Utworzono nowy gatunek",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                else{
+                    Toast.makeText(this,response,Toast.LENGTH_LONG).show();
+                }
             }, error -> {
                 Log.e("error", error.toString());
             });
