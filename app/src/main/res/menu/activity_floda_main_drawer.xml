@@ -15,11 +15,7 @@
             android:checked="false"
             android:icon="@drawable/ic_help_black_24dp"
             android:title="FAQ" />
-        <item
-            android:id="@+id/pedia"
-            android:checked="false"
-            android:icon="@drawable/ic_library_books_black_24dp"
-            android:title="FLODApedia" />
+
         <item
             android:id="@+id/forum"
             android:checked="false"
@@ -29,11 +25,16 @@
             android:id="@+id/users"
             android:checked="false"
             android:icon="@drawable/ic_people_black_24dp"
-            android:title="Account list" />
+            android:title="Project member list" />
     </group>
 
-    <item android:title="Actions">
+    <item android:title="Other windows">
         <menu>
+            <item
+                android:id="@+id/pedia"
+                android:checked="false"
+                android:icon="@drawable/ic_library_books_black_24dp"
+                android:title="FLODApedia" />
             <item
                 android:id="@+id/log_out"
                 android:icon="@drawable/ic_backspace_black_24dp"

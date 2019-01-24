@@ -59,8 +59,10 @@
             android:padding="4dp">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/add_plant_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/arvo"
                 android:hint="Nazwa"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorLink="@android:color/background_light" />
@@ -94,6 +96,7 @@
                 android:id="@+id/nrsondy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/arvo"
                 android:hint="Nr sondy"
                 android:inputType="number"
                 android:textColorHighlight="@android:color/background_light"
@@ -113,7 +116,8 @@
                 android:id="@+id/haslosondy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Hasło sondy"
+                android:fontFamily="@font/arvo"
+                android:hint="Haslo sondy"
                 android:inputType="textPassword"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorLink="@android:color/background_light" />
@@ -125,6 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:fontFamily="@font/arvo"
             android:gravity="center"
             android:text="TEST"
             tools:layout_editor_absoluteX="148dp" />
@@ -132,6 +137,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/add_plant_butt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -139,7 +145,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/BUTTONS"
-        android:enabled="false"
+        android:fontFamily="@font/arvo"
         android:padding="20dp"
         android:text="Dodaj!"
         android:textSize="24sp"
@@ -168,6 +174,7 @@
             android:layout_height="75dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
+            android:fontFamily="@font/arvo"
             android:text="Wybierz gatunek z listy" />
 
         <Button
@@ -176,6 +183,7 @@
             android:layout_height="75dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
+            android:fontFamily="@font/arvo"
             android:text="Dodaj nowy gatunek" />
     </LinearLayout>
 

@@ -16,15 +16,15 @@ public class Starting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting);
 
-                ConstraintLayout constraintLayout = findViewById(R.id.startingbck);
-                AnimationDrawable drawable = (AnimationDrawable) constraintLayout.getBackground();
-                drawable.setEnterFadeDuration(0);
-                drawable.setExitFadeDuration(4500);
-                drawable.start();
+        ConstraintLayout constraintLayout = findViewById(R.id.startingbck);
+        AnimationDrawable drawable = (AnimationDrawable) constraintLayout.getBackground();
+        drawable.setEnterFadeDuration(0);
+        drawable.setExitFadeDuration(4500);
+        drawable.start();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String id = preferences.getString("ID","0");
-        Log.e("Id",id);
+        String id = preferences.getString("ID", "0");
+        Log.e("Id", id);
 
         Thread welcomeThread = new Thread() {
 
@@ -34,17 +34,17 @@ public class Starting extends AppCompatActivity {
                     super.run();
                     sleep(2000);  //Delay of 2 seconds
                 } catch (Exception e) {
-                    Log.e("e",e.toString());
+                    Log.e("e", e.toString());
                 } finally {
 
                     assert id != null;
-                    if(!id.equals("0")){
-                        Intent i = new Intent(getBaseContext(),Floda_main.class);
-                        i.putExtra("ID",id);
+                    if (!id.equals("0")) {
+                        Intent i = new Intent(getBaseContext(), Floda_main.class);
+                        i.putExtra("ID", id);
 
                         startActivity(i);
-                    }else{
-                        Intent i = new Intent(getBaseContext(),Floda_LOGIN.class);
+                    } else {
+                        Intent i = new Intent(getBaseContext(), Floda_LOGIN.class);
                         //i.putExtra("ID",id);
 
                         startActivity(i);

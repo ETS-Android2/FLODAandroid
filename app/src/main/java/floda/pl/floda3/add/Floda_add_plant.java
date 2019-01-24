@@ -26,14 +26,19 @@ import com.android.volley.toolbox.StringRequest;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
+import floda.pl.floda3.Floda_LOGIN;
+import floda.pl.floda3.Floda_main;
 import floda.pl.floda3.R;
 
 public class Floda_add_plant extends AppCompatActivity {
-    Button test, list, new_genre_dod_rosl;
+    Button test, list, new_genre_dod_rosl, add_plant_butt;
     TextInputEditText log, has;
     StringRequest stringRequest;
+    TextInputEditText add_plant_title;
     String id_genre = "";
+    boolean spoko = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,37 +46,40 @@ public class Floda_add_plant extends AppCompatActivity {
         setContentView(R.layout.activity_floda_add_plant);
         test = findViewById(R.id.test_add);
         String sql = "http://serwer1727017.home.pl/2ti/floda/add/test.php";
+        add_plant_butt = findViewById(R.id.add_plant_butt);
         log = findViewById(R.id.nrsondy);
         has = findViewById(R.id.haslosondy);
         list = findViewById(R.id.list_of_genre);
+        add_plant_title = findViewById(R.id.add_plant_title);
         new_genre_dod_rosl = findViewById(R.id.new_genre_dod_rosl);
+        stringRequest = new StringRequest(Request.Method.POST, sql, response -> {
+            Log.e("d", response);
+            if (response.contains("1")) {
+                test.setBackgroundColor(getResources().getColor(R.color.center));
+                test.setText("Ok!");
+                spoko = true;
+            } else {
+                test.setBackgroundColor(getResources().getColor(R.color.red));
+                test.setText("Złe dane");
+                spoko = false;
+            }
+        }, error -> {
+            Log.e("Blad", error.toString());
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parms = new HashMap<>();
+                parms.put("log", log.getText().toString());
+                parms.put("has", has.getText().toString());
+                return parms;
+            }
+        };
         test.setOnClickListener(v -> {
             Log.e("d", log.getText().toString() + " " + has.getText().toString());
+
             if (log.getText().length() != 0) {
                 if (has.getText().length() != 0) {
-                    stringRequest = new StringRequest(Request.Method.POST, sql, response -> {
-                        Log.e("d", response);
-                        if (response.contains("1")) {
-                            test.setBackgroundColor(getResources().getColor(R.color.center));
-                            test.setText("Ok!");
-                        } else {
-                            test.setBackgroundColor(getResources().getColor(R.color.red));
-                            test.setText("Złe dane");
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
 
-                        }
-                    }) {
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> parms = new HashMap<>();
-                            parms.put("log", log.getText().toString());
-                            parms.put("has", has.getText().toString());
-                            return parms;
-                        }
-                    };
                     RequestQueue q = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
                     q.add(stringRequest);
                     q.start();
@@ -88,9 +96,50 @@ public class Floda_add_plant extends AppCompatActivity {
             startActivityForResult(i, 1);
 
         });
-        new_genre_dod_rosl.setOnClickListener(v->{
+        new_genre_dod_rosl.setOnClickListener(v -> {
             Intent i = new Intent(this, FLODA_add_new_genre.class);
+            Intent g = getIntent();
+            i.putExtra("ID", g.getStringExtra("ID"));
             startActivityForResult(i, 2);
+        });
+        add_plant_butt.setOnClickListener(v -> {
+            add_plant_title.setText(add_plant_title.getText().toString().replaceAll("[0-9]", ""));
+            if (!Objects.equals(add_plant_title.getText().toString(), "")) {
+
+                Log.e("f", "" + spoko);
+                if (id_genre != "0" && id_genre != "") {
+                    String sql2 = "http://serwer1727017.home.pl/2ti/floda/add/add_plant.php";
+                    StringRequest s = new StringRequest(Request.Method.POST, sql2, response -> {
+                        if (response.contains("1")) {
+                            Toast.makeText(this, "Zalozono nowa rosline o nazwie " + add_plant_title.getText().toString(), Toast.LENGTH_LONG).show(); //todo: w tych przypadkach zrobic box
+                            super.onBackPressed();
+                        } else {
+                            Toast.makeText(this, "Blad z wysylaniem", Toast.LENGTH_LONG).show();
+                        }
+                    }, error -> {
+                        Log.e("Blad wysylania", error.toString());
+                    }) {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> parms = new HashMap<>();
+                            Intent l = getIntent();
+                            parms.put("has", has.getText().toString());
+                            parms.put("log", log.getText().toString());
+                            parms.put("name", add_plant_title.getText().toString());
+                            parms.put("id_gatunku", id_genre);
+                            parms.put("id_autora", l.getStringExtra("ID"));
+                            return parms;
+                        }
+                    };
+                    RequestQueue z = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
+                    z.add(s);
+                    z.start();
+                } else {
+                    Toast.makeText(this, "Brakuje danych!", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                add_plant_title.setError("Nie moze byc puste");
+            }
         });
     }
 

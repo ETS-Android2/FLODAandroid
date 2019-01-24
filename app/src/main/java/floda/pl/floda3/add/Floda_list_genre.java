@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -43,9 +44,10 @@ public class Floda_list_genre extends AppCompatActivity {
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    TextView title_list_genre;
     StringRequest f;
     String[] foo;
-    Button back;
+    ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +58,16 @@ public class Floda_list_genre extends AppCompatActivity {
         mRecycleView.setHasFixedSize(true);
         mRecycleView.setLayoutManager(mLayoutManager);
         data = new ArrayList<>();
+        Intent h = getIntent();
+        title_list_genre = findViewById(R.id.title_list_genre);
+        if (h.getStringExtra("ID") == "0") {
+            title_list_genre.setText("Lista dostepnych gatunkow");
+        }
         mLayoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(mLayoutManager);
+        back = findViewById(R.id.back_list);
         AutoCompleteTextView szukaj = findViewById(R.id.szukajgat);
-/*        back.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.putExtra("ID", "0");
-            setResult(RESULT_OK, intent);
-            finish();
-        });*/
+        back.setOnClickListener(v -> super.onBackPressed());
         String sql = "http://serwer1727017.home.pl/2ti/floda/add/genrelist.php";
         f = new StringRequest(Request.Method.POST, sql, response -> {
             try {

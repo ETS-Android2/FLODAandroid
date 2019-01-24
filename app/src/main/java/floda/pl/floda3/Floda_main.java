@@ -42,42 +42,44 @@ import java.util.Objects;
 
 import floda.pl.floda3.add.FLODA_add_new_genre;
 import floda.pl.floda3.add.Floda_add_plant;
+import floda.pl.floda3.add.Floda_list_genre;
 
 public class Floda_main extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     User_info usr;
     String idd;
     FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_floda_main);
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.appbar);
-        fab =  findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(
                 v -> {
                     AlertDialog alertDialog;
-                    AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     LayoutInflater l = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
-                    View dialog= l.inflate(R.layout.addchose,null);
+                    View dialog = l.inflate(R.layout.addchose, null);
                     Button sonda = dialog.findViewById(R.id.sonda);
-                    Button gatunek  = dialog.findViewById(R.id.gatunek);
+                    Button gatunek = dialog.findViewById(R.id.gatunek);
                     builder.setView(dialog);
-                    alertDialog=builder.create();
+                    alertDialog = builder.create();
                     alertDialog.show();
                     sonda.setOnClickListener(v1 -> {
-                        Intent i = new Intent(this.getBaseContext(),Floda_add_plant.class);
-                        i.putExtra("ID",idd);
+                        Intent i = new Intent(this.getBaseContext(), Floda_add_plant.class);
+                        i.putExtra("ID", idd);
                         alertDialog.hide();
                         startActivity(i);
                     });
                     gatunek.setOnClickListener(v1 -> {
-                        Intent i = new Intent(this.getBaseContext(),FLODA_add_new_genre.class);
-                        i.putExtra("ID",idd);
+                        Intent i = new Intent(this.getBaseContext(), FLODA_add_new_genre.class);
+                        i.putExtra("ID", idd);
                         alertDialog.hide();
                         startActivity(i);
                     });
@@ -85,19 +87,19 @@ public class Floda_main extends AppCompatActivity
                 }
         );
 
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView =  findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent i = getIntent();
 
-        idd=i.getStringExtra("ID");
-        getDetail(idd,new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
+        idd = i.getStringExtra("ID");
+        getDetail(idd, new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.content_fram, new ListOfPlants());
         t.commit();
@@ -107,7 +109,7 @@ public class Floda_main extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -147,7 +149,7 @@ public class Floda_main extends AppCompatActivity
             case R.id.p_list:
                 t.replace(R.id.content_fram, new ListOfPlants());
                 fab.show();
-            break;
+                break;
             case R.id.log_out:
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor e = preferences.edit();
@@ -155,10 +157,15 @@ public class Floda_main extends AppCompatActivity
                 e.apply();
                 Intent i = new Intent(this, Floda_LOGIN.class);
                 startActivity(i);
-            break;
+                break;
             case R.id.faq:
-                t.replace(R.id.content_fram,new Floda_faq());
+                t.replace(R.id.content_fram, new Floda_faq());
                 fab.hide();
+                break;
+            case R.id.pedia:
+                Intent j = new Intent(this, Floda_list_genre.class);
+                j.putExtra("ID", 0);
+                startActivity(j);
                 break;
         }
         t.commit();
@@ -166,38 +173,39 @@ public class Floda_main extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     public void getDetail(String id, RequestQueue q) {
-        String sql="http://www.serwer1727017.home.pl/2ti/floda/floda_ifo.php";
+        String sql = "http://www.serwer1727017.home.pl/2ti/floda/floda_ifo.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, sql, response -> {
-                try {
-                    JSONArray j = new JSONArray(response);
-                    JSONObject o = j.getJSONObject(0);
-                    NavigationView navigationView =  findViewById(R.id.nav_view);
-                    View header= navigationView.getHeaderView(0);
-                    usr = new User_info(o.getString("Name"),o.getString("email"),o.getString("ID"),o.getString("nick"),o.getString("Surname"),Boolean.getBoolean(o.getString("su")=="0"?"false":"true"));
-                    Log.e("cos",usr.getMail());
-                    TextView t= (TextView) header.findViewById(R.id.nav_name);
-                    TextView e= (TextView) header.findViewById(R.id.nav_email);
-                    t.setText(o.getString("Name")+" "+o.getString("Surname")+" ("+o.getString("nick")+")");
-                    e.setText(o.getString("email"));
-                    Log.e("id",o.getString("email"));
-                    if(o.getString("su").contentEquals("1")){
-                        t.setTextColor(Color.RED);
-                    }
-                } catch (JSONException e) {
-                    Log.e("json",e.toString());
-                    e.printStackTrace();
+            try {
+                JSONArray j = new JSONArray(response);
+                JSONObject o = j.getJSONObject(0);
+                NavigationView navigationView = findViewById(R.id.nav_view);
+                View header = navigationView.getHeaderView(0);
+                usr = new User_info(o.getString("Name"), o.getString("email"), o.getString("ID"), o.getString("nick"), o.getString("Surname"), Boolean.getBoolean(o.getString("su") == "0" ? "false" : "true"));
+                Log.e("cos", usr.getMail());
+                TextView t = (TextView) header.findViewById(R.id.nav_name);
+                TextView e = (TextView) header.findViewById(R.id.nav_email);
+                t.setText(o.getString("Name") + " " + o.getString("Surname") + " (" + o.getString("nick") + ")");
+                e.setText(o.getString("email"));
+                Log.e("id", o.getString("email"));
+                if (o.getString("su").contentEquals("1")) {
+                    t.setTextColor(Color.RED);
                 }
+            } catch (JSONException e) {
+                Log.e("json", e.toString());
+                e.printStackTrace();
+            }
 
 
         }, error -> {
-            Log.e("blad",error.toString());
+            Log.e("blad", error.toString());
             //foo[0] =null;
-        }){
+        }) {
             @Override
-            protected Map<String, String> getParams()   {
-                Map<String,String> h = new HashMap<>();
-                h.put("ID",idd);
+            protected Map<String, String> getParams() {
+                Map<String, String> h = new HashMap<>();
+                h.put("ID", idd);
 
                 return h;
             }
