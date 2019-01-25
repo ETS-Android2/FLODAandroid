@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import floda.pl.floda3.R;
 
@@ -59,8 +60,9 @@ public class Floda_list_genre extends AppCompatActivity {
         mRecycleView.setLayoutManager(mLayoutManager);
         data = new ArrayList<>();
         Intent h = getIntent();
+
         title_list_genre = findViewById(R.id.title_list_genre);
-        if (h.getStringExtra("ID") == "0") {
+        if (Objects.equals( h.getExtras().getString("ID"), "0")) {
             title_list_genre.setText("Lista dostepnych gatunkow");
         }
         mLayoutManager = new LinearLayoutManager(this);

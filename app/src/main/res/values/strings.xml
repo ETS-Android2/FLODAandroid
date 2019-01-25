@@ -7,10 +7,10 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Ustawienia konta</string>
-    <string name="detail">Podsumowanie dzienne</string>
+    <string name="detail">Statystyka</string>
     <string name="espsett">Ustawienia sondy</string>
     <string name="espdet">Szczegóły urzadzenia</string>
-    <string name="dettime">Zmień wymiar czasu</string>
+    <string name="dettime">Filtr</string>
     <string name="title_activity_espsettings">Sonda settings</string>
 
     <!-- Strings related to Settings -->

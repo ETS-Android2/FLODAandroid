@@ -4,16 +4,26 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
@@ -34,7 +44,11 @@ import com.github.mikephil.charting.data.LineDataSet;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -52,10 +66,18 @@ public class PlantDetail extends AppCompatActivity {
     ArrayList<BarEntry> datatemperatura;
     TextView title, subtitle;
     TextView ostatnie;
-    int tryb=0;
+    String timing = "";
+    int tryb = 0;
+    Button filtr_akceptuj;
     ArrayList<Entry> nmax, smax, smin, wmax, wmin, tmax, tmin; //nawodnienie min i max slonce max i min wilgotnosc min i max temperatura max i min
     ArrayList<String> timeof;
     String www = null;
+    CheckBox filtr_bool;
+    EditText od_edit, do_edit;
+    String fod = "", fdo = ""; //dane wizualne
+    RequestQueue q;
+    StringRequest stringRequest;
+    boolean filtrch = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +87,7 @@ public class PlantDetail extends AppCompatActivity {
         ostatnie = findViewById(R.id.nw2);
         timeof = new ArrayList<>();
         id = i.getStringExtra("ID");
+
         Log.e("id", id);
         ID = id;
         Toolbar t = findViewById(R.id.plantdettool);
@@ -84,13 +107,28 @@ public class PlantDetail extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        if (tryb == 0) {
-            getMenuInflater().inflate(R.menu.floda_detail, menu);
-            return true;
-        } else {
-            getMenuInflater().inflate(R.menu.floda_detail_dzienne, menu);
-            return true;
-        }
+
+        getMenuInflater().inflate(R.menu.floda_detail, menu);
+        return true;
+
+    }
+
+    void reset() {
+        datanaslonecznienie.clear();
+        datanawodnienie.clear();
+        datatemperatura.clear();
+        datawilgotnosc.clear();
+        naslonecznienie.clear();
+        wilgotnosc.clear();
+        temperatura.clear();
+        nawodnienie.clear();
+        nmax.clear();
+        smax.clear();
+        smin.clear();
+        wmax.clear();
+        wmin.clear();
+        tmax.clear();
+        tmin.clear();
     }
 
     @Override
@@ -108,21 +146,7 @@ public class PlantDetail extends AppCompatActivity {
                 } else {
                     tryb = 0;
                 }
-                datanaslonecznienie.clear();
-                datanawodnienie.clear();
-                datatemperatura.clear();
-                datawilgotnosc.clear();
-                naslonecznienie.clear();
-                wilgotnosc.clear();
-                temperatura.clear();
-                nawodnienie.clear();
-                nmax.clear();
-                smax.clear();
-                smin.clear();
-                wmax.clear();
-                wmin.clear();
-                tmax.clear();
-                tmin.clear();
+                reset();
                 databaseGet(ID, tryb);
                 break;
             case R.id.espsettings:
@@ -139,18 +163,142 @@ public class PlantDetail extends AppCompatActivity {
                     Toast.makeText(this, "Brak poradnika", Toast.LENGTH_LONG).show();
                 }
                 break;
+            case R.id.det_time:
+                AlertDialog alertDialog;
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                LayoutInflater l = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                View dialog = l.inflate(R.layout.det_time_layout, null);
+                builder.setView(dialog);
+                alertDialog = builder.create();
+                alertDialog.show();
+
+                Button anuluj = dialog.findViewById(R.id.fi_an);
+                do_edit = dialog.findViewById(R.id.do_edit);
+                od_edit = dialog.findViewById(R.id.od_edit);
+                filtr_akceptuj = dialog.findViewById(R.id.filtr_akceptuj);
+                filtr_bool = dialog.findViewById(R.id.filtr_bool);
+                filtr_bool.setChecked(filtrch);
+                do_edit.setText(fdo);
+                od_edit.setText(fod);
+                filtr_akceptuj.setOnClickListener(v -> {
+                    if (!Objects.equals(do_edit.getText().toString(), "") && !Objects.equals(do_edit.getText().toString(), "")) {
+                        if (filtr_bool.isChecked()) {
+                            timing = "?od=" + od_edit.getText().toString() + "&do=" + do_edit.getText().toString();
+                            Log.e("no", timing);
+                            fod = od_edit.getText().toString();
+                            fdo = do_edit.getText().toString();
+                            filtrch = true;
+                            reset();
+                            databaseGet(ID, tryb);
+                            alertDialog.hide();
+                        } else {
+                            timing = "";
+                            fod = "";
+                            fdo = "";
+                            filtrch = false;
+                            reset();
+                            databaseGet(ID, tryb);
+                            alertDialog.hide();
+                        }
+                    } else {
+                        Toast.makeText(this, "Puste pole zakresowe", Toast.LENGTH_LONG).show();
+                    }
+                });
+                do_edit.setOnClickListener(v -> {
+                    AlertDialog alertDialog2;
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+                    LayoutInflater l2 = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                    View dialog2 = l2.inflate(R.layout.calendar_view, null);
+                    builder2.setView(dialog2);
+                    alertDialog2 = builder2.create();
+                    alertDialog2.show();
+                    CalendarView calendar_filter = dialog2.findViewById(R.id.calendar_filter);
+                    Button filtr_akc = dialog2.findViewById(R.id.filtr_akc);
+                    Button flitr_an = dialog2.findViewById(R.id.flitr_an);
+                    filtr_akc.setOnClickListener(z -> {
+                        long time = calendar_filter.getDate();
+                        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+                        Date d = new Date(time);
+                        do_edit.setText(f.format(d));
+                        alertDialog2.hide();
+                    });
+                    flitr_an.setOnClickListener((z) -> alertDialog2.hide());
+                });
+                od_edit.setOnClickListener(v -> {
+                    AlertDialog alertDialog2;
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+                    LayoutInflater l2 = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                    View dialog2 = l2.inflate(R.layout.calendar_view, null);
+                    builder2.setView(dialog2);
+                    alertDialog2 = builder2.create();
+                    alertDialog2.show();
+                    CalendarView calendar_filter = dialog2.findViewById(R.id.calendar_filter);
+                    Button filtr_akc = dialog2.findViewById(R.id.filtr_akc);
+                    Button flitr_an = dialog2.findViewById(R.id.flitr_an);
+                    filtr_akc.setOnClickListener(z -> {
+                        long time = calendar_filter.getDate();
+                        SimpleDateFormat g = new SimpleDateFormat("yyyy-MM-dd");
+                        Date h = new Date(time);
+                        Log.e("g", g.format(h));
+                        od_edit.setText(g.format(h));
+                        alertDialog2.hide();
+                    });
+                    flitr_an.setOnClickListener((z) -> alertDialog2.hide());
+                });
+                anuluj.setOnClickListener(v -> alertDialog.hide());
+                break;
+            case R.id.del_plant_butt:
+                AlertDialog aa4;
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+                LayoutInflater l2 = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                View dialog2 = l2.inflate(R.layout.del_plant, null);
+                builder2.setView(dialog2);
+                aa4 = builder2.create();
+                aa4.show();
+                Button can = dialog2.findViewById(R.id.can_button);
+                Button del = dialog2.findViewById(R.id.del_button);
+                can.setOnClickListener(v -> aa4.hide());
+                String sql4 = "http://serwer1727017.home.pl/2ti/floda/floda_del.php";
+                del.setOnClickListener(v -> {
+                    StringRequest ghg = new StringRequest(Request.Method.POST, sql4, response -> {
+                        if (response.contains("1")) {
+                            Log.e("Res",response);
+                            Toast.makeText(this, "Konfiguracja usunieta", Toast.LENGTH_LONG).show();
+                            aa4.hide();
+                            finish();
+                        } else {
+                            Toast.makeText(this, "Wystapil blad", Toast.LENGTH_LONG).show();
+                        }
+                    }, error -> {
+
+                    }
+                    ) {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> parms = new HashMap<>();
+                            parms.put("ID", String.valueOf(ID));
+                            Log.e("Res",String.valueOf(ID));
+                            return parms;
+                        }
+                    };
+                    RequestQueue t = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
+                    t.add(ghg);
+                    t.start();
+                });
+
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     void databaseGet(String id, int nr) {
-        StringRequest stringRequest;
+
         datanawodnienie = new ArrayList<>();
         datanaslonecznienie = new ArrayList<>();
         datatemperatura = new ArrayList<>();
         datawilgotnosc = new ArrayList<>();
-        String sql = "http://serwer1727017.home.pl/2ti/floda/detail/data.php";
+        String sql = "http://serwer1727017.home.pl/2ti/floda/detail/data.php" + timing;
         if (nr == 0) {
             stringRequest = new StringRequest(Request.Method.POST, sql, response -> {
                 try {
@@ -317,7 +465,7 @@ public class PlantDetail extends AppCompatActivity {
                 }
             };
         }
-        RequestQueue q = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
+        q = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
         q.add(stringRequest);
         q.start();
 

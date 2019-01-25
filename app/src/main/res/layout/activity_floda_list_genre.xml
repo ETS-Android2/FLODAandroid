@@ -24,11 +24,12 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="#0000"
-        app:layout_constraintBottom_toBottomOf="@+id/title_list_genre"
+        app:layout_constraintBottom_toTopOf="@+id/szukajgat"
         app:layout_constraintStart_toStartOf="@+id/toolbar3"
-        app:layout_constraintTop_toTopOf="@+id/title_list_genre"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp"
         tools:ignore="MissingConstraints" />
 

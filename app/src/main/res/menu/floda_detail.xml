@@ -2,6 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/det_time"
+        android:orderInCategory="100"
+        android:title="@string/dettime"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/poradnik"
+        android:orderInCategory="100"
+        android:title="Poradnik"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_ssettings"
         android:orderInCategory="100"
         android:title="@string/detail"
@@ -17,13 +28,10 @@
         android:title="@string/espdet"
         app:showAsAction="never" />
     <item
-        android:id="@+id/time"
+        android:id="@+id/del_plant_butt"
         android:orderInCategory="100"
-        android:title="@string/dettime"
+        android:title="Usuń ta roślinę"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/poradnik"
-        android:orderInCategory="100"
-        android:title="Poradnik"
-        app:showAsAction="never" />
+
+
 </menu>
