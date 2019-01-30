@@ -164,7 +164,7 @@ public class Floda_main extends AppCompatActivity
                 break;
             case R.id.pedia:
                 Intent j = new Intent(this, Floda_list_genre.class);
-                j.putExtra("ID", "0");
+                j.putExtra("NR", "0");
                 startActivity(j);
                 break;
         }

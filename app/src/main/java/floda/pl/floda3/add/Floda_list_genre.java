@@ -62,7 +62,7 @@ public class Floda_list_genre extends AppCompatActivity {
         Intent h = getIntent();
 
         title_list_genre = findViewById(R.id.title_list_genre);
-        if (Objects.equals( h.getExtras().getString("ID"), "0")) {
+        if (Objects.equals( h.getExtras().getString("NR"), "0")) {
             title_list_genre.setText("Lista dostepnych gatunkow");
         }
         mLayoutManager = new LinearLayoutManager(this);
