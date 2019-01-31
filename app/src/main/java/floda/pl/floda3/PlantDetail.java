@@ -22,8 +22,6 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
@@ -44,16 +42,12 @@ import com.github.mikephil.charting.data.LineDataSet;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.security.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import floda.pl.floda3.settings.ESPsettings;
 
 public class PlantDetail extends AppCompatActivity {
     String id;
@@ -150,9 +144,8 @@ public class PlantDetail extends AppCompatActivity {
                 databaseGet(ID, tryb);
                 break;
             case R.id.espsettings:
-                Intent a = new Intent(this, ESPsettings.class);
-                a.putExtra("ID", ID);
-                startActivity(a);
+               // a.putExtra("ID", ID);
+               // startActivity(a);
                 break;
             case R.id.poradnik:
                 if (www != null && www.contains("http://www.")) {
@@ -332,7 +325,14 @@ public class PlantDetail extends AppCompatActivity {
 
                     } else {
                         if (det.getInt("c_k_p") != 0) {
-                            ostatnie.setText("PODLEWANIE");
+                            if(det.getInt("watering")>=det.getInt("c_k_p")){
+                                ostatnie.setText("Rośline należy już podlać!");
+                            }else{
+                                if(det.getInt("c_k_p")-det.getInt("watering")==1){
+                                    ostatnie.setText("Rośline należy podlać jutro!");
+                                }else
+                                ostatnie.setText("Rośline należy podlać za "+(det.getInt("c_k_p")-det.getInt("watering"))+ " dni");
+                            }
                         } else {
                             ostatnie.setText("");
                         }
@@ -415,7 +415,15 @@ public class PlantDetail extends AppCompatActivity {
 
                     } else {
                         if (det.getInt("c_k_p") != 0) {
-                            ostatnie.setText("PODLEWANIE");
+                            if(det.getInt("watering")>=det.getInt("c_k_p")){
+                                ostatnie.setText("Rośline należy już podlać!");
+                            }else{
+                                if(det.getInt("c_k_p")-det.getInt("watering")==1){
+                                    ostatnie.setText("Rośline należy podlać jutro!");
+                                }else
+                                    ostatnie.setText("Rośline należy podlać za "+(det.getInt("c_k_p")-det.getInt("watering"))+ " dni");
+                            }
+
                         } else {
                             ostatnie.setText("");
                         }

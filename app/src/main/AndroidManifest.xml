@@ -44,14 +44,12 @@
             android:name=".PlantDetail"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".settings.ESPsettings"
-            android:label="@string/title_activity_espsettings"
-            android:theme="@style/AppThemeact" />
-        <activity
             android:name=".add.Floda_add_plant"
             android:theme="@style/AppTheme" />
         <activity android:name=".add.Floda_list_genre" />
-        <activity android:name=".add.FLODA_add_new_genre"></activity>
+        <activity android:name=".add.FLODA_add_new_genre" />
+        <activity android:name=".settings.User_settings" />
+        <activity android:name=".settings.ESP_settings"></activity>
     </application>
 
 </manifest>
