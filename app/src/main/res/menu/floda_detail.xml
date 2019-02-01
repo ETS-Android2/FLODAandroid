@@ -9,7 +9,7 @@
     <item
         android:id="@+id/poradnik"
         android:orderInCategory="100"
-        android:title="Poradnik"
+        android:title="@string/poradnik"
         app:showAsAction="never" />
 
     <item
@@ -30,7 +30,7 @@
     <item
         android:id="@+id/del_plant_butt"
         android:orderInCategory="100"
-        android:title="Usuń ta roślinę"
+        android:title="@string/usu_ta_ro_lin"
         app:showAsAction="never" />
 
 

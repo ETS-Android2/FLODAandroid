@@ -69,6 +69,7 @@ public class ListOfPlants extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             bar.setVisibility(View.INVISIBLE);
             try {
+                data.clear();
                 JSONArray jsonArray = new JSONArray(response);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject o = jsonArray.getJSONObject(i);

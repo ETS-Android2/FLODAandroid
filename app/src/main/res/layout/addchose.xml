@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:background="@color/center"
         android:backgroundTint="@color/center"
-        android:text="Dodaj nowa sonde"
+        android:fontFamily="@font/arvo"
+        android:text="@string/dodaj_nowa_sonde"
         android:textSize="18sp" />
 
     <Button
@@ -25,6 +26,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Dodaj nowy gatunek"
+        android:fontFamily="@font/arvo"
+        android:text="@string/dodaj_nowy_gatunek"
         android:textSize="18sp" />
 </LinearLayout>

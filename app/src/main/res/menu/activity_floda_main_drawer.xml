@@ -9,36 +9,36 @@
             android:id="@+id/p_list"
             android:checked="true"
             android:icon="@drawable/ic_local_florist_black_24dp"
-            android:title="List of yours plant" />
+            android:title="@string/list_of_yours_plant" />
         <item
             android:id="@+id/faq"
             android:checked="false"
             android:icon="@drawable/ic_help_black_24dp"
-            android:title="FAQ" />
+            android:title="@string/faq" />
 
         <item
             android:id="@+id/forum"
             android:checked="false"
             android:icon="@drawable/ic_forum_black_24dp"
-            android:title="Forum" />
+            android:title="@string/forum" />
         <item
             android:id="@+id/users"
             android:checked="false"
             android:icon="@drawable/ic_people_black_24dp"
-            android:title="Project member list" />
+            android:title="@string/project_member_list" />
     </group>
 
-    <item android:title="Other windows">
+    <item android:title="@string/other_windows">
         <menu>
             <item
                 android:id="@+id/pedia"
                 android:checked="false"
                 android:icon="@drawable/ic_library_books_black_24dp"
-                android:title="FLODApedia" />
+                android:title="@string/flodapedia" />
             <item
                 android:id="@+id/log_out"
                 android:icon="@drawable/ic_backspace_black_24dp"
-                android:title="Log out" />
+                android:title="@string/log_out" />
 
         </menu>
     </item>

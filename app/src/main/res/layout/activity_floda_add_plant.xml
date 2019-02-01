@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/nova_square"
-            android:text="Dodawanie nowej rośliny"
+            android:text="@string/dodawanie_nowej_ro_liny"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="192dp"
             tools:layout_editor_absoluteY="15dp" />
@@ -62,8 +62,8 @@
                 android:id="@+id/add_plant_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/arvo"
-                android:hint="Nazwa"
+                android:fontFamily="@font/molengo"
+                android:hint="@string/nazwa"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorLink="@android:color/background_light" />
         </android.support.design.widget.TextInputLayout>
@@ -96,8 +96,8 @@
                 android:id="@+id/nrsondy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/arvo"
-                android:hint="Nr sondy"
+                android:fontFamily="@font/molengo"
+                android:hint="@string/nr_sondy"
                 android:inputType="number"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorLink="@android:color/background_light" />
@@ -116,8 +116,8 @@
                 android:id="@+id/haslosondy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/arvo"
-                android:hint="Haslo sondy"
+                android:fontFamily="@font/molengo"
+                android:hint="@string/haslo_sondy"
                 android:inputType="textPassword"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorLink="@android:color/background_light" />
@@ -131,7 +131,7 @@
             android:layout_margin="8dp"
             android:fontFamily="@font/arvo"
             android:gravity="center"
-            android:text="TEST"
+            android:text="@string/test"
             tools:layout_editor_absoluteX="148dp" />
 
     </LinearLayout>
@@ -147,7 +147,7 @@
         android:backgroundTint="@color/BUTTONS"
         android:fontFamily="@font/arvo"
         android:padding="20dp"
-        android:text="Dodaj!"
+        android:text="@string/dodajros"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -175,7 +175,7 @@
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:fontFamily="@font/arvo"
-            android:text="Wybierz gatunek z listy" />
+            android:text="@string/wybierz_gatunek_z_listy" />
 
         <Button
             android:id="@+id/new_genre_dod_rosl"
@@ -184,7 +184,7 @@
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:fontFamily="@font/arvo"
-            android:text="Dodaj nowy gatunek" />
+            android:text="@string/dodaj_nowy_gatunek" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

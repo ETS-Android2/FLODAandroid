@@ -22,14 +22,15 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/nova_square"
-        android:text="Dodawanie nowego gatunku"
+        android:text="@string/dodawanie_nowego_gatunku"
         android:textColor="@android:color/background_light"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/back_arrow_add"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar4" />
 
     <ImageButton
@@ -89,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/arvo"
 
-                        android:hint="Nazwa nowego gatunku"
+                        android:hint="@string/nazwa_nowego_gatunku"
                         android:textColorHighlight="@android:color/background_light"
                         android:textColorLink="@android:color/background_light" />
                 </android.support.design.widget.TextInputLayout>
@@ -106,7 +107,7 @@
                     android:fontFamily="@font/arvo"
                     android:paddingLeft="9dp"
                     android:paddingBottom="7dp"
-                    android:text="Najlepiej by była pisana łacińskim odpowiednikiem"
+                    android:text="@string/najlepiej_by_by_a_pisana_aci_skim_odpowiednikiem"
                     android:textSize="10sp" />
             </LinearLayout>
 
@@ -136,7 +137,7 @@
 
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/arvo"
+                    android:fontFamily="@font/nova_square"
                     android:padding="4dp"
                     android:text="Podlewanie"
                     android:textAlignment="center"
@@ -165,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/arvo"
-                            android:text="Co ile dni?" />
+                            android:text="@string/co_ile_dni" />
 
                         <RadioButton
                             android:id="@+id/pod_warn"
@@ -174,7 +175,7 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/arvo"
 
-                            android:text="Powiadom gdy: " />
+                            android:text="@string/powiadom_gdy" />
                     </RadioGroup>
 
                     <LinearLayout
@@ -195,7 +196,7 @@
                             android:fontFamily="@font/arvo"
 
 
-                            android:hint="Liczba dni"
+                            android:hint="@string/liczba_dni"
                             android:inputType="numberDecimal"
                             android:visibility="invisible" />
 
@@ -222,13 +223,13 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:paddingStart="4dp"
                 android:paddingLeft="4dp"
                 android:paddingEnd="4dp"
                 android:paddingRight="4dp"
                 android:paddingBottom="4dp"
-                android:text="Aktywowac?" />
+                android:text="@string/dod_gat_aktywuj" />
 
             <View
                 android:layout_width="match_parent"
@@ -258,10 +259,10 @@
 
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/arvo"
+                    android:fontFamily="@font/nova_square"
                     android:padding="4dp"
 
-                    android:text="Temperatura"
+                    android:text="@string/temperatura"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
                     android:textSize="20sp" />
@@ -327,7 +328,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/arvo"
-                        android:text="Od:"
+                        android:text="@string/od"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/min_temp"
@@ -340,7 +341,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/arvo"
-                        android:text="Do:"
+                        android:text="@string/_do"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/max_temp"
@@ -360,9 +361,9 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:padding="4dp"
-                android:text="Aktywowac?" />
+                android:text="@string/dod_gat_aktywuj" />
 
             <View
                 android:layout_width="match_parent"
@@ -393,10 +394,10 @@
 
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/arvo"
+                    android:fontFamily="@font/nova_square"
                     android:padding="4dp"
 
-                    android:text="Naslonecznienie"
+                    android:text="@string/nas_onecznienie"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
                     android:textSize="20sp" />
@@ -423,7 +424,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/arvo"
-                            android:text="Ustawienie reczne" />
+                            android:text="@string/ustawienie_reczne" />
 
                         <RadioButton
                             android:id="@+id/sun_sett"
@@ -431,7 +432,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="@font/arvo"
-                            android:text="Predefiniowane ustawienia" />
+                            android:text="@string/predefiniowane_ustawienia" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -506,7 +507,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/arvo"
-                        android:text="Od:"
+                        android:text="@string/od"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/sun_min"
@@ -563,9 +564,9 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:padding="4dp"
-                android:text="Aktywowac?" />
+                android:text="@string/dod_gat_aktywuj" />
 
             <View
                 android:layout_width="match_parent"
@@ -595,10 +596,10 @@
 
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/arvo"
+                    android:fontFamily="@font/nova_square"
                     android:padding="4dp"
 
-                    android:text="Wlgotnosc"
+                    android:text="@string/wilgotnosc"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
                     android:textSize="20sp" />
@@ -606,6 +607,8 @@
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:orientation="horizontal">
 
                     <EditText
@@ -662,7 +665,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/arvo"
-                        android:text="Od:"
+                        android:text="@string/od"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/min_wilg"
@@ -675,7 +678,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/arvo"
-                        android:text="Do:"
+                        android:text="@string/_do"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="@+id/max_wilg"
@@ -693,9 +696,9 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:padding="4dp"
-                android:text="Aktywowac?" />
+                android:text="@string/dod_gat_aktywuj" />
 
             <View
                 android:layout_width="match_parent"
@@ -724,10 +727,10 @@
 
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/arvo"
+                    android:fontFamily="@font/nova_square"
                     android:padding="4dp"
 
-                    android:text="Link do poradnika"
+                    android:text="@string/link_do_poradnika"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
                     android:textSize="20sp" />
@@ -735,14 +738,14 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Link">
+                    android:hint="@string/_link">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/link_poradnik"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:hint="Link"
+                        android:hint="@string/_link"
                         android:text="http://www." />
                 </android.support.design.widget.TextInputLayout>
 
@@ -758,9 +761,9 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:padding="4dp"
-                android:text="Aktywowac?" />
+                android:text="@string/dod_gat_aktywuj" />
 
             <View
                 android:id="@+id/view"
@@ -775,7 +778,7 @@
                 android:background="@drawable/formbackgroundstrongdeactivated"
                 android:enabled="false"
                 android:fontFamily="@font/arvo"
-                android:text="Dodaj"
+                android:text="@string/dodaj"
                 android:textSize="24sp" />
         </LinearLayout>
 

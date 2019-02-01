@@ -144,8 +144,8 @@ public class PlantDetail extends AppCompatActivity {
                 databaseGet(ID, tryb);
                 break;
             case R.id.espsettings:
-               // a.putExtra("ID", ID);
-               // startActivity(a);
+                // a.putExtra("ID", ID);
+                // startActivity(a);
                 break;
             case R.id.poradnik:
                 if (www != null && www.contains("http://www.")) {
@@ -255,7 +255,7 @@ public class PlantDetail extends AppCompatActivity {
                 del.setOnClickListener(v -> {
                     StringRequest ghg = new StringRequest(Request.Method.POST, sql4, response -> {
                         if (response.contains("1")) {
-                            Log.e("Res",response);
+                            Log.e("Res", response);
                             Toast.makeText(this, "Konfiguracja usunieta", Toast.LENGTH_LONG).show();
                             aa4.hide();
                             finish();
@@ -270,7 +270,7 @@ public class PlantDetail extends AppCompatActivity {
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String, String> parms = new HashMap<>();
                             parms.put("ID", String.valueOf(ID));
-                            Log.e("Res",String.valueOf(ID));
+                            Log.e("Res", String.valueOf(ID));
                             return parms;
                         }
                     };
@@ -325,13 +325,13 @@ public class PlantDetail extends AppCompatActivity {
 
                     } else {
                         if (det.getInt("c_k_p") != 0) {
-                            if(det.getInt("watering")>=det.getInt("c_k_p")){
+                            if (det.getInt("watering") >= det.getInt("c_k_p")) {
                                 ostatnie.setText("Rośline należy już podlać!");
-                            }else{
-                                if(det.getInt("c_k_p")-det.getInt("watering")==1){
+                            } else {
+                                if (det.getInt("c_k_p") - det.getInt("watering") == 1) {
                                     ostatnie.setText("Rośline należy podlać jutro!");
-                                }else
-                                ostatnie.setText("Rośline należy podlać za "+(det.getInt("c_k_p")-det.getInt("watering"))+ " dni");
+                                } else
+                                    ostatnie.setText("Rośline należy podlać za " + (det.getInt("c_k_p") - det.getInt("watering")) + " dni");
                             }
                         } else {
                             ostatnie.setText("");
@@ -407,7 +407,6 @@ public class PlantDetail extends AppCompatActivity {
 
                     }
 
-
                     if (det.getInt("a_w_g") != 0) {
                         nmax.add(new Entry(0, det.getInt("a_w_g")));
                         nmax.add(new Entry(podst.length() - 2, det.getInt("a_w_g")));
@@ -415,13 +414,13 @@ public class PlantDetail extends AppCompatActivity {
 
                     } else {
                         if (det.getInt("c_k_p") != 0) {
-                            if(det.getInt("watering")>=det.getInt("c_k_p")){
+                            if (det.getInt("watering") >= det.getInt("c_k_p")) {
                                 ostatnie.setText("Rośline należy już podlać!");
-                            }else{
-                                if(det.getInt("c_k_p")-det.getInt("watering")==1){
+                            } else {
+                                if (det.getInt("c_k_p") - det.getInt("watering") == 1) {
                                     ostatnie.setText("Rośline należy podlać jutro!");
-                                }else
-                                    ostatnie.setText("Rośline należy podlać za "+(det.getInt("c_k_p")-det.getInt("watering"))+ " dni");
+                                } else
+                                    ostatnie.setText("Rośline należy podlać za " + (det.getInt("c_k_p") - det.getInt("watering")) + " dni");
                             }
 
                         } else {

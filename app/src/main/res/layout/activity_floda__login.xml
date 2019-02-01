@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".floda_LOGIN">
+    android:background="@drawable/background">
 
 
     <ImageView
@@ -43,13 +42,13 @@
         android:id="@+id/login_in_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginEnd="32dp"
         android:backgroundTint="@color/BUTTONS"
         android:fontFamily="@font/arvo"
         android:gravity="center"
-        android:text="Login in"
+        android:text="@string/login_in"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,17 +60,14 @@
         android:id="@+id/sing_up_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="45dp"
         android:backgroundTint="@color/BUTTONS"
         android:fontFamily="@font/arvo"
-        android:text="SING UP"
+        android:text="@string/sing_up"
         android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/login_in_login"
+        app:layout_constraintStart_toStartOf="@+id/login_in_login"
         app:layout_constraintTop_toBottomOf="@+id/login_in_login" />
 
     <ImageView

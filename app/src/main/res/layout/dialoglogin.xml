@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:hint="Login"
+        android:hint="@string/login"
         android:inputType="text" />
 
     <EditText
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword" />
 
     <LinearLayout
@@ -35,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="Cancel"
+            android:text="@string/anuluj"
             android:textAlignment="textStart" />
 
         <Button
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="Login"
+            android:text="@string/login_za"
             android:textAlignment="textEnd" />
 
     </LinearLayout>

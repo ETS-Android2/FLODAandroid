@@ -31,6 +31,6 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="element grywalizacji poziomy " />
+        android:text=" " />
 
 </LinearLayout>
