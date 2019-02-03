@@ -15,6 +15,8 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/molengo"
         android:text="@string/jestes_pewny"
+        android:textColor="@android:color/background_light"
+
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +55,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/red"
+            android:textColor="@android:color/background_light"
+
             android:fontFamily="@font/arvo"
             android:text="@string/nie"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -71,6 +75,8 @@
             android:backgroundTint="@color/start"
             android:fontFamily="@font/arvo"
             android:text="@string/tak"
+            android:textColor="@android:color/background_light"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/divider7"

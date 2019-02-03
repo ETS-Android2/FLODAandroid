@@ -50,7 +50,7 @@ public class Floda_SING_UP extends AppCompatActivity {
             Log.d("c", String.valueOf(name.getText()));
             StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.serwer1727017.home.pl/2ti/floda/app/singup.php", response -> {
                 AlertDialog.Builder b = new AlertDialog.Builder(Floda_SING_UP.this);
-                b.setMessage(response).setTitle("Sukces!").setPositiveButton("Super!", (dialog, which) -> onBackPressed()).setOnKeyListener((dialog, keyCode, event) -> {
+                b.setMessage(response).setTitle(R.string.success).setPositiveButton((R.string.superr), (dialog, which) -> onBackPressed()).setOnKeyListener((dialog, keyCode, event) -> {
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
                         onBackPressed();
                     }
@@ -73,15 +73,15 @@ public class Floda_SING_UP extends AppCompatActivity {
 
             for (int i = 0; i < data.length; i++) {
                 if (data[i].getText().toString().isEmpty()) {
-                    data[i].setError("Empty field");
+                    data[i].setError(getString(R.string.empty_field));
                     correct = false;
                 }
                 if(i==3&&isValidEmailId(data[i].getText().toString())){
-                    data[i].setError("This is not correct email!");
+                    data[i].setError(getString(R.string.incorrect_mail));
                     correct = false;
                 }
                 if (i == 5 && (!data[i].getText().toString().equals(data[i - 1].getText().toString()))) {
-                    data[i].setError("Password must be equal to the first");
+                    data[i].setError(getString(R.string.haslo_takie_same));
                     correct = false;
                 } else {
                     if (i == 5)
@@ -91,7 +91,7 @@ public class Floda_SING_UP extends AppCompatActivity {
             }
             if (!agree.isChecked()) {
                 correct = false;
-                agree.setError("Accept the policy");
+                agree.setError(getString(R.string.polityka_pryw));
             } else {
                 agree.setError(null);
             }

@@ -2,10 +2,13 @@ package floda.pl.floda3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Floda_LOGIN extends AppCompatActivity {
@@ -77,8 +81,8 @@ public class Floda_LOGIN extends AppCompatActivity {
                     id = o.getString("id");
                     if (id.equals("0")) {
                         AlertDialog.Builder f = new AlertDialog.Builder(Floda_LOGIN.this);
-                        f.setTitle("Failed to login");
-                        f.setNeutralButton("Try again", (dialog, which) -> alert.show());
+                        f.setTitle(R.string.login_failed);
+                        f.setNeutralButton(R.string.try_again, (dialog, which) -> alert.show());
                         f.create().show();
 
                     } else {
@@ -87,7 +91,14 @@ public class Floda_LOGIN extends AppCompatActivity {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("ID",id);
+                        editor.putString("language",o.getString("lang"));
                         editor.apply();
+                        Resources res = getBaseContext().getResources();
+// Change locale settings in the app.
+                        DisplayMetrics dm = res.getDisplayMetrics();
+                        Configuration conf = res.getConfiguration();
+                        conf.locale = new Locale(o.getString("lang")); // API 17+ only.
+                        res.updateConfiguration(conf, dm);
                         startActivity(i);
                     }
                     Log.e("r", id);

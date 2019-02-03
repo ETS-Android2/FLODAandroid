@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -43,6 +44,7 @@ import java.util.Objects;
 import floda.pl.floda3.add.FLODA_add_new_genre;
 import floda.pl.floda3.add.Floda_add_plant;
 import floda.pl.floda3.add.Floda_list_genre;
+import floda.pl.floda3.settings.User_settings;
 
 public class Floda_main extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -133,7 +135,9 @@ public class Floda_main extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent n = new Intent(this,User_settings.class);
+
+            startActivityForResult(n,2);
         }
 
         return super.onOptionsItemSelected(item);
@@ -211,10 +215,16 @@ public class Floda_main extends AppCompatActivity
             }
         };
         q.add(stringRequest);
-
         q.start();
-
         Log.e("r", id);
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+        Toast.makeText(this,"Reloading...",Toast.LENGTH_SHORT).show();
     }
 }

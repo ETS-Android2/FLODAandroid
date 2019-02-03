@@ -56,11 +56,11 @@ public class Floda_add_plant extends AppCompatActivity {
             Log.e("d", response);
             if (response.contains("1")) {
                 test.setBackgroundColor(getResources().getColor(R.color.center));
-                test.setText("Ok!");
+                test.setText(getString(R.string.Ok));
                 spoko = true;
             } else {
                 test.setBackgroundColor(getResources().getColor(R.color.red));
-                test.setText("Złe dane");
+                test.setText(getString(R.string.bad_data));
                 spoko = false;
             }
         }, error -> {
@@ -84,10 +84,10 @@ public class Floda_add_plant extends AppCompatActivity {
                     q.add(stringRequest);
                     q.start();
                 } else {
-                    has.setError("Puste pole");
+                    has.setError(getString(R.string.empty_field));
                 }
             } else {
-                log.setError("Puste pole");
+                log.setError(getString(R.string.empty_field));
             }
 
         });
@@ -112,10 +112,10 @@ public class Floda_add_plant extends AppCompatActivity {
                     String sql2 = "http://serwer1727017.home.pl/2ti/floda/add/add_plant.php";
                     StringRequest s = new StringRequest(Request.Method.POST, sql2, response -> {
                         if (response.contains("1")) {
-                            Toast.makeText(this, "Zalozono nowa rosline o nazwie " + add_plant_title.getText().toString(), Toast.LENGTH_LONG).show(); //todo: w tych przypadkach zrobic box
-                            super.onBackPressed();
+                            Toast.makeText(this, getString(R.string.add_plant_set_1) + add_plant_title.getText().toString(), Toast.LENGTH_LONG).show(); //todo: w tych przypadkach zrobic box
+                            finish();
                         } else {
-                            Toast.makeText(this, "Blad z wysylaniem", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, getString(R.string.add_plant_set_0), Toast.LENGTH_LONG).show();
                         }
                     }, error -> {
                         Log.e("Blad wysylania", error.toString());
@@ -136,10 +136,10 @@ public class Floda_add_plant extends AppCompatActivity {
                     z.add(s);
                     z.start();
                 } else {
-                    Toast.makeText(this, "Brakuje danych!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.out_off_data), Toast.LENGTH_LONG).show();
                 }
             } else {
-                add_plant_title.setError("Nie moze byc puste");
+                add_plant_title.setError(getString(R.string.epmty_field));
             }
         });
     }
@@ -151,7 +151,7 @@ public class Floda_add_plant extends AppCompatActivity {
                 id_genre = data.getStringExtra("ID");
                 /*Toast d = Toast.makeText(this,id_genre,Toast.LENGTH_LONG);
                  d.show();*/
-                list.setText("Wybrano gatunek o numerze: " + id_genre);
+                list.setText(getString(R.string.choosen_genre) + id_genre);
                 list.setBackgroundColor(getColor(R.color.center));
             }
         }
@@ -160,7 +160,7 @@ public class Floda_add_plant extends AppCompatActivity {
                 id_genre = data.getStringExtra("ID");
                 /*Toast d = Toast.makeText(this,id_genre,Toast.LENGTH_LONG);
                  d.show();*/
-                new_genre_dod_rosl.setText("Wybrano gatunek o numerze: " + id_genre);
+                new_genre_dod_rosl.setText(getString(R.string.choosen_genre) + id_genre);
                 new_genre_dod_rosl.setBackgroundColor(getColor(R.color.center));
                 list.setEnabled(false);
                 new_genre_dod_rosl.setEnabled(false);

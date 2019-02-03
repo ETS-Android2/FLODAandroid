@@ -40,6 +40,8 @@
             android:backgroundTint="@color/red"
             android:fontFamily="@font/arvo"
             android:text="@string/anuluj"
+            android:textColor="@android:color/background_light"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/divider3"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +59,8 @@
             android:backgroundTint="@color/start"
             android:fontFamily="@font/arvo"
             android:text="@string/akceptuj"
+            android:textColor="@android:color/background_light"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/divider3"

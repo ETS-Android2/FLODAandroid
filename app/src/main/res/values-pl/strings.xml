@@ -1,11 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">FLODA</string>
-    <string name="title_activity_floda_main" translatable="false">Floda_main</string>
-    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
-    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
-    <string name="nav_header_title" translatable="false">Android Studio</string>
-    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
-    <string name="nav_header_desc" translatable="false">Navigation header</string>
     <string name="action_settings">Ustawienia konta</string>
     <string name="detail">Statystyka</string>
     <string name="espsett">Ustawienia sondy</string>
@@ -44,8 +37,6 @@
         <item name="GER" value="@drawable/germany">@drawable/germany</item>
     </integer-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="dod_gat_aktywuj">Aktywować?</string>
     <string name="dodawanie_nowego_gatunku">Dodawanie nowego gatunku</string>
     <string name="nazwa_nowego_gatunku">Nazwa nowego gatunku</string>
@@ -61,7 +52,6 @@
     <string name="wilgotnosc">Wilgotność</string>
     <string name="_do">Do:</string>
     <string name="link_do_poradnika">Link do poradnika</string>
-    <string name="_link" translatable="false">Link</string>
     <string name="dodaj">Dodaj</string>
     <string name="login_in">Logowanie</string>
     <string name="sing_up">Rejestracja</string>
@@ -84,11 +74,8 @@
     <string name="tak">Tak</string>
     <string name="jestes_pewny">Jesteś pewny?</string>
     <string name="aktywacja_filtru_czasu">Aktywacja filtru czasu</string>
-    <string name="login" translatable="false">Login</string>
     <string name="password">Hasło</string>
     <string name="login_za">Zaloguj</string>
-    <string name="nick" translatable="false">Nick</string>
-    <string name="e_mail" translatable="false">E-mail</string>
     <string name="name">Imię</string>
     <string name="surname">Nazwisko</string>
     <string name="repeat_your_password">Powtórz swoje hasło</string>
@@ -98,7 +85,6 @@
     <string name="poradnik">Poradnik</string>
     <string name="list_of_yours_plant">Lista twoich roślin</string>
     <string name="faq">FAQ</string>
-    <string name="forum" translatable="false">Forum</string>
     <string name="flodapedia">FLODApedia</string>
     <string name="project_member_list">Lista osób w projekcie</string>
     <string name="other_windows">Pozostałe okna</string>
@@ -115,7 +101,6 @@
     <string name="add_new_gen_water_error">Nie ustalono zasad w podlewaniu</string>
     <string name="add_new_gen_list_water_error">Nie wybraleś pozycji z rozwijanej listy podlewania</string>
     <string name="add_new_gen_day_empty">Pusta ilość dni w podlewaniu!</string>
-    <string name="Ok" translatable="false">Ok!</string>
     <string name="bad_data">Złe dane</string>
     <string name="empty_field">Puste pole</string>
     <string name="add_plant_set_1">Założono nowa rosline o nazwie</string>
@@ -127,7 +112,6 @@
     <string name="no_set">Brak ustaleń</string>
     <string name="days">" dni"</string>
     <string name="success">Sukces!</string>
-    <string name="superr" translatable="false">Super!</string>
     <string name="no_guide">Brak poradnika</string>
     <string name="pole_zakres">Puste pole zakresowe</string>
     <string name="config_deleted">Konfiguracja usunieta</string>

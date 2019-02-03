@@ -153,7 +153,7 @@ public class PlantDetail extends AppCompatActivity {
                     i.setData(Uri.parse(www));
                     startActivity(i);
                 } else {
-                    Toast.makeText(this, "Brak poradnika", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.no_guide), Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.det_time:
@@ -194,7 +194,7 @@ public class PlantDetail extends AppCompatActivity {
                             alertDialog.hide();
                         }
                     } else {
-                        Toast.makeText(this, "Puste pole zakresowe", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.pole_zakres), Toast.LENGTH_LONG).show();
                     }
                 });
                 do_edit.setOnClickListener(v -> {
@@ -256,11 +256,11 @@ public class PlantDetail extends AppCompatActivity {
                     StringRequest ghg = new StringRequest(Request.Method.POST, sql4, response -> {
                         if (response.contains("1")) {
                             Log.e("Res", response);
-                            Toast.makeText(this, "Konfiguracja usunieta", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, getString(R.string.config_deleted), Toast.LENGTH_LONG).show();
                             aa4.hide();
                             finish();
                         } else {
-                            Toast.makeText(this, "Wystapil blad", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, getString(R.string.Fata_error), Toast.LENGTH_LONG).show();
                         }
                     }, error -> {
 
@@ -326,12 +326,12 @@ public class PlantDetail extends AppCompatActivity {
                     } else {
                         if (det.getInt("c_k_p") != 0) {
                             if (det.getInt("watering") >= det.getInt("c_k_p")) {
-                                ostatnie.setText("Rośline należy już podlać!");
+                                ostatnie.setText(getString(R.string.plant_water));
                             } else {
                                 if (det.getInt("c_k_p") - det.getInt("watering") == 1) {
-                                    ostatnie.setText("Rośline należy podlać jutro!");
+                                    ostatnie.setText(getString(R.string.water_tomoro));
                                 } else
-                                    ostatnie.setText("Rośline należy podlać za " + (det.getInt("c_k_p") - det.getInt("watering")) + " dni");
+                                    ostatnie.setText(getString(R.string.for_water_0) + (det.getInt("c_k_p") - det.getInt("watering")) + getString(R.string.for_water_1));
                             }
                         } else {
                             ostatnie.setText("");
@@ -415,12 +415,12 @@ public class PlantDetail extends AppCompatActivity {
                     } else {
                         if (det.getInt("c_k_p") != 0) {
                             if (det.getInt("watering") >= det.getInt("c_k_p")) {
-                                ostatnie.setText("Rośline należy już podlać!");
+                                ostatnie.setText(getString(R.string.plant_water));
                             } else {
                                 if (det.getInt("c_k_p") - det.getInt("watering") == 1) {
-                                    ostatnie.setText("Rośline należy podlać jutro!");
+                                    ostatnie.setText(getString(R.string.water_tomoro));
                                 } else
-                                    ostatnie.setText("Rośline należy podlać za " + (det.getInt("c_k_p") - det.getInt("watering")) + " dni");
+                                    ostatnie.setText(getString(R.string.for_water_0) + (det.getInt("c_k_p") - det.getInt("watering")) + getString(R.string.for_water_1));
                             }
 
                         } else {
@@ -481,14 +481,14 @@ public class PlantDetail extends AppCompatActivity {
 
     BarData setNawodnienie() { /* woda */
         nawo = new LineData();
-        LineDataSet set = new LineDataSet(nmax, "Potrzeba podlania");
+        LineDataSet set = new LineDataSet(nmax, getString(R.string.potrz_podl));
         set.setCircleRadius(1f);
         set.setLineWidth(2.5f);
         set.setColor(Color.RED);
         set.setFillColor(Color.WHITE);
         set.setDrawValues(false);
         nawo.addDataSet(set);
-        BarDataSet d = new BarDataSet(datanawodnienie, "j");
+        BarDataSet d = new BarDataSet(datanawodnienie, getString(R.string.units));
         d.setColor(Color.BLUE);
         d.setBarBorderWidth(1f);
         d.setBarBorderColor(Color.WHITE);
@@ -546,8 +546,8 @@ public class PlantDetail extends AppCompatActivity {
 
     BarData setNaslonecznienie() {
         slo = new LineData();
-        LineDataSet max = new LineDataSet(smax, "Max. naslonecznienie");
-        LineDataSet min = new LineDataSet(smin, "Min. naslonecznienie");
+        LineDataSet max = new LineDataSet(smax, getString(R.string.max_slon));
+        LineDataSet min = new LineDataSet(smin, getString(R.string.min_slon));
         max.setCircleRadius(1f);
         max.setLineWidth(2.5f);
         max.setColor(Color.YELLOW);
@@ -560,7 +560,7 @@ public class PlantDetail extends AppCompatActivity {
         min.setFillColor(Color.WHITE);
         min.setDrawValues(false);
         slo.addDataSet(min);
-        BarDataSet d = new BarDataSet(datanaslonecznienie, "lux");
+        BarDataSet d = new BarDataSet(datanaslonecznienie, "LUX");
         d.setColor(Color.BLUE);
         d.setBarBorderWidth(1f);
         d.setBarBorderColor(Color.WHITE);
@@ -619,8 +619,8 @@ public class PlantDetail extends AppCompatActivity {
 
     BarData setTemperatura() {
         temp = new LineData();
-        LineDataSet max = new LineDataSet(tmax, "Max. temperatura");
-        LineDataSet min = new LineDataSet(tmin, "Min. temperatura");
+        LineDataSet max = new LineDataSet(tmax, getString(R.string.max_temp));
+        LineDataSet min = new LineDataSet(tmin, getString(R.string.min_temp));
         max.setCircleRadius(1f);
         max.setLineWidth(2.5f);
         max.setColor(Color.RED);
@@ -692,11 +692,11 @@ public class PlantDetail extends AppCompatActivity {
     BarData setWilgotnosc() {
         wilg = new LineData();
 
-        LineDataSet max = new LineDataSet(wmax, "Max. wilgotnosc");
-        LineDataSet min = new LineDataSet(wmin, "Min. wilgotnosc");
+        LineDataSet max = new LineDataSet(wmax, getString(R.string.max_wilg));
+        LineDataSet min = new LineDataSet(wmin, getString(R.string.min_wilg));
         max.setCircleRadius(1f);
         max.setLineWidth(2.5f);
-        max.setColor(Color.RED);
+        max.setColor(Color.YELLOW);
         max.setFillColor(Color.WHITE);
         max.setDrawValues(false);
         wilg.addDataSet(max);

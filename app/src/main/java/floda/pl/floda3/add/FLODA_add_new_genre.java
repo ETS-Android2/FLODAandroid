@@ -158,7 +158,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                     if (pod_il_dni.getText().toString().length() > 0) {
                         sql += "podlewanie=" + pod_il_dni.getText().toString() + "&";
                     } else {
-                        Toast.makeText(this, "Pusta ilosc dni w podlewaniu!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.add_new_gen_day_empty), Toast.LENGTH_LONG).show();
                         return;
                     }
                 } else {
@@ -166,11 +166,11 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                         if (pod_warnspin.getSelectedItemPosition() > 2) {
                             sql += "podlewanieZ=w" + (pod_warnspin.getSelectedItemPosition() - 1) + "&";
                         } else {
-                            Toast.makeText(this, "Nie wybrales pozycji z listy rozwijanej podlewania", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, getString(R.string.add_new_gen_list_water_error), Toast.LENGTH_LONG).show();
                             return;
                         }
                     } else {
-                        Toast.makeText(this, "Nie ustalono w podlewaniu zasad", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.add_new_gen_water_error), Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -180,7 +180,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                     if (Integer.valueOf(sun_min.getText().toString()) < Integer.valueOf(sun_max.getText().toString()) && !Objects.equals(sun_min.getText().toString(), "") && !Objects.equals(sun_max.getText().toString(), "")) {
                         sql += "naslonecznieniemin=" + sun_min.getText().toString() + "&naslonecznieniemax=" + sun_max.getText().toString() + "&";
                     } else {
-                        Toast.makeText(this, "Nieprawidłowa wartość wpisana w nasloneczneniu", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.add_new_gen_sun_error), Toast.LENGTH_LONG).show();
                         return;
                     }
                 } else {
@@ -188,11 +188,11 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                         if (naslonecz_spinner.getSelectedItemPosition() > 0) {
                             sql += "naslonecznienieZ=n" + (naslonecz_spinner.getSelectedItemPosition()) + "&";
                         } else {
-                            Toast.makeText(this, "Nie wybrales pozycji z listy rozwijanej naslonecznienia", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, getString(R.string.add_new_gen_list_error), Toast.LENGTH_LONG).show();
                             return;
                         }
                     } else {
-                        Toast.makeText(this, "Nie ustalono w naslonecznieniu zasad", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, getString(R.string.add_new_gen_rules_err), Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -201,7 +201,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                 if (Integer.valueOf(min_temp.getText().toString()) < Integer.valueOf(max_temp.getText().toString()) && !Objects.equals(min_temp.getText().toString(), "") && !Objects.equals(max_temp.getText().toString(), "")) {
                     sql += "tempmin=" + min_temp.getText().toString() + "&tempmax=" + max_temp.getText().toString() + "&";
                 } else {
-                    Toast.makeText(this, "Nieprawidłowa wartość wpisana w temperaturze", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.add_new_gen_temp_error), Toast.LENGTH_LONG).show();
                     return;
                 }
             }
@@ -210,7 +210,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                 if (Integer.valueOf(min_wilg.getText().toString()) < Integer.valueOf(max_wilg.getText().toString()) && !Objects.equals(min_wilg.getText().toString(), "") && !Objects.equals(max_wilg.getText().toString(), "")) {
                     sql += "wilgmin=" + min_wilg.getText().toString() + "&wilgmax=" + max_wilg.getText().toString() + "&";
                 } else {
-                    Toast.makeText(this, "Nieprawidłowa wartość wpisana w wilgotnosci", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.add_new_gen_wilg_err), Toast.LENGTH_LONG).show();
                     return;
                 }
             }
@@ -218,7 +218,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                 if (link_poradnik.getText().toString().contains("http://") && link_poradnik.getText().toString().length() > 7) {
                     sql += "www=" + link_poradnik.getText().toString() + "&";
                 } else {
-                    Toast.makeText(this, "Usunieto http:// lub nic nie zostalo dopisane", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.add_new_gen_del_problem), Toast.LENGTH_LONG).show();
                     return;
                 }
             }
@@ -228,7 +228,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                 sql += "name=" + genre_name.getText().toString() + "&autor=" + i.getStringExtra("ID") + "&";
 
             } else {
-                Toast.makeText(this, "Nazwa nie moze byc pusta!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.add_new_gen_pusta), Toast.LENGTH_LONG).show();
                 return;
             }
             StringRequest stringRequest = new StringRequest(Request.Method.GET, sql, response -> {
@@ -237,7 +237,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                     response = response.replace("z", "");
                     i.putExtra("ID", response); //todo id
                     setResult(RESULT_OK, i);
-                    Toast.makeText(this, "Utworzono nowy gatunek", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.add_new_gen_ok), Toast.LENGTH_LONG).show();
                     finish();
                 } else {
                     Toast.makeText(this, response, Toast.LENGTH_LONG).show();

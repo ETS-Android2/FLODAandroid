@@ -49,7 +49,7 @@ public class Floda_list_genre extends AppCompatActivity {
     StringRequest f;
     String[] foo;
     ImageButton back;
-
+static String textnoset,lux,unit,days,co;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +61,15 @@ public class Floda_list_genre extends AppCompatActivity {
         data = new ArrayList<>();
         Intent h = getIntent();
 
+
+        textnoset=getString(R.string.no_set);
+        lux=getString(R.string.luxi);
+        unit=getString(R.string.units);
+        co = getString(R.string.coi);
+        days=getString(R.string.days);
         title_list_genre = findViewById(R.id.title_list_genre);
         if (Objects.equals( h.getExtras().getString("NR"), "0")) {
-            title_list_genre.setText("Lista dostepnych gatunkow");
+            title_list_genre.setText(getString(R.string.genre_list));
         }
         mLayoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(mLayoutManager);
@@ -182,25 +188,31 @@ public class Floda_list_genre extends AppCompatActivity {
             if (!pdata.get(i).temp.contains("0-0°C")) {
                 myViewHolder.ctemp.setText(pdata.get(i).temp);
             } else {
-                myViewHolder.ctemp.setText("Brak ustalen");
+                myViewHolder.ctemp.setText(textnoset);
             }
 
             if (!pdata.get(i).humid.contains("0-0%")) {
                 myViewHolder.chumid.setText(pdata.get(i).humid);
             } else {
-                myViewHolder.chumid.setText("Brak ustalen");
+                myViewHolder.chumid.setText(textnoset);
             }
 
-            if (!pdata.get(i).soil.contains("0j.") && !pdata.get(i).soil.contains("co 0 dni")) {
-                myViewHolder.cwater.setText(pdata.get(i).soil);
+            if (!pdata.get(i).soil.contains("0") && !pdata.get(i).soil.contains(".0")) {
+                if(pdata.get(i).soil.contains(".")){
+                    myViewHolder.cwater.setText("min. " + pdata.get(i).soil + unit);
+                }else{
+                    pdata.get(i).soil.replaceAll("[^0-9]", "");
+                    myViewHolder.cwater.setText(co+pdata.get(i).soil+days);
+                }
+
             } else {
-                myViewHolder.cwater.setText("Brak ustalen");
+                myViewHolder.cwater.setText(textnoset);
             }
 
-            if (!pdata.get(i).sun.contains("0-0 lux/day")) {
-                myViewHolder.csun.setText(pdata.get(i).sun);
+            if (!pdata.get(i).sun.contains("0-0")) {
+                myViewHolder.csun.setText(pdata.get(i).sun+lux);
             } else {
-                myViewHolder.csun.setText("Brak ustalen");
+                myViewHolder.csun.setText(textnoset);
             }
 
 
