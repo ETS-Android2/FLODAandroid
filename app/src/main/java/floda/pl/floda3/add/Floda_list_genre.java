@@ -1,6 +1,7 @@
 package floda.pl.floda3.add;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -49,7 +51,9 @@ public class Floda_list_genre extends AppCompatActivity {
     StringRequest f;
     String[] foo;
     ImageButton back;
-static String textnoset,lux,unit,days,co;
+    static String textnoset, lux, unit, days, co;
+    int tryb = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,14 +66,15 @@ static String textnoset,lux,unit,days,co;
         Intent h = getIntent();
 
 
-        textnoset=getString(R.string.no_set);
-        lux=getString(R.string.luxi);
-        unit=getString(R.string.units);
+        textnoset = getString(R.string.no_set);
+        lux = getString(R.string.luxi);
+        unit = getString(R.string.units);
         co = getString(R.string.coi);
-        days=getString(R.string.days);
+        days = getString(R.string.days);
         title_list_genre = findViewById(R.id.title_list_genre);
-        if (Objects.equals( h.getExtras().getString("NR"), "0")) {
+        if (Objects.equals(h.getExtras().getString("NR"), "0")) {
             title_list_genre.setText(getString(R.string.genre_list));
+            tryb = 0;
         }
         mLayoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(mLayoutManager);
@@ -84,7 +89,7 @@ static String textnoset,lux,unit,days,co;
                 for (int i = 0; i < z.length(); i++) {
                     JSONObject o = z.getJSONObject(i);
 
-                    data.add(new pData(o.getString("ID"), o.getString("Nazwa"), o.getString("humid"), o.getString("mintemp"), o.getString("soil_alert"), o.getString("sun")));
+                    data.add(new pData(o.getString("ID"), o.getString("Nazwa"), o.getString("humid"), o.getString("mintemp"), o.getString("soil_alert"), o.getString("sun"), o.getString("www")));
 
                 }
                 foo = new String[data.size()];
@@ -99,10 +104,20 @@ static String textnoset,lux,unit,days,co;
                 e.printStackTrace();
             }
             mAdapter = new Floda_list_genre.Listplants(data, item -> {
-                Intent intent = new Intent();
-                intent.putExtra("ID", item.ID);
-                setResult(RESULT_OK, intent);
-                finish();
+                if (tryb == 1) {
+                    Intent intent = new Intent();
+                    intent.putExtra("ID", item.ID);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    if (item.www != null && item.www.contains("http://www.")) {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(item.www));
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(this, getString(R.string.no_guide), Toast.LENGTH_LONG).show();
+                    }
+                }
             });
             mRecycleView.setAdapter(mAdapter);
         }, new Response.ErrorListener() {
@@ -198,11 +213,11 @@ static String textnoset,lux,unit,days,co;
             }
 
             if (!pdata.get(i).soil.contains("0") && !pdata.get(i).soil.contains(".0")) {
-                if(pdata.get(i).soil.contains(".")){
+                if (pdata.get(i).soil.contains(".")) {
                     myViewHolder.cwater.setText("min. " + pdata.get(i).soil + unit);
-                }else{
+                } else {
                     pdata.get(i).soil.replaceAll("[^0-9]", "");
-                    myViewHolder.cwater.setText(co+pdata.get(i).soil+days);
+                    myViewHolder.cwater.setText(co + pdata.get(i).soil + days);
                 }
 
             } else {
@@ -210,7 +225,7 @@ static String textnoset,lux,unit,days,co;
             }
 
             if (!pdata.get(i).sun.contains("0-0")) {
-                myViewHolder.csun.setText(pdata.get(i).sun+lux);
+                myViewHolder.csun.setText(pdata.get(i).sun + lux);
             } else {
                 myViewHolder.csun.setText(textnoset);
             }
@@ -233,17 +248,17 @@ static String textnoset,lux,unit,days,co;
     }
 
     class pData {
-        String ID, genre, temp, soil, sun, humid;
+        String ID, genre, temp, soil, sun, humid, www;
 
 
-        public pData(String ID, String genre, String humid, String temp, String soil, String sun) {
+        public pData(String ID, String genre, String humid, String temp, String soil, String sun, String www) {
             this.ID = ID;
             this.genre = genre;
             this.soil = soil;
             this.sun = sun;
             this.temp = temp;
             this.humid = humid;
-
+            this.www = www;
         }
     }
 }

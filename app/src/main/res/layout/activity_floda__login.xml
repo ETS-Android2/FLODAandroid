@@ -7,93 +7,72 @@
     android:background="@drawable/background">
 
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="276dp"
-        android:contentDescription="TODO" android:paddingBottom="15dp"
-        android:rotation="35"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/nav_email"
-        app:layout_constraintEnd_toEndOf="@+id/nav_email"
-        app:layout_constraintStart_toStartOf="@+id/nav_email"
-        app:layout_constraintTop_toTopOf="@+id/nav_email"
-        app:layout_constraintVertical_bias="0.473"
-        app:srcCompat="@drawable/leaf" />
-
-    <TextView
-        android:id="@+id/nav_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/bungee_hairline"
-        android:text="FLODA"
-        android:textColor="@android:color/background_light"
-        android:textSize="90sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/login_in_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/BUTTONS"
         android:fontFamily="@font/arvo"
         android:gravity="center"
         android:text="@string/login_in"
         android:textSize="36sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/sing_up_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/sing_up_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/BUTTONS"
         android:fontFamily="@font/arvo"
         android:text="@string/sing_up"
         android:textSize="36sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="@+id/login_in_login"
-        app:layout_constraintStart_toStartOf="@+id/login_in_login"
-        app:layout_constraintTop_toBottomOf="@+id/login_in_login" />
+        app:layout_constraintStart_toStartOf="@+id/login_in_login" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="122dp"
         android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/sing_up_login"
-        app:layout_constraintTop_toBottomOf="@+id/sing_up_login"
-        app:layout_constraintVertical_bias="0.096"
-        android:contentDescription="TODO" app:srcCompat="@drawable/zsp" />
+        app:srcCompat="@drawable/zsp" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="20dp"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/sing_up_login"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/sing_up_login"
-        android:contentDescription="TODO" app:srcCompat="@drawable/freelab" />
+        app:srcCompat="@drawable/freelab" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:paddingBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/login_in_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/flodalogo" />
 
 </android.support.constraint.ConstraintLayout>

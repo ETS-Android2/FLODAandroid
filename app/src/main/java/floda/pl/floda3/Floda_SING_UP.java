@@ -49,14 +49,16 @@ public class Floda_SING_UP extends AppCompatActivity {
             boolean correct = true;
             Log.d("c", String.valueOf(name.getText()));
             StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.serwer1727017.home.pl/2ti/floda/app/singup.php", response -> {
-                AlertDialog.Builder b = new AlertDialog.Builder(Floda_SING_UP.this);
-                b.setMessage(response).setTitle(R.string.success).setPositiveButton((R.string.superr), (dialog, which) -> onBackPressed()).setOnKeyListener((dialog, keyCode, event) -> {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        onBackPressed();
-                    }
-                    return true;
-                }).create();
-                b.show();
+                if(response.contains("1")){
+                    AlertDialog.Builder b = new AlertDialog.Builder(Floda_SING_UP.this);
+                    b.setMessage(R.string.mail_sended).setTitle(R.string.success).setPositiveButton((R.string.superr), (dialog, which) -> onBackPressed()).setOnKeyListener((dialog, keyCode, event) -> {
+                        if (keyCode == KeyEvent.KEYCODE_BACK) {
+                            onBackPressed();
+                        }
+                        return true;
+                    }).create();
+                    b.show();
+                }
             }, error -> Log.e("singup", "błąd")) {
                 @Override
                 protected Map<String, String> getParams()  {
@@ -78,7 +80,7 @@ public class Floda_SING_UP extends AppCompatActivity {
                 }
                 if(i==3&&isValidEmailId(data[i].getText().toString())){
                     data[i].setError(getString(R.string.incorrect_mail));
-                    correct = false;
+                    correct = true;
                 }
                 if (i == 5 && (!data[i].getText().toString().equals(data[i - 1].getText().toString()))) {
                     data[i].setError(getString(R.string.haslo_takie_same));
@@ -112,7 +114,8 @@ public class Floda_SING_UP extends AppCompatActivity {
                 + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
                 + "[0-9]{1,2}|25[0-5]|2[0-4][0-9]))|"
                 + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
-    }
+        }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

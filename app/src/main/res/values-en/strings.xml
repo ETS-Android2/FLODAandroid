@@ -65,8 +65,8 @@
     <string name="poradnik">Guide</string>
     <string name="dettime">Filter</string>
     <string name="luxi">" lux/day"</string>
-    <string name="units">u.</string>
-    <string name="coi">Every</string>
+    <string name="units">" u."</string>
+    <string name="coi">"Every "</string>
     <string name="add_new_gen_pusta">Name cannot be empty!</string>
     <string name="add_new_gen_ok">You have created new genre</string>
     <string name="add_new_gen_del_problem">You have deleted http:// or nothing has been changed</string>
@@ -117,7 +117,7 @@
     <string name="plant_water">You have to water plant!</string>
     <string name="water_tomoro">Tomrrow you need to water pant</string>
     <string name="for_water_0">"Plant need to be watered in "</string>
-    <string name="for_water_1">days</string>
+    <string name="for_water_1">" days"</string>
     <string name="potrz_podl">Line of soil dryness</string>
     <string name="max_slon">Max. sunlight</string>
     <string name="min_slon">Min. sunlight</string>
@@ -129,4 +129,9 @@
     <string name="polski">Polish</string>
     <string name="angielski">English</string>
     <string name="niemiecki">German</string>
+    <string name="zmie_j_zyk">Change language</string>
+    <string name="zmie_has_o">Change password</string>
+    <string name="add_facebook">Add facebook</string>
+    <string name="polacz">Connect</string>
+    <string name="mail_sended">Activation link has been sent to the email!</string>
 </resources>

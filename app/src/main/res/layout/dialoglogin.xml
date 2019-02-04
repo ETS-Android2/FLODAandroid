@@ -12,7 +12,8 @@
         android:layout_marginTop="15dp"
         android:hint="@string/login"
         android:inputType="text"
-        android:textColor="@android:color/background_light" />
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light" />
 
     <EditText
         android:id="@+id/login_edit2"
@@ -21,8 +22,9 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:hint="@string/password"
+        android:inputType="textPassword"
         android:textColor="@android:color/background_light"
-        android:inputType="textPassword" />
+        android:textColorHint="@android:color/background_light" />
 
     <LinearLayout
         android:layout_width="match_parent"

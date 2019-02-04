@@ -217,7 +217,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
             if (bool_poradnik.isChecked()) {
                 if (link_poradnik.getText().toString().contains("http://") && link_poradnik.getText().toString().length() > 7) {
                     sql += "www=" + link_poradnik.getText().toString() + "&";
-                } else {
+                } else { //todo cos tu nie gra
                     Toast.makeText(this, getString(R.string.add_new_gen_del_problem), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -225,7 +225,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
             if (genre_name.getText().length() > 0) {
                 genre_name.setText(genre_name.getText().toString().replaceAll("[0-9]", ""));
                 Intent i = getIntent();
-                sql += "name=" + genre_name.getText().toString() + "&autor=" + i.getStringExtra("ID") + "&";
+                sql += "name=" + genre_name.getText().toString() + "&autor=" + i.getStringExtra("ID") ;
 
             } else {
                 Toast.makeText(this, getString(R.string.add_new_gen_pusta), Toast.LENGTH_LONG).show();

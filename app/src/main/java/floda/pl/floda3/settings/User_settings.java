@@ -53,15 +53,12 @@ public class User_settings extends AppCompatActivity {
         language.setAdapter(new LanguageAdapter());
         vicon = getResources().getIntArray(R.array.flag);
         vcode = new String[]{"0", "1", "2"};
-        Toast.makeText(getApplicationContext(), getResources().getConfiguration().locale.getDisplayLanguage(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), getResources().getConfiguration().locale.getDisplayLanguage(), Toast.LENGTH_LONG).show();
         backbutton.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.putExtra("reset", false);
-            setResult(RESULT_OK, intent);
             finish();
         });
         acceptbutton.setOnClickListener(v -> {
-            Toast.makeText(getBaseContext(), "Saveing in progress", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Saving in progress", Toast.LENGTH_SHORT).show();
             Resources res = getBaseContext().getResources();
 // Change locale settings in the app.
             DisplayMetrics dm = res.getDisplayMetrics();
@@ -71,7 +68,7 @@ public class User_settings extends AppCompatActivity {
 // Use conf.locale = new Locale(...) if targeting lower versions
             SharedPreferences s = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             SharedPreferences.Editor e = s.edit();
-            url += "ID="+s.getString("ID", "") + "&";
+            url += "ID=" + s.getString("ID", "") + "&";
             switch (option_lang) {
                 case 1:
                     conf.locale = new Locale("pl"); // API 17+ only.
@@ -94,12 +91,12 @@ public class User_settings extends AppCompatActivity {
 
             }
             e.apply();
-
+            /*if()*/
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
                 finish();
             }, error -> {
             });
-            RequestQueue q = new RequestQueue(new DiskBasedCache(getCacheDir(),1024*1024),new BasicNetwork(new HurlStack()));
+            RequestQueue q = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
             q.add(stringRequest);
             q.start();
 
@@ -152,8 +149,8 @@ public class User_settings extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             //View view = convertView;
             convertView = getLayoutInflater().inflate(R.layout.row_zmiana, parent, false);
-            ImageView icon =  convertView.findViewById(R.id.flag_zmiana);
-            TextView names =  convertView.findViewById(R.id.text_zmiana);
+            ImageView icon = convertView.findViewById(R.id.flag_zmiana);
+            TextView names = convertView.findViewById(R.id.text_zmiana);
             switch (position) {
                 case 0:
                     //icon.setImageDrawable(getResources().getDrawable(R.drawable.poland));

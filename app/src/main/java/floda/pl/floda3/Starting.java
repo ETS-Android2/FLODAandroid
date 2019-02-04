@@ -35,8 +35,10 @@ public class Starting extends AppCompatActivity {
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
         String lang = preferences.getString("language", "");
-        conf.locale= new Locale(lang); // API 17+ only.
-        res.updateConfiguration(conf, dm);
+        if(lang.length()!=0) {
+            conf.locale = new Locale(lang); // API 17+ only.
+            res.updateConfiguration(conf, dm);
+        }
         Thread welcomeThread = new Thread() {
 
             @Override

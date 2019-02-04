@@ -93,7 +93,7 @@ public class Floda_add_plant extends AppCompatActivity {
         });
         list.setOnClickListener(v -> {
             Intent i = new Intent(this, Floda_list_genre.class);
-            i.putExtra("NR","1");
+            i.putExtra("NR", "1");
             startActivityForResult(i, 1);
 
         });

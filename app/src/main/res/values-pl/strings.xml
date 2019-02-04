@@ -119,9 +119,9 @@
     <string name="plant_water">Rośline należy już podlać!</string>
     <string name="water_tomoro">Rośline należy podlać jutro!</string>
     <string name="for_water_0">Rośline należy podlać za</string>
-    <string name="for_water_1">dni</string>
+    <string name="for_water_1">" dni"</string>
     <string name="potrz_podl">Granica suchości podłoża</string>
-    <string name="units">j.</string>
+    <string name="units">" j."</string>
     <string name="max_slon">Max. nasłonecznienie</string>
     <string name="min_slon">Min. nasłonecznienie</string>
     <string name="max_temp">Max. temperatura</string>
@@ -134,9 +134,14 @@
     <string name="haslo_takie_same">Hasła muszą być takie same</string>
     <string name="polityka_pryw">Akceptuj polityke prywatności</string>
     <string name="luxi">" lux/dzien"</string>
-    <string name="coi">Co</string>
+    <string name="coi">"Co "</string>
     <string name="polski">Polski</string>
     <string name="angielski">Angielski</string>
     <string name="niemiecki">Niemiecki</string>
     <string name="chose_lang">Wybierz język</string>
+    <string name="zmie_j_zyk">Zmień język</string>
+    <string name="zmie_has_o">Zmień hasło</string>
+    <string name="add_facebook">Dodaj Facebooka</string>
+    <string name="polacz">Połącz</string>
+    <string name="mail_sended">Link aktywacyjny został wysłany na maila!</string>
 </resources>
