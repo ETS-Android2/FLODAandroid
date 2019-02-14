@@ -133,7 +133,7 @@
     <string name="Fata_error">Wystąpił błąd</string>
     <string name="plant_water">Rośline należy już podlać!</string>
     <string name="water_tomoro">Rośline należy podlać jutro!</string>
-    <string name="for_water_0">Rośline należy podlać za</string>
+    <string name="for_water_0">"Rośline należy podlać za "</string>
     <string name="for_water_1">dni</string>
     <string name="potrz_podl">Granica suchości podłoża</string>
     <string name="units">" j."</string>

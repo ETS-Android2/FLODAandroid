@@ -104,7 +104,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/arvo" />
+                    android:fontFamily="@font/molengo" />
 
             </LinearLayout>
             <View
@@ -158,8 +158,8 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/arvo"
-                    android:text="@string/dodatkowe_info" />
+                    android:fontFamily="@font/molengo"
+                    android:text="Wczorajsza temperatura była: " />
 
             </LinearLayout>
             <View
@@ -213,8 +213,8 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/arvo"
-                    android:text="@string/dodatkowe_info" />
+                    android:fontFamily="@font/molengo"
+                    android:text="Wczorajsze nasłonecznienie było: " />
 
             </LinearLayout>
             <View
@@ -268,8 +268,8 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/arvo"
-                    android:text="@string/dodatkowe_info" />
+                    android:fontFamily="@font/molengo"
+                    android:text="Wczorajsza wilgotność powietrza była: " />
 
             </LinearLayout>
         </LinearLayout>

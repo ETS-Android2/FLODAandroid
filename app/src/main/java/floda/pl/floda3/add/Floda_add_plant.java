@@ -6,9 +6,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -105,6 +108,13 @@ public class Floda_add_plant extends AppCompatActivity {
         });
         add_plant_butt.setOnClickListener(v -> {
             add_plant_title.setText(add_plant_title.getText().toString().replaceAll("[0-9]", ""));
+            AlertDialog alertDialog5;
+            AlertDialog.Builder builder5 = new AlertDialog.Builder(this);
+            LayoutInflater l5 = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+            View v5 = l5.inflate(R.layout.loading, null);
+            builder5.setView(v5);
+            alertDialog5 = builder5.create();
+            alertDialog5.show();
             if (!Objects.equals(add_plant_title.getText().toString(), "")) {
 
                 Log.e("f", "" + spoko);
@@ -113,12 +123,15 @@ public class Floda_add_plant extends AppCompatActivity {
                     StringRequest s = new StringRequest(Request.Method.POST, sql2, response -> {
                         if (response.contains("1")) {
                             Toast.makeText(this, getString(R.string.add_plant_set_1) + add_plant_title.getText().toString(), Toast.LENGTH_LONG).show(); //todo: w tych przypadkach zrobic box
+                            alertDialog5.hide();
                             finish();
                         } else {
                             Toast.makeText(this, getString(R.string.add_plant_set_0), Toast.LENGTH_LONG).show();
+                            alertDialog5.hide();
                         }
                     }, error -> {
                         Log.e("Blad wysylania", error.toString());
+                        alertDialog5.hide();
                     }) {
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {

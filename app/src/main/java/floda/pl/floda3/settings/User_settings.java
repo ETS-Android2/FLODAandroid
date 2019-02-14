@@ -1,21 +1,15 @@
 package floda.pl.floda3.settings;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.icu.text.LocaleDisplayNames;
-import android.icu.util.LocaleData;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,7 +26,6 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.util.Locale;
 
-import androidx.annotation.Nullable;
 import floda.pl.floda3.R;
 
 public class User_settings extends AppCompatActivity {
@@ -40,6 +33,7 @@ public class User_settings extends AppCompatActivity {
     int vicon[];
     String[] vcode;
     int option_lang = 0;
+    TextView ust_password, ust_repassword;
     ImageButton backbutton, acceptbutton;
 
     @Override
@@ -47,7 +41,8 @@ public class User_settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
         language = findViewById(R.id.language_spinner);
-
+        ust_password = findViewById(R.id.ust_password);
+        ust_repassword = findViewById(R.id.ust_repassword);
         backbutton = findViewById(R.id.backbutton);
         acceptbutton = findViewById(R.id.acceptbutton);
         language.setAdapter(new LanguageAdapter());
@@ -91,7 +86,14 @@ public class User_settings extends AppCompatActivity {
 
             }
             e.apply();
-            /*if()*/
+            if (ust_password.length() > 0) {
+                if (ust_password.getText().toString().equals(ust_repassword.getText().toString())) {
+                    url += "password=" + ust_repassword.toString() + "&";
+                } else {
+                    Toast.makeText(this, getString(R.string.haslo_takie_same), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
                 finish();
             }, error -> {
@@ -126,6 +128,11 @@ public class User_settings extends AppCompatActivity {
                 language.setSelection(2);
                 break;
         }*/
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Wybierz opcje z toolbar", Toast.LENGTH_SHORT).show();
     }
 
     private class LanguageAdapter extends BaseAdapter {
@@ -173,10 +180,5 @@ public class User_settings extends AppCompatActivity {
 
             return convertView;
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, "Wybierz opcje z toolbar", Toast.LENGTH_SHORT).show();
     }
 }

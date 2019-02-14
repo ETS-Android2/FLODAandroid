@@ -87,7 +87,7 @@
     <string name="Fata_error">Etwas ist schief gelaufen</string>
     <string name="plant_water">Du musst die Pflanze wässern!</string>
     <string name="water_tomoro">Morgen musst du Wasserhose trinken</string>
-    <string name="for_water_0">Pflanze muss bewässert werden</string>
+    <string name="for_water_0">"Pflanze muss bewässert werden "</string>
     <string name="for_water_1">" Tage"</string>
     <string name="potrz_podl">Linie der Bodentrockenheit</string>
     <string name="units">" e."</string>

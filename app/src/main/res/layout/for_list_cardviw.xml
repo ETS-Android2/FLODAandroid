@@ -6,14 +6,14 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view2"
+        android:id="@+id/forumcv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
 
         android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="#dedede"
-        card_view:cardCornerRadius="5dp"
+        card_view:cardBackgroundColor="?attr/colorButtonNormal"
+        card_view:cardCornerRadius="2dp"
         card_view:cardElevation="1dp"
         card_view:cardMaxElevation="1dp"
         card_view:cardUseCompatPadding="true">
@@ -24,70 +24,64 @@
 
 
             <TextView
-                android:id="@+id/crd_v_name"
+                android:id="@+id/forum_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:scrollHorizontally="false"
-                android:text="ggd"
                 android:textSize="20sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/imageView4"
+                card_view:layout_constraintStart_toEndOf="@+id/forum_color"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="0.195"
                 tools:ignore="RtlCompat" />
 
             <TextView
-                android:id="@+id/crd_v_cat"
+                android:id="@+id/forum_category"
                 android:layout_width="119dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/crd_v_name"
-                android:layout_alignStart="@+id/crd_v_name"
-                android:layout_alignLeft="@+id/crd_v_name"
-                android:text="Head Programmist"
-                card_view:layout_constraintStart_toStartOf="@+id/crd_v_name"
-                card_view:layout_constraintTop_toBottomOf="@+id/crd_v_name" />
+                android:layout_below="@+id/forum_title"
+                android:layout_alignStart="@+id/forum_title"
+                android:layout_alignLeft="@+id/forum_title"
+                card_view:layout_constraintStart_toStartOf="@+id/forum_title"
+                card_view:layout_constraintTop_toBottomOf="@+id/forum_title" />
 
             <TextView
                 android:id="@+id/count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:elevation="1dp"
                 android:text="0"
                 android:textAlignment="center"
                 android:textSize="36sp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="@+id/imageView4"
-                card_view:layout_constraintStart_toStartOf="@+id/imageView4"
+                card_view:layout_constraintEnd_toEndOf="@+id/forum_color"
+                card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="90dp"
+            <View
+                android:id="@+id/forum_color"
+                android:layout_width="67dp"
                 android:layout_height="0dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:background="#a8a8a8"
-                android:paddingLeft="0dp"
-
+                android:background="?attr/colorBackgroundFloating"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
+
+
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>

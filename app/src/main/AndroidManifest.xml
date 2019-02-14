@@ -49,8 +49,7 @@
         <activity android:name=".add.Floda_list_genre" />
         <activity android:name=".add.FLODA_add_new_genre" />
         <activity android:name=".settings.User_settings" />
-        <activity android:name=".settings.ESP_settings" />
-        <activity android:name=".FLODA_forum"></activity>
+        <activity android:name=".FORUM.FLODA_forum"></activity>
     </application>
 
 </manifest>

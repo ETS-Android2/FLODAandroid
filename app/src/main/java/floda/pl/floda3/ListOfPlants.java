@@ -41,10 +41,10 @@ import java.util.Objects;
  * A simple {@link Fragment} subclass.
  */
 public class ListOfPlants extends Fragment {
+    View w;
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    View w;
 
 
     public ListOfPlants() {
@@ -82,14 +82,14 @@ public class ListOfPlants extends Fragment {
             }
             bar.setVisibility(View.INVISIBLE);
             mAdapter = new Listplants(data, item -> {
-                Intent i = new Intent(getContext(),PlantDetail.class);
-                i.putExtra("ID",item.ID);
+                Intent i = new Intent(getContext(), PlantDetail.class);
+                i.putExtra("ID", item.ID);
                 startActivity(i);
             });
 
             mRecycleView.setAdapter(mAdapter);
         }, error -> {
-            Log.e("error",error.toString());
+            Log.e("error", error.toString());
             //todo: zrobic snackbar ze bład z polaczeniem
         }) {
             @Override
@@ -111,36 +111,6 @@ public class ListOfPlants extends Fragment {
         List<pData> pdata;
         OnItemClickListener listener;
 
-        public interface OnItemClickListener {
-            void onItemClick(pData item);
-        }
-
-        public class MyViewHolder extends RecyclerView.ViewHolder {
-            CardView cv;
-            TextView cname;
-            TextView cgenre;
-            TextView cstatus;
-            ImageView cwilg;
-            ImageView csun;
-            ImageView ctemp;
-            ImageView csoil;
-            public MyViewHolder(View v) {
-                super(v);
-                cv = v.findViewById(R.id.card_view);
-                cname = v.findViewById(R.id.plant_name);
-                cgenre = v.findViewById(R.id.lgenre);
-                cstatus = v.findViewById(R.id.esponoff);
-                cwilg = v.findViewById(R.id.indicatort);
-                csun = v.findViewById(R.id.indicatorh);
-                ctemp = v.findViewById(R.id.indicatorw);
-                csoil = v.findViewById(R.id.indicators);
-            }
-
-            public void bind(final pData item, final OnItemClickListener listener) {
-                itemView.setOnClickListener(v -> listener.onItemClick(item));
-            }
-        }
-
         public Listplants(List<pData> mDataset, OnItemClickListener listener) {
             pdata = new ArrayList<>();
             this.listener = listener;
@@ -157,7 +127,7 @@ public class ListOfPlants extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull Listplants.MyViewHolder myViewHolder, int i) {
             myViewHolder.cname.setText(pdata.get(i).pname);
-            myViewHolder.cgenre.setText("("+pdata.get(i).pgenre+")");
+            myViewHolder.cgenre.setText("(" + pdata.get(i).pgenre + ")");
             myViewHolder.cstatus.setText(pdata.get(i).pstatus);
             myViewHolder.cv.setCardBackgroundColor(pdata.get(i).pstatus.contains("on") ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
             myViewHolder.ctemp.setBackgroundColor(pdata.get(i).temp ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
@@ -177,14 +147,45 @@ public class ListOfPlants extends Fragment {
             return pdata.size();
         }
 
+        public interface OnItemClickListener {
+            void onItemClick(pData item);
+        }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+            CardView cv;
+            TextView cname;
+            TextView cgenre;
+            TextView cstatus;
+            ImageView cwilg;
+            ImageView csun;
+            ImageView ctemp;
+            ImageView csoil;
+
+            public MyViewHolder(View v) {
+                super(v);
+                cv = v.findViewById(R.id.card_view);
+                cname = v.findViewById(R.id.plant_name);
+                cgenre = v.findViewById(R.id.lgenre);
+                cstatus = v.findViewById(R.id.esponoff);
+                cwilg = v.findViewById(R.id.indicatort);
+                csun = v.findViewById(R.id.indicatorh);
+                ctemp = v.findViewById(R.id.indicatorw);
+                csoil = v.findViewById(R.id.indicators);
+            }
+
+            public void bind(final pData item, final OnItemClickListener listener) {
+                itemView.setOnClickListener(v -> listener.onItemClick(item));
+            }
+        }
+
 
     }
 
     public class pData {
+        public String ID;
         String pname;
         String pgenre;
         String pstatus;
-        public String ID;
         String nr;
         boolean wilg;
         boolean sun;
@@ -196,7 +197,7 @@ public class ListOfPlants extends Fragment {
             this.pgenre = pgenre;
             this.pstatus = pstatus;
             this.ID = ID;
-            this.nr=nr;
+            this.nr = nr;
             this.wilg = wilg.startsWith("1") ? true : false;
             this.sun = sun.startsWith("1") ? true : false;
             this.temp = temp.startsWith("1") ? true : false;

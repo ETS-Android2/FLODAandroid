@@ -38,8 +38,10 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.warkiz.widget.IndicatorSeekBar;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -60,6 +62,7 @@ public class PlantDetail extends AppCompatActivity {
     ArrayList<BarEntry> datatemperatura;
     TextView title, subtitle;
     TextView ostatnie;
+    int timeperiod;
     String timing = "";
     int tryb = 0;
     Button filtr_akceptuj;
@@ -81,7 +84,7 @@ public class PlantDetail extends AppCompatActivity {
         ostatnie = findViewById(R.id.nw2);
         timeof = new ArrayList<>();
         id = i.getStringExtra("ID");
-
+        q = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
         Log.e("id", id);
         ID = id;
         Toolbar t = findViewById(R.id.plantdettool);
@@ -144,8 +147,57 @@ public class PlantDetail extends AppCompatActivity {
                 databaseGet(ID, tryb);
                 break;
             case R.id.espsettings:
-                // a.putExtra("ID", ID);
-                // startActivity(a);
+                LayoutInflater l4 = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                View v4 = l4.inflate(R.layout.espsettings, null);
+                AlertDialog alertDialog4;
+                AlertDialog.Builder builder4 = new AlertDialog.Builder(this);
+                builder4.setView(v4);
+                TextView haslo = v4.findViewById(R.id.edithaslo);
+                IndicatorSeekBar czas = v4.findViewById(R.id.indicatorSeekBar2);
+                czas.setMax(1440);
+                czas.setMin(10);
+                czas.setProgress(0);
+                czas.setMax(1440);
+                czas.setMin(12);
+                float timef = timeperiod;
+                czas.setProgress(timef);
+                Button akc = v4.findViewById(R.id.editakceptuj);
+                Button back = v4.findViewById(R.id.editanuluj);
+                alertDialog4 = builder4.create();
+
+                akc.setOnClickListener(v -> {
+                    String url = "http://serwer1727017.home.pl/2ti/floda/detail/espsettings.php?ID="+ID+"&";
+                    if (czas.getProgress() != timef) {
+                        url += "time=" + czas.getProgress()*60000 + "&";
+                    }
+                    if (!haslo.getText().toString().equals("")) {
+                        url += "pass=" + haslo.getText().toString();
+                    }
+                    //blok tworzacy okno request
+                    AlertDialog alertDialog5;
+                    AlertDialog.Builder builder5 = new AlertDialog.Builder(this);
+                    LayoutInflater l5 = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                    View v5 = l5.inflate(R.layout.loading, null);
+                    builder5.setView(v5);
+                    alertDialog5 = builder5.create();
+                    alertDialog5.show();
+                    //---------------------
+                    StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url, response -> {
+                        if(czas.getProgress()!=timef) Toast.makeText(getBaseContext(),"Nowy czas bedzie działał po przeładowaniu SONDY",Toast.LENGTH_LONG).show();
+                        alertDialog5.hide();
+                        alertDialog4.hide();
+                    }, error -> {
+                    });
+                    q.add(stringRequest2);
+                    q.start();
+
+                });
+                back.setOnClickListener(v -> {
+                    alertDialog4.hide();
+                });
+                alertDialog4.show();
+                czas.setProgress(timef);
+
                 break;
             case R.id.poradnik:
                 if (www != null && www.contains("http://www.")) {
@@ -155,6 +207,50 @@ public class PlantDetail extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, getString(R.string.no_guide), Toast.LENGTH_LONG).show();
                 }
+                break;
+            case R.id.espdet:
+                LayoutInflater l3 = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                View v3 = l3.inflate(R.layout.espinfo, null);
+                AlertDialog alertDialog3;
+                AlertDialog.Builder builder3 = new AlertDialog.Builder(this);
+                builder3.setView(v3);
+                alertDialog3 = builder3.create();
+                alertDialog3.show();
+                String url = "http://serwer1727017.home.pl/2ti/floda/detail/espdetail.php?ID=" + ID;
+
+                //blok tworzacy okno request
+                AlertDialog alertDialog5;
+                AlertDialog.Builder builder5 = new AlertDialog.Builder(this);
+                LayoutInflater l5 = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                View v5 = l5.inflate(R.layout.loading, null);
+                builder5.setView(v5);
+                alertDialog5 = builder5.create();
+                alertDialog5.show();
+                //--------------------------
+
+                StringRequest ss = new StringRequest(Request.Method.GET, url, response -> {
+                    try {
+                        JSONObject o = new JSONObject(response);
+                        TextView ide, ipe, dele;
+                        ide = v3.findViewById(R.id.sndid);
+                        ipe = v3.findViewById(R.id.sndip);
+                        dele = v3.findViewById(R.id.sndper);
+                        Button next = v3.findViewById(R.id.sndok);
+                        next.setOnClickListener(v -> {
+                            alertDialog3.hide();
+                        });
+                        ide.setText(o.getString("id"));
+                        ipe.setText(o.getString("ip"));
+                        dele.setText("Every " + o.getInt("del") / 1000 + " seconds");
+                        alertDialog5.hide();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+                });
+                q.add(ss);
+                q.start();
+
                 break;
             case R.id.det_time:
                 AlertDialog alertDialog;
@@ -274,9 +370,8 @@ public class PlantDetail extends AppCompatActivity {
                             return parms;
                         }
                     };
-                    RequestQueue t = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
-                    t.add(ghg);
-                    t.start();
+                    q.add(ghg);
+                    q.start();
                 });
 
                 break;
@@ -302,7 +397,8 @@ public class PlantDetail extends AppCompatActivity {
                     JSONObject foo;
                     title.setText(det.getString("name"));
                     subtitle.setText(" (" + det.getString("Nazwa") + ")");
-
+                    timeperiod = det.getInt("czas");
+                    Log.e("timeperiod", String.valueOf(timeperiod));
                     for (int index = 1; index < podst.length(); index++) {
 
                         foo = podst.getJSONObject(index);
@@ -314,7 +410,6 @@ public class PlantDetail extends AppCompatActivity {
                         timeof.add(index - 1, foo.getString("time"));
 
                     }
-                    //todo filtr czasu i dodatkowe info
                     //timeof.add(podst.length(), podst.getJSONObject(podst.length()).getString("time"));
 
                     Log.e("ble", String.valueOf(response));
@@ -324,17 +419,16 @@ public class PlantDetail extends AppCompatActivity {
                         ostatnie.setText("");
 
                     } else {
+
                         if (det.getInt("c_k_p") != 0) {
-                            if (det.getInt("watering") >= det.getInt("c_k_p")) {
+                            if (det.getInt("c_k_p") - det.getInt("watering") <= 0) {
                                 ostatnie.setText(getString(R.string.plant_water));
                             } else {
-                                if (det.getInt("c_k_p") - det.getInt("watering") == 1) {
+                                if (det.getInt("watering") - det.getInt("c_k_p") < 2) {
                                     ostatnie.setText(getString(R.string.water_tomoro));
                                 } else
                                     ostatnie.setText(getString(R.string.for_water_0) + (det.getInt("c_k_p") - det.getInt("watering")) + getString(R.string.for_water_1));
                             }
-                        } else {
-                            ostatnie.setText("");
                         }
                     }
                     if (det.getInt("s_d_s_x") != 0) {
@@ -363,10 +457,9 @@ public class PlantDetail extends AppCompatActivity {
                     }
                     www = det.getString("www");
 
-                    //TODO: Nalezy tutaj dodac funkcje zczytujaca na poczatek podstawowe dane a nastepnie poszczegolne na godzine
 
                 } catch (Exception e) {
-                    Log.e("Ustawianie danych", "eeeeeee blad");
+                    Log.e("Ustawianie danych", "eeeeeee blad" + e);
                 }
                 nawodnienie();
                 naslonecznienie();
@@ -414,10 +507,10 @@ public class PlantDetail extends AppCompatActivity {
 
                     } else {
                         if (det.getInt("c_k_p") != 0) {
-                            if (det.getInt("watering") >= det.getInt("c_k_p")) {
+                            if (det.getInt("c_k_p") - det.getInt("watering") <= 0) {
                                 ostatnie.setText(getString(R.string.plant_water));
                             } else {
-                                if (det.getInt("c_k_p") - det.getInt("watering") == 1) {
+                                if (det.getInt("watering") - det.getInt("c_k_p") < 2) {
                                     ostatnie.setText(getString(R.string.water_tomoro));
                                 } else
                                     ostatnie.setText(getString(R.string.for_water_0) + (det.getInt("c_k_p") - det.getInt("watering")) + getString(R.string.for_water_1));

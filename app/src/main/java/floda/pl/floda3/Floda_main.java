@@ -41,6 +41,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import floda.pl.floda3.FORUM.FLODA_forum;
 import floda.pl.floda3.add.FLODA_add_new_genre;
 import floda.pl.floda3.add.Floda_add_plant;
 import floda.pl.floda3.add.Floda_list_genre;
@@ -170,6 +171,10 @@ public class Floda_main extends AppCompatActivity
                 Intent j = new Intent(this, Floda_list_genre.class);
                 j.putExtra("NR", "0");
                 startActivity(j);
+                break;
+            case R.id.forum:
+                t.replace(R.id.content_fram,new FLODA_forum());
+                fab.hide();
                 break;
         }
         t.commit();
