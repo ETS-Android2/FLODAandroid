@@ -50,6 +50,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlantDetail extends AppCompatActivity {
     String id;
@@ -111,21 +112,23 @@ public class PlantDetail extends AppCompatActivity {
     }
 
     void reset() {
-        datanaslonecznienie.clear();
-        datanawodnienie.clear();
-        datatemperatura.clear();
-        datawilgotnosc.clear();
-        naslonecznienie.clear();
-        wilgotnosc.clear();
-        temperatura.clear();
-        nawodnienie.clear();
-        nmax.clear();
-        smax.clear();
-        smin.clear();
-        wmax.clear();
-        wmin.clear();
-        tmax.clear();
-        tmin.clear();
+        if(!datanaslonecznienie.isEmpty()) {
+            datanaslonecznienie.clear();
+            datanawodnienie.clear();
+            datatemperatura.clear();
+            datawilgotnosc.clear();
+            naslonecznienie.clear();
+            wilgotnosc.clear();
+            temperatura.clear();
+            nawodnienie.clear();
+            nmax.clear();
+            smax.clear();
+            smin.clear();
+            wmax.clear();
+            wmin.clear();
+            tmax.clear();
+            tmin.clear();
+        }
     }
 
     @Override
@@ -166,9 +169,9 @@ public class PlantDetail extends AppCompatActivity {
                 alertDialog4 = builder4.create();
 
                 akc.setOnClickListener(v -> {
-                    String url = "http://serwer1727017.home.pl/2ti/floda/detail/espsettings.php?ID="+ID+"&";
+                    String url = "http://serwer1727017.home.pl/2ti/floda/detail/espsettings.php?ID=" + ID + "&";
                     if (czas.getProgress() != timef) {
-                        url += "time=" + czas.getProgress()*60000 + "&";
+                        url += "time=" + czas.getProgress() * 60000 + "&";
                     }
                     if (!haslo.getText().toString().equals("")) {
                         url += "pass=" + haslo.getText().toString();
@@ -183,7 +186,8 @@ public class PlantDetail extends AppCompatActivity {
                     alertDialog5.show();
                     //---------------------
                     StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url, response -> {
-                        if(czas.getProgress()!=timef) Toast.makeText(getBaseContext(),"Nowy czas bedzie działał po przeładowaniu SONDY",Toast.LENGTH_LONG).show();
+                        if (czas.getProgress() != timef)
+                            Toast.makeText(getBaseContext(), "Nowy czas bedzie działał po przeładowaniu SONDY", Toast.LENGTH_LONG).show();
                         alertDialog5.hide();
                         alertDialog4.hide();
                     }, error -> {
@@ -217,36 +221,51 @@ public class PlantDetail extends AppCompatActivity {
                 alertDialog3 = builder3.create();
                 alertDialog3.show();
                 String url = "http://serwer1727017.home.pl/2ti/floda/detail/espdetail.php?ID=" + ID;
-
+                Log.e("ID", ID);
                 //blok tworzacy okno request
-                AlertDialog alertDialog5;
+                AlertDialog alertDialog6;
                 AlertDialog.Builder builder5 = new AlertDialog.Builder(this);
-                LayoutInflater l5 = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
-                View v5 = l5.inflate(R.layout.loading, null);
-                builder5.setView(v5);
-                alertDialog5 = builder5.create();
-                alertDialog5.show();
+                LayoutInflater l6 = (LayoutInflater) getApplicationContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                View v6 = l6.inflate(R.layout.loading, null);
+                builder5.setView(v6);
+                alertDialog6 = builder5.create();
+
                 //--------------------------
 
                 StringRequest ss = new StringRequest(Request.Method.GET, url, response -> {
+
+                    JSONObject o = null;
                     try {
-                        JSONObject o = new JSONObject(response);
-                        TextView ide, ipe, dele;
-                        ide = v3.findViewById(R.id.sndid);
-                        ipe = v3.findViewById(R.id.sndip);
-                        dele = v3.findViewById(R.id.sndper);
-                        Button next = v3.findViewById(R.id.sndok);
-                        next.setOnClickListener(v -> {
-                            alertDialog3.hide();
-                        });
-                        ide.setText(o.getString("id"));
-                        ipe.setText(o.getString("ip"));
-                        dele.setText("Every " + o.getInt("del") / 1000 + " seconds");
-                        alertDialog5.hide();
+                        o = new JSONObject(response);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    TextView ide, ipe, dele;
+                    ide = v3.findViewById(R.id.sndid);
+                    ipe = v3.findViewById(R.id.sndip);
+                    dele = v3.findViewById(R.id.sndper);
+                    ide.setText("duoa");
+                    Button next = v3.findViewById(R.id.sndok);
+                    next.setOnClickListener(v -> {
+                        alertDialog3.hide();
+                    });
+                    try {
+                        ide.setText(o.getString("id"));
+                        if (o.getString("ip")!="null") {
+                            ipe.setText(o.getString("ip"));
+                        } else {
+                            ipe.setText("brak");
+                        }
+                        dele.setText("Every " + o.getInt("del") / 60000 + " minutes");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    alertDialog6.hide();
+
                 }, error -> {
+                    alertDialog6.hide();
                 });
                 q.add(ss);
                 q.start();
@@ -381,13 +400,14 @@ public class PlantDetail extends AppCompatActivity {
     }
 
     void databaseGet(String id, int nr) {
-
+        AtomicInteger il_danych = new AtomicInteger();
         datanawodnienie = new ArrayList<>();
         datanaslonecznienie = new ArrayList<>();
         datatemperatura = new ArrayList<>();
         datawilgotnosc = new ArrayList<>();
         String sql = "http://serwer1727017.home.pl/2ti/floda/detail/data.php" + timing;
         if (nr == 0) {
+
             stringRequest = new StringRequest(Request.Method.POST, sql, response -> {
                 try {
 
@@ -399,72 +419,77 @@ public class PlantDetail extends AppCompatActivity {
                     subtitle.setText(" (" + det.getString("Nazwa") + ")");
                     timeperiod = det.getInt("czas");
                     Log.e("timeperiod", String.valueOf(timeperiod));
-                    for (int index = 1; index < podst.length(); index++) {
+                    il_danych.set(podst.length());
+                        for (int index = 1; index < podst.length(); index++) {
 
-                        foo = podst.getJSONObject(index);
-                        Log.e("Data", id + " " + foo.getString("sun") + " " + foo.getString("temperature") + " " + foo.getString("humidity"));
-                        datanawodnienie.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("soil"))));
-                        datanaslonecznienie.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("sun"))));
-                        datatemperatura.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("temperature"))));
-                        datawilgotnosc.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("humidity"))));
-                        timeof.add(index - 1, foo.getString("time"));
+                            foo = podst.getJSONObject(index);
 
-                    }
-                    //timeof.add(podst.length(), podst.getJSONObject(podst.length()).getString("time"));
+                            Log.e("Data", id + " " + foo.getString("sun") + " " + foo.getString("temperature") + " " + foo.getString("humidity"));
+                            datanawodnienie.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("soil"))));
+                            datanaslonecznienie.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("sun"))));
+                            datatemperatura.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("temperature"))));
+                            datawilgotnosc.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("humidity"))));
+                            timeof.add(index - 1, foo.getString("time"));
 
-                    Log.e("ble", String.valueOf(response));
-                    if (det.getInt("a_w_g") != 0) {
-                        nmax.add(new Entry(0, det.getInt("a_w_g")));
-                        nmax.add(new Entry(podst.length() - 2, det.getInt("a_w_g")));
-                        ostatnie.setText("");
+                        }
+                        //timeof.add(podst.length(), podst.getJSONObject(podst.length()).getString("time"));
 
-                    } else {
+                        Log.e("ble", String.valueOf(response));
+                        if (det.getInt("a_w_g") != 0) {
+                            nmax.add(new Entry(0, det.getInt("a_w_g")));
+                            nmax.add(new Entry(podst.length() - 2, det.getInt("a_w_g")));
+                            ostatnie.setText("");
 
-                        if (det.getInt("c_k_p") != 0) {
-                            if (det.getInt("c_k_p") - det.getInt("watering") <= 0) {
-                                ostatnie.setText(getString(R.string.plant_water));
-                            } else {
-                                if (det.getInt("watering") - det.getInt("c_k_p") < 2) {
-                                    ostatnie.setText(getString(R.string.water_tomoro));
-                                } else
-                                    ostatnie.setText(getString(R.string.for_water_0) + (det.getInt("c_k_p") - det.getInt("watering")) + getString(R.string.for_water_1));
+                        } else {
+
+                            if (det.getInt("c_k_p") != 0) {
+                                if (det.getInt("c_k_p") - det.getInt("watering") <= 0) {
+                                    ostatnie.setText(getString(R.string.plant_water));
+                                } else {
+                                    if (det.getInt("watering") - det.getInt("c_k_p") < 2) {
+                                        ostatnie.setText(getString(R.string.water_tomoro));
+                                    } else
+                                        ostatnie.setText(getString(R.string.for_water_0) + (det.getInt("c_k_p") - det.getInt("watering")) + getString(R.string.for_water_1));
+                                }
                             }
                         }
-                    }
-                    if (det.getInt("s_d_s_x") != 0) {
-                        smax.add(new Entry(0, det.getInt("s_d_s_x")));
-                        smax.add(new Entry(podst.length() - 2, det.getInt("s_d_s_x")));
-                    }
-                    if (det.getInt("s_d_s") != 0) {
-                        smin.add(new Entry(0, det.getInt("s_d_s")));
-                        smin.add(new Entry(podst.length() - 2, det.getInt("s_d_s")));
-                    }
-                    if (det.getInt("s_d_t_x") != 0) {
-                        tmax.add(new Entry(0, det.getInt("s_d_t_x")));
-                        tmax.add(new Entry(podst.length() - 2, det.getInt("s_d_t_x")));
-                    }
-                    if (det.getInt("s_d_t") != 0) {
-                        tmin.add(new Entry(0, det.getInt("s_d_t")));
-                        tmin.add(new Entry(podst.length() - 2, det.getInt("s_d_t")));
-                    }
-                    if (det.getInt("s_d_w_x") != 0) {
-                        wmax.add(new Entry(0, det.getInt("s_d_w_x")));
-                        wmax.add(new Entry(podst.length() - 2, det.getInt("s_d_w_x")));
-                    }
-                    if (det.getInt("s_d_w") != 0) {
-                        wmin.add(new Entry(0, det.getInt("s_d_w")));
-                        wmin.add(new Entry(podst.length() - 2, det.getInt("s_d_w")));
-                    }
-                    www = det.getString("www");
+                        if (det.getInt("s_d_s_x") != 0) {
+                            smax.add(new Entry(0, det.getInt("s_d_s_x")));
+                            smax.add(new Entry(podst.length() - 2, det.getInt("s_d_s_x")));
+                        }
+                        if (det.getInt("s_d_s") != 0) {
+                            smin.add(new Entry(0, det.getInt("s_d_s")));
+                            smin.add(new Entry(podst.length() - 2, det.getInt("s_d_s")));
+                        }
+                        if (det.getInt("s_d_t_x") != 0) {
+                            tmax.add(new Entry(0, det.getInt("s_d_t_x")));
+                            tmax.add(new Entry(podst.length() - 2, det.getInt("s_d_t_x")));
+                        }
+                        if (det.getInt("s_d_t") != 0) {
+                            tmin.add(new Entry(0, det.getInt("s_d_t")));
+                            tmin.add(new Entry(podst.length() - 2, det.getInt("s_d_t")));
+                        }
+                        if (det.getInt("s_d_w_x") != 0) {
+                            wmax.add(new Entry(0, det.getInt("s_d_w_x")));
+                            wmax.add(new Entry(podst.length() - 2, det.getInt("s_d_w_x")));
+                        }
+                        if (det.getInt("s_d_w") != 0) {
+                            wmin.add(new Entry(0, det.getInt("s_d_w")));
+                            wmin.add(new Entry(podst.length() - 2, det.getInt("s_d_w")));
+                        }
+                        www = det.getString("www");
 
 
-                } catch (Exception e) {
-                    Log.e("Ustawianie danych", "eeeeeee blad" + e);
+                    } catch(Exception e){
+                        Log.e("Ustawianie danych", "eeeeeee blad" + e);
+                    }
+                    Log.e("ilosc",String.valueOf(il_danych.get()));
+                if(il_danych.get()>2) {
+                    nawodnienie();
+                    naslonecznienie();
+                    wilgotnosc();
+                    temperatura();
                 }
-                nawodnienie();
-                naslonecznienie();
-                wilgotnosc();
-                temperatura();
 
             }, error -> {
 
@@ -477,6 +502,7 @@ public class PlantDetail extends AppCompatActivity {
                     return parms;
                 }
             };
+
         } else {
             stringRequest = new StringRequest(Request.Method.POST, sql, response -> {
                 try {
@@ -489,6 +515,7 @@ public class PlantDetail extends AppCompatActivity {
                     JSONObject foo;
                     title.setText(det.getString("name"));
                     subtitle.setText(" (" + det.getString("Nazwa") + ")");
+                    il_danych.set(podst.length());
                     for (int index = 1; index < podst.length(); index++) {
                         foo = podst.getJSONObject(index);
                         Log.e("Data", id + " " + foo.getString("sun") + " " + foo.getString("temperature") + " " + foo.getString("humidity"));
@@ -497,6 +524,29 @@ public class PlantDetail extends AppCompatActivity {
                         datatemperatura.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("temperature"))));
                         datawilgotnosc.add(new BarEntry(index - 1, Integer.valueOf(foo.getString("humidity"))));
                         timeof.add(index - 1, foo.getString("time"));
+                        if (index == podst.length() - 1) {
+                            if (det.getInt("s_d_s_x") < Integer.valueOf(foo.getString("sun"))) {
+
+                            } else if (det.getInt("s_d_s") > Integer.valueOf(foo.getString("sun"))) {
+
+                            } else {
+
+                            }
+                            if (det.getInt("s_d_t_x") < Integer.valueOf(foo.getString("temperature"))) {
+
+                            } else if (det.getInt("s_d_t") > Integer.valueOf(foo.getString("temperature"))) {
+
+                            } else {
+
+                            }
+                            if (det.getInt("s_d_w_x") < Integer.valueOf(foo.getString("humidity"))) {
+
+                            } else if (det.getInt("s_d_w") > Integer.valueOf(foo.getString("humidity"))) {
+
+                            } else {
+
+                            }
+                        }
 
                     }
 
@@ -549,10 +599,12 @@ public class PlantDetail extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("Ustawianie danych", String.valueOf(e) + response);
                 }
-                nawodnienie();
-                naslonecznienie();
-                wilgotnosc();
-                temperatura();
+                if(il_danych.get()>1) {
+                    nawodnienie();
+                    naslonecznienie();
+                    wilgotnosc();
+                    temperatura();
+                }
             }, error -> {
 
             }) {
@@ -596,9 +648,7 @@ public class PlantDetail extends AppCompatActivity {
     void nawodnienie() {
 
         nawodnienie = findViewById(R.id.nawodnienie);
-
         nawodnienie.setBackgroundColor(Color.TRANSPARENT);
-
         nawodnienie.setDrawOrder(new CombinedChart.DrawOrder[]{
                 CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE
         });
@@ -668,9 +718,7 @@ public class PlantDetail extends AppCompatActivity {
     void naslonecznienie() {
 
         naslonecznienie = findViewById(R.id.naslonecznienie);
-
         naslonecznienie.setBackgroundColor(Color.TRANSPARENT);
-
         naslonecznienie.setDrawOrder(new CombinedChart.DrawOrder[]{
                 CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.LINE
         });
@@ -741,9 +789,7 @@ public class PlantDetail extends AppCompatActivity {
     void temperatura() {
 
         temperatura = findViewById(R.id.temperatura);
-
         temperatura.setBackgroundColor(Color.TRANSPARENT);
-
         temperatura.setDrawOrder(new CombinedChart.DrawOrder[]{
                 CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.LINE
         });
@@ -784,7 +830,6 @@ public class PlantDetail extends AppCompatActivity {
 
     BarData setWilgotnosc() {
         wilg = new LineData();
-
         LineDataSet max = new LineDataSet(wmax, getString(R.string.max_wilg));
         LineDataSet min = new LineDataSet(wmin, getString(R.string.min_wilg));
         max.setCircleRadius(1f);
@@ -814,9 +859,7 @@ public class PlantDetail extends AppCompatActivity {
     void wilgotnosc() {
 
         wilgotnosc = findViewById(R.id.wilgotnosc);
-
         wilgotnosc.setBackgroundColor(Color.TRANSPARENT);
-
         wilgotnosc.setDrawOrder(new CombinedChart.DrawOrder[]{
                 CombinedChart.DrawOrder.BAR, CombinedChart.DrawOrder.LINE, CombinedChart.DrawOrder.LINE
         });

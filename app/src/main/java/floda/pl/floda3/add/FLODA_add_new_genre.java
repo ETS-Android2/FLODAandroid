@@ -228,6 +228,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                 sql += "name=" + genre_name.getText().toString() + "&autor=" + i.getStringExtra("ID") ;
 
             } else {
+
                 Toast.makeText(this, getString(R.string.add_new_gen_pusta), Toast.LENGTH_LONG).show();
                 return;
             }

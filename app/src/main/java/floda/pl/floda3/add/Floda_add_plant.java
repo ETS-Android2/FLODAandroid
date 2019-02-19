@@ -150,9 +150,11 @@ public class Floda_add_plant extends AppCompatActivity {
                     z.start();
                 } else {
                     Toast.makeText(this, getString(R.string.out_off_data), Toast.LENGTH_LONG).show();
+                    alertDialog5.hide();
                 }
             } else {
                 add_plant_title.setError(getString(R.string.epmty_field));
+                alertDialog5.hide();
             }
         });
     }
