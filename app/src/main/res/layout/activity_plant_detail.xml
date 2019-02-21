@@ -158,8 +158,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/molengo"
-                    android:text="Wczorajsza temperatura była: " />
+                    android:fontFamily="@font/molengo" />
 
             </LinearLayout>
             <View
@@ -213,8 +212,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/molengo"
-                    android:text="Wczorajsze nasłonecznienie było: " />
+                    android:fontFamily="@font/molengo" />
 
             </LinearLayout>
             <View
@@ -268,8 +266,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="@font/molengo"
-                    android:text="Wczorajsza wilgotność powietrza była: " />
+                    android:fontFamily="@font/molengo" />
 
             </LinearLayout>
         </LinearLayout>

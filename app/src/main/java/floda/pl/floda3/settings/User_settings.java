@@ -43,15 +43,12 @@ public class User_settings extends AppCompatActivity {
         language = findViewById(R.id.language_spinner);
         ust_password = findViewById(R.id.ust_password);
         ust_repassword = findViewById(R.id.ust_repassword);
-        backbutton = findViewById(R.id.backbutton);
         acceptbutton = findViewById(R.id.acceptbutton);
         language.setAdapter(new LanguageAdapter());
         vicon = getResources().getIntArray(R.array.flag);
         vcode = new String[]{"0", "1", "2"};
         //Toast.makeText(getApplicationContext(), getResources().getConfiguration().locale.getDisplayLanguage(), Toast.LENGTH_LONG).show();
-        backbutton.setOnClickListener(v -> {
-            finish();
-        });
+
         acceptbutton.setOnClickListener(v -> {
             Toast.makeText(getBaseContext(), "Saving in progress", Toast.LENGTH_SHORT).show();
             Resources res = getBaseContext().getResources();
@@ -130,10 +127,6 @@ public class User_settings extends AppCompatActivity {
         }*/
     }
 
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, "Wybierz opcje z toolbar", Toast.LENGTH_SHORT).show();
-    }
 
     private class LanguageAdapter extends BaseAdapter {
 

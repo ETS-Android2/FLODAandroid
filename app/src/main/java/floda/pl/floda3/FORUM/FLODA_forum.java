@@ -1,6 +1,7 @@
 package floda.pl.floda3.FORUM;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,10 +10,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -22,9 +26,15 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import floda.pl.floda3.ListOfPlants;
+import floda.pl.floda3.PlantDetail;
 import floda.pl.floda3.R;
 
 
@@ -36,7 +46,7 @@ public class FLODA_forum extends Fragment {
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
+EditText search;
     public FLODA_forum() {
         // Required empty public constructor
     }
@@ -46,6 +56,7 @@ public class FLODA_forum extends Fragment {
 
         List<fData> data;
         w = inflater.inflate(R.layout.fragment_floda_forum, container, false);
+        search = w.findViewById(R.id.formumsearch);
         mRecycleView = w.findViewById(R.id.forum_recycleview);
         mRecycleView.setHasFixedSize(true);
         AlertDialog alertDialog5;
@@ -58,13 +69,48 @@ public class FLODA_forum extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecycleView.setLayoutManager(mLayoutManager);
         data = new ArrayList<>();
-        String url = "";
+        String url = "http://serwer1727017.home.pl/2ti/floda/detail/forum_list.php?search=";
         StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
+            data.clear();
+            try {
+                JSONArray o = new JSONArray(response);
+                for(int i=0;i<o.length();i++){
+                    JSONObject foo = o.getJSONObject(i);
+                    data.add(new fData(foo.getString("title"),foo.getString("ID"),foo.getString("score"),foo.getString("category")));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mAdapter = new ForumCRDV(data, item -> {
+                Intent i = new Intent(getContext(), null);
+                i.putExtra("ID", item.ID);
+                startActivity(i);
+            });
+
+            mRecycleView.setAdapter(mAdapter);
+            alertDialog5.hide();
         }, error -> {
         });
         RequestQueue q = new RequestQueue(new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
         q.add(request);
         q.start();
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                q.add(request);
+                q.start();
+            }
+        });
         return w;
     }
 

@@ -61,7 +61,7 @@ public class PlantDetail extends AppCompatActivity {
     ArrayList<BarEntry> datanaslonecznienie;
     ArrayList<BarEntry> datawilgotnosc;
     ArrayList<BarEntry> datatemperatura;
-    TextView title, subtitle;
+    TextView title, subtitle,tempe,naslone,wilgot;
     TextView ostatnie;
     int timeperiod;
     String timing = "";
@@ -77,6 +77,7 @@ public class PlantDetail extends AppCompatActivity {
     StringRequest stringRequest;
     boolean filtrch = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +90,9 @@ public class PlantDetail extends AppCompatActivity {
         Log.e("id", id);
         ID = id;
         Toolbar t = findViewById(R.id.plantdettool);
+        tempe=findViewById(R.id.te2);
+        naslone=findViewById(R.id.na2);
+        wilgot=findViewById(R.id.wi2);
         setSupportActionBar(t);
         title = findViewById(R.id.detail_title);
         subtitle = findViewById(R.id.detail_subtitle);
@@ -526,25 +530,25 @@ public class PlantDetail extends AppCompatActivity {
                         timeof.add(index - 1, foo.getString("time"));
                         if (index == podst.length() - 1) {
                             if (det.getInt("s_d_s_x") < Integer.valueOf(foo.getString("sun"))) {
-
+                                naslone.setText("Wczorajsze nasłonecznienie było zbyt duże");
                             } else if (det.getInt("s_d_s") > Integer.valueOf(foo.getString("sun"))) {
-
+                                naslone.setText("Wczorajsze nasłonecznienie było zbyt małe");
                             } else {
-
+                                naslone.setText("Wczorajsze nasłonecznienie było odpowiednie");
                             }
                             if (det.getInt("s_d_t_x") < Integer.valueOf(foo.getString("temperature"))) {
-
+                                tempe.setText("Wczorajsza temperatura była zbyt duża");
                             } else if (det.getInt("s_d_t") > Integer.valueOf(foo.getString("temperature"))) {
-
+                                tempe.setText("Wczorajsza temperatura była zbyt mała");
                             } else {
-
+                                tempe.setText("Wczorajsza temperatura była odpowiednia");
                             }
                             if (det.getInt("s_d_w_x") < Integer.valueOf(foo.getString("humidity"))) {
-
+                                wilgot.setText("Wczorajsza wilgotność była zbyt duża");
                             } else if (det.getInt("s_d_w") > Integer.valueOf(foo.getString("humidity"))) {
-
+                                wilgot.setText("Wczorajsza wilgotność była zbyt mała");
                             } else {
-
+                                wilgot.setText("Wczorajsza wilgotność była odpowiednia");
                             }
                         }
 
