@@ -175,7 +175,7 @@ public class PlantDetail extends AppCompatActivity {
                 akc.setOnClickListener(v -> {
                     String url = "http://serwer1727017.home.pl/2ti/floda/detail/espsettings.php?ID=" + ID + "&";
                     if (czas.getProgress() != timef) {
-                        url += "time=" + czas.getProgress() * 60000 + "&";
+                        url += "time=" + czas.getProgress() + "&";
                     }
                     if (!haslo.getText().toString().equals("")) {
                         url += "pass=" + haslo.getText().toString();
@@ -261,7 +261,7 @@ public class PlantDetail extends AppCompatActivity {
                         } else {
                             ipe.setText("brak");
                         }
-                        dele.setText("Every " + o.getInt("del") / 60000 + " minutes");
+                        dele.setText("Every " + o.getInt("del") + " minutes");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -27,6 +27,7 @@
         android:paddingRight="8dp"
         android:paddingBottom="10dp"
         android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
         android:textColorHint="@android:color/black" />
 
     <android.support.v7.widget.RecyclerView
