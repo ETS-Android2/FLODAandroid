@@ -225,11 +225,11 @@ public class Floda_main extends AppCompatActivity
 
     }
 
-    @Override
+    /*@Override
     protected void onRestart() {
         super.onRestart();
         finish();
         startActivity(getIntent());
         Toast.makeText(this,"Reloading...",Toast.LENGTH_SHORT).show();
-    }
+    }*/
 }

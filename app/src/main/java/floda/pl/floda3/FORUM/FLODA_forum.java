@@ -92,23 +92,23 @@ public class FLODA_forum extends Fragment {
                     JSONObject foo = o.getJSONObject(i);
                     data.add(new fData(foo.getString("title"), foo.getString("ID"), foo.getString("score"), foo.getString("category")));
                 }
-                mAdapter = new ForumCRDV(data, item -> {
-                    Fragment post = new FLODA_forum_post();
-                    Bundle n = new Bundle();
-                    n.putString("id_post", item.ID);
-                    post.setArguments(n);
-                    FragmentManager fm = getActivity().getSupportFragmentManager();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.replace(R.id.content_fram, post);
-                    transaction.commit();
-                    Log.e("duoa", "dupa");
-                });
 
-                mRecycleView.setAdapter(mAdapter);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            mAdapter = new ForumCRDV(data, item -> {
+                Fragment post = new FLODA_forum_post();
+                Bundle n = new Bundle();
+                n.putString("id_post", item.ID);
+                post.setArguments(n);
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.content_fram, post);
+                transaction.commit();
+                Log.e("duoa", "dupa");
+            });
 
+            mRecycleView.setAdapter(mAdapter);
             alertDialog5.hide();
         }, error -> {
         }) {
@@ -195,12 +195,12 @@ public class FLODA_forum extends Fragment {
     }
 
     public static class ForumCRDV extends RecyclerView.Adapter<ForumCRDV.MyViewHolder> {
-        static List<fData> fData;
-        OnItemClickListener listener;
+        List<fData> fData;
+        OnItemClickListener listener1;
 
         public ForumCRDV(List<fData> mDataset, OnItemClickListener listener) {
             fData = new ArrayList<>();
-            this.listener = listener;
+            this.listener1 = listener;
             this.fData = mDataset;
         }
 
@@ -208,6 +208,7 @@ public class FLODA_forum extends Fragment {
         @Override
         public ForumCRDV.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.for_list_cardviw, viewGroup, false);
+
             return new MyViewHolder(v);
         }
 
@@ -216,7 +217,8 @@ public class FLODA_forum extends Fragment {
             myViewHolder.title.setText(fData.get(i).title);
             myViewHolder.category.setText(fData.get(i).category);
             myViewHolder.score.setText(fData.get(i).score);
-            myViewHolder.color.setBackgroundColor(Integer.valueOf(fData.get(i).score) < 0 ? Color.parseColor("#af2d34") : Color.parseColor("#307a00"));
+            myViewHolder.color.setBackgroundColor(Integer.valueOf(fData.get(i).score) < 0 ? Color.rgb(122,31,36) : Color.rgb(46,102,10));
+            myViewHolder.bind(fData.get(i), listener1);
 
             if (Integer.valueOf(fData.get(i).score) < 0) {
                 myViewHolder.color.setBackgroundColor(Color.RED);
@@ -226,7 +228,7 @@ public class FLODA_forum extends Fragment {
                 }
             }
 
-            myViewHolder.bind(fData.get(i), listener);
+
         }
 
         @Override
@@ -236,6 +238,7 @@ public class FLODA_forum extends Fragment {
 
         public interface OnItemClickListener {
             void onItemClick(fData item);
+
         }
 
         public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -252,10 +255,12 @@ public class FLODA_forum extends Fragment {
                 category = itemView.findViewById(R.id.forum_category);
                 score = itemView.findViewById(R.id.count);
                 color = itemView.findViewById(R.id.forum_color);
+
             }
 
-            public void bind(final fData item, final OnItemClickListener listener) {
-                itemView.setOnClickListener(v -> listener.onItemClick(item));
+            public void bind(final fData item, final OnItemClickListener listener1) {
+                cv.setOnClickListener(v -> listener1.onItemClick(item));
+
             }
         }
     }

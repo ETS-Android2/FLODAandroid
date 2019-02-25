@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,12 +46,12 @@ public class ListOfPlants extends Fragment {
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
-
+    StringRequest stringRequest;
+    RequestQueue q;
     public ListOfPlants() {
         // Required empty public constructor
     }
-
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,9 +65,19 @@ public class ListOfPlants extends Fragment {
         bar.setVisibility(View.VISIBLE);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecycleView.setLayoutManager(mLayoutManager);
+        mSwipeRefreshLayout = w.findViewById(R.id.swipeRefreshLayout);
         data = new ArrayList<>();
         String url = "http://serwer1727017.home.pl/2ti/floda/floda_list.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+        q = new RequestQueue(new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
+
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            // Refresh items
+            q.stop();
+            q.add(stringRequest);
+            q.start();
+
+        });
+         stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             bar.setVisibility(View.INVISIBLE);
             try {
                 data.clear();
@@ -88,6 +99,7 @@ public class ListOfPlants extends Fragment {
             });
 
             mRecycleView.setAdapter(mAdapter);
+             mSwipeRefreshLayout.setRefreshing(false);
         }, error -> {
             Log.e("error", error.toString());
             //todo: zrobic snackbar ze bład z polaczeniem
@@ -100,7 +112,6 @@ public class ListOfPlants extends Fragment {
                 return h;
             }
         };
-        RequestQueue q = new RequestQueue(new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
         q.add(stringRequest);
         q.start();
 
