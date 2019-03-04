@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/forumcv"
+        android:id="@+id/membcv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -43,7 +43,7 @@
                 tools:ignore="RtlCompat" />
 
             <TextView
-                android:id="@+id/forum_category"
+                android:id="@+id/memb_email"
                 android:layout_width="119dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/memb_name"
@@ -52,31 +52,11 @@
                 card_view:layout_constraintStart_toStartOf="@+id/memb_name"
                 card_view:layout_constraintTop_toBottomOf="@+id/memb_name" />
 
-            <TextView
-                android:id="@+id/count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="1dp"
-                android:text="0"
-                android:textAlignment="center"
-                android:textColor="@android:color/background_dark"
-                android:textSize="36sp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="@+id/forum_color"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
-
             <View
                 android:id="@+id/forum_color"
                 android:layout_width="67dp"
                 android:layout_height="0dp"
+                android:background="@drawable/gradients_3"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />

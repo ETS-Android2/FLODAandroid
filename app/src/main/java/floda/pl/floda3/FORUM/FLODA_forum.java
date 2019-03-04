@@ -1,7 +1,6 @@
 package floda.pl.floda3.FORUM;
 
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,7 +28,6 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
@@ -44,10 +41,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
 
-import floda.pl.floda3.ListOfPlants;
-import floda.pl.floda3.PlantDetail;
 import floda.pl.floda3.R;
 
 
@@ -105,7 +99,6 @@ public class FLODA_forum extends Fragment {
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.replace(R.id.content_fram, post);
                 transaction.commit();
-                Log.e("duoa", "dupa");
             });
 
             mRecycleView.setAdapter(mAdapter);
@@ -251,7 +244,7 @@ public class FLODA_forum extends Fragment {
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
                 cv = itemView.findViewById(R.id.forumcv);
-                title = itemView.findViewById(R.id.forum_title);
+                title = itemView.findViewById(R.id.memb_name);
                 category = itemView.findViewById(R.id.forum_category);
                 score = itemView.findViewById(R.id.count);
                 color = itemView.findViewById(R.id.forum_color);

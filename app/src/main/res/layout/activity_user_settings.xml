@@ -79,7 +79,9 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:background="@drawable/formbackground"        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/formbackground"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view3" />
@@ -122,6 +124,7 @@
 
         android:text="@string/add_facebook"
         android:textSize="30sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/view3"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="@+id/view3"
@@ -181,6 +184,7 @@
         android:enabled="false"
         android:fontFamily="@font/molengo"
         android:text="@string/polacz"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/view5"
         app:layout_constraintEnd_toEndOf="@+id/view5"
         app:layout_constraintStart_toStartOf="@+id/view5"

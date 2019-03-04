@@ -217,7 +217,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
             if (bool_poradnik.isChecked()) {
                 if (link_poradnik.getText().toString().contains("http://") && link_poradnik.getText().toString().length() > 7) {
                     sql += "www=" + link_poradnik.getText().toString() + "&";
-                } else { //todo cos tu nie gra
+                } else {
                     Toast.makeText(this, getString(R.string.add_new_gen_del_problem), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -236,7 +236,7 @@ public class FLODA_add_new_genre extends AppCompatActivity {
                 if (response.contains("z")) {
                     Intent i = getIntent();
                     response = response.replace("z", "");
-                    i.putExtra("ID", response); //todo id
+                    i.putExtra("ID", response);
                     setResult(RESULT_OK, i);
                     Toast.makeText(this, getString(R.string.add_new_gen_ok), Toast.LENGTH_LONG).show();
                     finish();
