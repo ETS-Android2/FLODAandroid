@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 
 /**
@@ -67,8 +68,8 @@ public class Floda_faq extends Fragment {
 
         /*JSInterface = new JavaScriptInterface(this);
         wv.addJavascriptInterface(JSInterface, "JSInterface");
-*/
-        w.loadUrl("http://www.serwer1727017.home.pl/2ti/floda/web/faq/index.php");
+*/      w.setWebViewClient(new WebViewClient());
+        w.loadUrl("http://www.serwer1727017.home.pl/2ti/floda/web/wp/index.php");
         return v;
     }
 

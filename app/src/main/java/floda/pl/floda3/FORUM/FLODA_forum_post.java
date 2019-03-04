@@ -2,8 +2,10 @@ package floda.pl.floda3.FORUM;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -132,7 +135,34 @@ public class FLODA_forum_post extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setView(v4);
             alertDialog4 = builder.create();
+            Button can = v4.findViewById(R.id.add_comment_cancel);
+            Button acc = v4.findViewById(R.id.add_comment_add);
+            TextView ww=v4.findViewById(R.id.add_comment_type);
+            can.setOnClickListener(v1 -> {
+                alertDialog4.hide();
+            });
             alertDialog4.show();
+            acc.setOnClickListener(v1 -> {
+                String url_comm="http://serwer1727017.home.pl/2ti/floda/forum/add_comment.php";
+                StringRequest comment_req=new StringRequest(Request.Method.POST,url_comm, response -> {
+                    alertDialog4.hide();
+                    Toast.makeText(getContext(),"Wyslano komentarz, odswiez",Toast.LENGTH_SHORT);
+                },error->{
+
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> parms = new HashMap<>();
+                        parms.put("ID_post",ID);
+                        parms.put("text",ww.getText().toString());
+                        SharedPreferences s = PreferenceManager.getDefaultSharedPreferences(getContext());
+                        parms.put("usr_id",s.getString("ID","0"));
+                        return parms;
+                    }
+                };
+                q.add(comment_req);
+                q.start();
+            });
         });
 
         q.add(request);

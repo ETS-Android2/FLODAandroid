@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -137,11 +138,24 @@ public class Floda_main extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent n = new Intent(this,User_settings.class);
-
             startActivityForResult(n,2);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==2){
+            if(resultCode==RESULT_OK){
+                if(data.getBooleanExtra("re",true)){
+                    finish();
+                    startActivity(getIntent());
+                    Toast.makeText(this,"Reloading...",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

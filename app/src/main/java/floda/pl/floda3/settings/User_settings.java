@@ -1,5 +1,6 @@
 package floda.pl.floda3.settings;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -26,6 +27,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.util.Locale;
 
+import floda.pl.floda3.Floda_LOGIN;
 import floda.pl.floda3.R;
 
 public class User_settings extends AppCompatActivity {
@@ -35,7 +37,8 @@ public class User_settings extends AppCompatActivity {
     int option_lang = 0;
     TextView ust_password, ust_repassword;
     ImageButton backbutton, acceptbutton;
-
+    boolean refresh=false;
+    boolean back_to_login=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,18 +70,21 @@ public class User_settings extends AppCompatActivity {
                     res.updateConfiguration(conf, dm);
                     e.putString("language", "pl");
                     url += "lang=pl&";
+                    refresh=true;
                     break;
                 case 2:
                     conf.locale = new Locale("en"); // API 17+ only.
                     res.updateConfiguration(conf, dm);
                     e.putString("language", "en");
                     url += "lang=en&";
+                    refresh=true;
                     break;
                 case 3:
                     conf.setLocale(new Locale("de"));
                     res.updateConfiguration(conf, dm);
                     e.putString("language", "de");
                     url += "lang=de&";
+                    refresh=true;
                     break;
 
             }
@@ -86,13 +92,24 @@ public class User_settings extends AppCompatActivity {
             if (ust_password.length() > 0) {
                 if (ust_password.getText().toString().equals(ust_repassword.getText().toString())) {
                     url += "password=" + ust_repassword.toString() + "&";
+                    back_to_login=true;
                 } else {
                     Toast.makeText(this, getString(R.string.haslo_takie_same), Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
-                finish();
+                if(back_to_login){
+                    Intent i = new Intent(this,Floda_LOGIN.class);
+                    startActivity(i);
+                }else if(refresh){
+                    Intent intent = new Intent();
+                    intent.putExtra("re", true);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }else{
+                    finish();
+                }
             }, error -> {
             });
             RequestQueue q = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
