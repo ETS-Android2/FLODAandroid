@@ -20,7 +20,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp">
 
 
             <TextView
@@ -33,33 +34,31 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="@font/molengo"
                 android:scrollHorizontally="false"
+                android:text="test"
                 android:textSize="20sp"
+                android:textStyle="normal"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/forum_color"
+                card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="0.195"
                 tools:ignore="RtlCompat" />
 
             <TextView
                 android:id="@+id/memb_email"
-                android:layout_width="119dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/memb_name"
                 android:layout_alignStart="@+id/memb_name"
                 android:layout_alignLeft="@+id/memb_name"
+                android:fontFamily="@font/molengo"
+                android:paddingBottom="4dp"
+                android:text="test"
+                android:textStyle="italic"
                 card_view:layout_constraintStart_toStartOf="@+id/memb_name"
                 card_view:layout_constraintTop_toBottomOf="@+id/memb_name" />
-
-            <View
-                android:id="@+id/forum_color"
-                android:layout_width="67dp"
-                android:layout_height="0dp"
-                android:background="@drawable/gradients_3"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
 
 
         </android.support.constraint.ConstraintLayout>

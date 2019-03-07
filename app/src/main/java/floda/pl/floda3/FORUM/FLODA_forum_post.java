@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
@@ -50,7 +51,7 @@ import floda.pl.floda3.R;
  */
 public class FLODA_forum_post extends Fragment {
     TextView title, desc, date, score;
-    Button profile;
+    Button profile, plus, minus;
     String owner_id;
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
@@ -73,12 +74,16 @@ public class FLODA_forum_post extends Fragment {
         Bundle bundle = this.getArguments();
         List<fData> data = new ArrayList<>();
         String ID = bundle.getString("id_post");
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String user = preferences.getString("ID", "0");
         fab2 = w.findViewById(R.id.comment_add);
         title = w.findViewById(R.id.title_post);
         desc = w.findViewById(R.id.desc_post);
         date = w.findViewById(R.id.date_forum);
         score = w.findViewById(R.id.score_post);
         profile = w.findViewById(R.id.name_post);
+        plus = w.findViewById(R.id.plus_post);
+        minus = w.findViewById(R.id.minus_post);
         mRecycleView = w.findViewById(R.id.for_comm_recycle);
         mRecycleView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -128,6 +133,34 @@ public class FLODA_forum_post extends Fragment {
 
             }
         });
+        minus.setOnClickListener(v -> {
+            String url2 = "http://serwer1727017.home.pl/2ti/floda/forum/forum_score.php?ID="+ID+"&op="+user+"&operacja=-1";
+            StringRequest request = new StringRequest(Request.Method.GET, url2, response -> {
+                if (!response.equals("0")) {
+                    score.setText(String.valueOf((Integer.valueOf(score.getText().toString()) - 1)));
+                } else {
+                    Toast.makeText(getContext(), "Nie możesz juz glosowac", Toast.LENGTH_SHORT).show();
+                }
+            }, error -> {
+            });
+            q.stop();
+            q.add(request);
+            q.start();
+        });
+        plus.setOnClickListener(v -> {
+            String url2 = "http://serwer1727017.home.pl/2ti/floda/forum/forum_score.php?ID="+ID+"&op="+user+"&operacja=1";
+            StringRequest request = new StringRequest(Request.Method.GET, url2, response -> {
+                if (!response.equals("0")) {
+                    score.setText(String.valueOf(Integer.valueOf(score.getText().toString()) + 1));
+                } else {
+                    Toast.makeText(getContext(), "Nie możesz juz glosowac", Toast.LENGTH_SHORT).show();
+                }
+            }, error -> {
+            });
+            q.stop();
+            q.add(request);
+            q.start();
+        });
         fab2.setOnClickListener(v -> {
             LayoutInflater l4 = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
             View v4 = l4.inflate(R.layout.add_comment_forum, null);
@@ -137,26 +170,26 @@ public class FLODA_forum_post extends Fragment {
             alertDialog4 = builder.create();
             Button can = v4.findViewById(R.id.add_comment_cancel);
             Button acc = v4.findViewById(R.id.add_comment_add);
-            TextView ww=v4.findViewById(R.id.add_comment_type);
+            TextView ww = v4.findViewById(R.id.add_comment_type);
             can.setOnClickListener(v1 -> {
                 alertDialog4.hide();
             });
             alertDialog4.show();
             acc.setOnClickListener(v1 -> {
-                String url_comm="http://serwer1727017.home.pl/2ti/floda/forum/add_comment.php";
-                StringRequest comment_req=new StringRequest(Request.Method.POST,url_comm, response -> {
+                String url_comm = "http://serwer1727017.home.pl/2ti/floda/forum/add_comment.php";
+                StringRequest comment_req = new StringRequest(Request.Method.POST, url_comm, response -> {
                     alertDialog4.hide();
-                    Toast.makeText(getContext(),"Wyslano komentarz, odswiez",Toast.LENGTH_SHORT);
-                },error->{
+                    Toast.makeText(getContext(), "Wyslano komentarz, odswiez", Toast.LENGTH_SHORT);
+                }, error -> {
 
-                }){
+                }) {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> parms = new HashMap<>();
-                        parms.put("ID_post",ID);
-                        parms.put("text",ww.getText().toString());
+                        Map<String, String> parms = new HashMap<>();
+                        parms.put("ID_post", ID);
+                        parms.put("text", ww.getText().toString());
                         SharedPreferences s = PreferenceManager.getDefaultSharedPreferences(getContext());
-                        parms.put("usr_id",s.getString("ID","0"));
+                        parms.put("usr_id", s.getString("ID", "0"));
                         return parms;
                     }
                 };

@@ -3,6 +3,7 @@ package floda.pl.floda3;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,6 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -58,15 +61,21 @@ public class ListOfPlants extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         List<pData> data;
+        AtomicInteger width_screen = new AtomicInteger();
         w = inflater.inflate(R.layout.fragment_list_of_plants, container, false);
         mRecycleView = w.findViewById(R.id.listofplantrv);
         mRecycleView.setHasFixedSize(true);
         ProgressBar bar = w.findViewById(R.id.progressBar2);
         bar.setVisibility(View.VISIBLE);
         mLayoutManager = new LinearLayoutManager(getContext());
-        mRecycleView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout = w.findViewById(R.id.swipeRefreshLayout);
         data = new ArrayList<>();
+        if(getActivity().getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT && getActivity().getResources().getConfiguration().screenWidthDp>750){
+            mRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        }
+        else{
+            mRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        }
         String url = "http://serwer1727017.home.pl/2ti/floda/floda_list.php";
         q = new RequestQueue(new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
 
@@ -77,6 +86,7 @@ public class ListOfPlants extends Fragment {
             q.start();
 
         });
+        Log.e("e", String.valueOf(getActivity().getResources().getConfiguration().screenWidthDp));
          stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             bar.setVisibility(View.INVISIBLE);
             try {
@@ -84,6 +94,11 @@ public class ListOfPlants extends Fragment {
                 JSONArray jsonArray = new JSONArray(response);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject o = jsonArray.getJSONObject(i);
+                    /*if(getActivity().getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT && getActivity().getResources().getConfiguration().screenWidthDp>1500){
+                        width_screen.set(getActivity().getResources().getConfiguration().screenWidthDp);
+                    }else{
+                        width_screen.set(getActivity().getResources().getConfiguration().screenWidthDp/2);
+                    }*/
                     data.add(new pData(o.getString("Name"), o.getString("latin"), o.getString("ison").contains("1") ? "on" : "off", o.getString("ID"), o.getString("sonda"), o.getString("normwilg"), o.getString("normsun"), o.getString("normtemp"), o.getString("normpod")));
                     Log.e("cs", o.getString("normtemp"));
 
@@ -117,7 +132,18 @@ public class ListOfPlants extends Fragment {
 
         return w;
     }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
+        if(getActivity().getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT && getActivity().getResources().getConfiguration().screenWidthDp>750){
+            mRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+        }
+        else{
+            mRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        }
+    }
     public static class Listplants extends RecyclerView.Adapter<Listplants.MyViewHolder> {
         List<pData> pdata;
         OnItemClickListener listener;
@@ -202,8 +228,7 @@ public class ListOfPlants extends Fragment {
         boolean sun;
         boolean temp;
         boolean pod;
-
-        public pData(String pname, String pgenre, String pstatus, String ID, String nr, String wilg, String sun, String temp, String pod) {
+        public pData( String pname, String pgenre, String pstatus, String ID, String nr, String wilg, String sun, String temp, String pod) {
             this.pname = pname;
             this.pgenre = pgenre;
             this.pstatus = pstatus;

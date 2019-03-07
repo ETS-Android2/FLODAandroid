@@ -1,6 +1,7 @@
 package floda.pl.floda3.FORUM;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -48,7 +49,6 @@ public class Floda_member_list extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View w =  inflater.inflate(R.layout.fragment_floda_member_list, container, false);
         List<Floda_member_list.uData> data;
         w = inflater.inflate(R.layout.fragment_floda_member_list, container, false);
         mRecycleView = w.findViewById(R.id.member_recycleview);
@@ -70,7 +70,7 @@ public class Floda_member_list extends Fragment {
                 JSONArray o = new JSONArray(response);
                 for (int i = 0; i < o.length(); i++) {
                     JSONObject foo = o.getJSONObject(i);
-                    data.add(new Floda_member_list.uData(foo.getString("name"), foo.getString("ID"), foo.getString("email")));
+                    data.add(new Floda_member_list.uData(foo.getInt("su"), foo.getString("name"), foo.getString("ID"), foo.getString("email")));
                 }
 
             } catch (JSONException e) {
@@ -89,68 +89,65 @@ public class Floda_member_list extends Fragment {
     }
 
 
+    public static class ForumCRDV extends RecyclerView.Adapter<Floda_member_list.ForumCRDV.MyViewHolder> {
+        List<Floda_member_list.uData> uData;
+
+        public ForumCRDV(List<Floda_member_list.uData> mDataset) {
+            //uData = new ArrayList<>();
+            this.uData = mDataset;
+        }
+
+        @NonNull
+        @Override
+        public Floda_member_list.ForumCRDV.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.memb_list_cardviw, viewGroup, false);
+
+            return new Floda_member_list.ForumCRDV.MyViewHolder(v);
+        }
 
 
+        @SuppressLint("ResourceAsColor")
+        @Override
+        public void onBindViewHolder(@NonNull Floda_member_list.ForumCRDV.MyViewHolder myViewHolder, int i) {
+            myViewHolder.email.setText(uData.get(i).email);
+            myViewHolder.name.setText(uData.get(i).name);
+            if (uData.get(i).su==1) {
+                myViewHolder.cv.setBackgroundColor(R.color.red);
+            }
+        }
 
+        @Override
+        public int getItemCount() {
+            return uData.size();
+        }
 
-public static class ForumCRDV extends RecyclerView.Adapter<Floda_member_list.ForumCRDV.MyViewHolder> {
-    List<Floda_member_list.uData> uData;
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+            CardView cv;
+            TextView name;
+            TextView email;
 
-    public ForumCRDV(List<Floda_member_list.uData> mDataset) {
-        uData = new ArrayList<>();
-        this.uData = mDataset;
-    }
+            public MyViewHolder(@NonNull View itemView) {
+                super(itemView);
+                cv = itemView.findViewById(R.id.membcv);
+                name = itemView.findViewById(R.id.memb_name);
+                email = itemView.findViewById(R.id.memb_email);
 
-    @NonNull
-    @Override
-    public Floda_member_list.ForumCRDV.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.for_list_cardviw, viewGroup, false);
-
-        return new Floda_member_list.ForumCRDV.MyViewHolder(v);
-    }
-
-
-
-    @Override
-    public void onBindViewHolder(@NonNull Floda_member_list.ForumCRDV.MyViewHolder myViewHolder, int i) {
-        myViewHolder.email.setText(uData.get(i).email);
-        myViewHolder.name.setText(uData.get(i).name);
-
-
-
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return uData.size();
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        CardView cv;
-        TextView name;
-        TextView email;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            cv = itemView.findViewById(R.id.membcv);
-            name = itemView.findViewById(R.id.memb_name);
-            email = itemView.findViewById(R.id.memb_email);
-
+            }
         }
     }
-}
 
-class uData {
-    public String name, ID, email;
+    class uData {
+        public String name, ID, email;
+        int su;
 
-    uData(String name, String ID, String email) {
-        this.ID = ID;
-        this.name = name;
-        this.email = email;
+        uData(int su, String name, String ID, String email) {
+            this.ID = ID;
+            this.su = su;
+            this.name = name;
+            this.email = email;
+        }
+
     }
-
-}
 
 
 }

@@ -54,7 +54,6 @@ public class Starting extends AppCompatActivity {
                     if (!id.equals("0")) {
                         Intent i = new Intent(getBaseContext(), Floda_main.class);
                         i.putExtra("ID", id);
-
                         startActivity(i);
                     } else {
                         Intent i = new Intent(getBaseContext(), Floda_LOGIN.class);

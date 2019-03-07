@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,7 @@ public class Floda_main extends AppCompatActivity
     User_info usr;
     String idd;
     FloatingActionButton fab;
-
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,12 +99,13 @@ public class Floda_main extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent i = getIntent();
 
         idd = i.getStringExtra("ID");
+
         getDetail(idd, new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.content_fram, new ListOfPlants());
@@ -192,9 +194,10 @@ public class Floda_main extends AppCompatActivity
                 fab.hide();
                 break;
             case  R.id.users:
-                /*t.replace(R.id.content_fram,new Floda_member_list());
-                fab.hide();*/
+                t.replace(R.id.content_fram,new Floda_member_list());
+                fab.hide();
                 break;
+
         }
         t.commit();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
