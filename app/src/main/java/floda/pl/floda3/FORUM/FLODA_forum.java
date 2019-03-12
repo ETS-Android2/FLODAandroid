@@ -160,7 +160,7 @@ public class FLODA_forum extends Fragment {
                     StringRequest request1 = new StringRequest(Request.Method.GET, url1, response -> {
 
                         alertDialog4.hide();
-                        Toast.makeText(getContext(), "Zapostowano", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.zapostowano), Toast.LENGTH_SHORT).show();
                         Fragment post = new FLODA_forum_post();
                         Log.e("POST ID", response);
                         Bundle n = new Bundle();
@@ -178,7 +178,7 @@ public class FLODA_forum extends Fragment {
                     q.add(request1);
                     q.start();
                 } else {
-                    Toast.makeText(getContext(), "Brakuje opisu lub tytułu", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.opis_brak), Toast.LENGTH_SHORT).show();
                 }
             });
 

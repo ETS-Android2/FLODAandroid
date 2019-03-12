@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/molengo"
-        android:text="SONDA info"
+        android:text="@string/sonda_info"
         android:textColor="@android:color/white"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/molengo"
-        android:text="PERIOD:"
+        android:text="@string/period"
         android:textColor="@android:color/white"
 
         android:textAlignment="textEnd"

@@ -16,7 +16,7 @@
         android:fontFamily="@font/molengo"
         android:textColor="@android:color/white"
 
-        android:text="SONDA settings"
+        android:text="@string/sonda_settings"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +62,7 @@
         android:layout_marginTop="8dp"
 
         android:fontFamily="@font/molengo"
-        android:text="Okres pomiarów (w minutach)"
+        android:text="@string/okres_pomiar_w_w_minutach"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/indicatorSeekBar2"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -74,7 +74,7 @@
         android:layout_marginTop="8dp"
 
         android:fontFamily="@font/molengo"
-        android:text="Hasło do SONDY"
+        android:text="@string/has_o_do_sondy"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/indicatorSeekBar2" />
@@ -88,7 +88,7 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
 
-        android:hint="Nowe hasło (puste stare)"
+        android:hint="@string/nowe_has_o_puste_stare"
         android:inputType="textPersonName"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/indicatorSeekBar2"
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="ZATWIERDŹ"
+        android:text="@string/zatwierd"
         app:layout_constraintEnd_toEndOf="@+id/edithaslo"
         app:layout_constraintTop_toBottomOf="@+id/edithaslo" />
 
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Anuluj"
+        android:text="@string/anuluj"
         app:layout_constraintStart_toStartOf="@+id/edithaslo"
         app:layout_constraintTop_toBottomOf="@+id/edithaslo" />
 </android.support.constraint.ConstraintLayout>

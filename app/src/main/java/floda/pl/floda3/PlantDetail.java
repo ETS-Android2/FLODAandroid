@@ -249,7 +249,6 @@ public class PlantDetail extends AppCompatActivity {
                     ide = v3.findViewById(R.id.sndid);
                     ipe = v3.findViewById(R.id.sndip);
                     dele = v3.findViewById(R.id.sndper);
-                    ide.setText("duoa");
                     Button next = v3.findViewById(R.id.sndok);
                     next.setOnClickListener(v -> {
                         alertDialog3.hide();
@@ -259,9 +258,9 @@ public class PlantDetail extends AppCompatActivity {
                         if (o.getString("ip")!="null") {
                             ipe.setText(o.getString("ip"));
                         } else {
-                            ipe.setText("brak");
+                            ipe.setText(getString(R.string.brak));
                         }
-                        dele.setText("Every " + o.getInt("del") + " minutes");
+                        dele.setText(getString(R.string.every) + o.getInt("del") + getString(R.string.minutes));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -530,25 +529,25 @@ public class PlantDetail extends AppCompatActivity {
                         timeof.add(index - 1, foo.getString("time"));
                         if (index == podst.length() - 1) {
                             if (det.getInt("s_d_s_x") < Integer.valueOf(foo.getString("sun"))) {
-                                naslone.setText("Wczorajsze nasłonecznienie było zbyt duże");
+                                naslone.setText(getString(R.string.sun_du));
                             } else if (det.getInt("s_d_s") > Integer.valueOf(foo.getString("sun"))) {
-                                naslone.setText("Wczorajsze nasłonecznienie było zbyt małe");
+                                naslone.setText(getString(R.string.sun_ma));
                             } else {
-                                naslone.setText("Wczorajsze nasłonecznienie było odpowiednie");
+                                naslone.setText(getString(R.string.sun_ok));
                             }
                             if (det.getInt("s_d_t_x") < Integer.valueOf(foo.getString("temperature"))) {
-                                tempe.setText("Wczorajsza temperatura była zbyt duża");
+                                tempe.setText(getString(R.string.temp_du));
                             } else if (det.getInt("s_d_t") > Integer.valueOf(foo.getString("temperature"))) {
-                                tempe.setText("Wczorajsza temperatura była zbyt mała");
+                                tempe.setText(getString(R.string.temp_min));
                             } else {
-                                tempe.setText("Wczorajsza temperatura była odpowiednia");
+                                tempe.setText(getString(R.string.temp_ok));
                             }
                             if (det.getInt("s_d_w_x") < Integer.valueOf(foo.getString("humidity"))) {
-                                wilgot.setText("Wczorajsza wilgotność była zbyt duża");
+                                wilgot.setText(getString(R.string.wilg_du));
                             } else if (det.getInt("s_d_w") > Integer.valueOf(foo.getString("humidity"))) {
-                                wilgot.setText("Wczorajsza wilgotność była zbyt mała");
+                                wilgot.setText(getString(R.string.wilg_ma));
                             } else {
-                                wilgot.setText("Wczorajsza wilgotność była odpowiednia");
+                                wilgot.setText(getString(R.string.wilg_ok));
                             }
                         }
 

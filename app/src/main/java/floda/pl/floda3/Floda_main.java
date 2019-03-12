@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +40,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import floda.pl.floda3.FORUM.FLODA_forum;
 import floda.pl.floda3.FORUM.Floda_member_list;
@@ -56,16 +55,48 @@ public class Floda_main extends AppCompatActivity
     String idd;
     FloatingActionButton fab;
     NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_floda_main);
+        Intent intent = getIntent();
+        idd = intent.getStringExtra("ID");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.appbar);
         fab = findViewById(R.id.fab);
+        RequestQueue re = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
+        String urlr = "http://serwer1727017.home.pl/2ti/floda/floda_list.php?ID=" + idd;
+        AtomicBoolean raised_not = new AtomicBoolean(false);
+        StringRequest notifi = new StringRequest(Request.Method.GET, urlr, response -> {
+            if (!Objects.equals(response, "0")&&!raised_not.get()) {
+                Floda_notification.notify(getApplicationContext(), "Roślina wymaga twojej uwagi", 0);
+                raised_not.set(true);
+            } else {
+                raised_not.set(false);
+            }
+        }, error -> {
+        });
+        Thread notif = new Thread() {
 
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        super.run();
+                        re.stop();
+                        re.add(notifi);
+                        re.start();
+                        sleep(10000000);
+                    }
+                } catch (Exception e) {
+                    Log.e("e", e.toString());
+                }
+            }
+        };
+        notif.start();
         fab.setOnClickListener(
                 v -> {
                     AlertDialog alertDialog;
@@ -99,12 +130,9 @@ public class Floda_main extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-         navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Intent i = getIntent();
-
-        idd = i.getStringExtra("ID");
 
         getDetail(idd, new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
@@ -140,8 +168,8 @@ public class Floda_main extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent n = new Intent(this,User_settings.class);
-            startActivityForResult(n,2);
+            Intent n = new Intent(this, User_settings.class);
+            startActivityForResult(n, 2);
         }
 
         return super.onOptionsItemSelected(item);
@@ -150,12 +178,12 @@ public class Floda_main extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==2){
-            if(resultCode==RESULT_OK){
-                if(data.getBooleanExtra("re",true)){
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                if (data.getBooleanExtra("re", true)) {
                     finish();
                     startActivity(getIntent());
-                    Toast.makeText(this,"Reloading...",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Reloading...", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -190,11 +218,15 @@ public class Floda_main extends AppCompatActivity
                 startActivity(j);
                 break;
             case R.id.forum:
-                t.replace(R.id.content_fram,new FLODA_forum());
+                t.replace(R.id.content_fram, new FLODA_forum());
                 fab.hide();
                 break;
-            case  R.id.users:
-                t.replace(R.id.content_fram,new Floda_member_list());
+            case R.id.users:
+                t.replace(R.id.content_fram, new Floda_member_list());
+                fab.hide();
+                break;
+            case R.id.esp_add:
+                t.replace(R.id.content_fram, new Floda_sonda_to_web());
                 fab.hide();
                 break;
 

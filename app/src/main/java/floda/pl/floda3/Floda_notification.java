@@ -47,15 +47,18 @@ public class Floda_notification {
 
         // This image is used as the notification's large icon (thumbnail).
         // TODO: Remove this if your notification has no relevant thumbnail.
-        final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.example_picture);
+        final Bitmap picture = BitmapFactory.decodeResource(res, R.drawable.logo);
 
 
         final String ticker = exampleString;
         final String title = res.getString(
-                R.string.floda__notification_title_template, exampleString);
+                R.string.floda__notification_title_template);
         final String text = res.getString(
-                R.string.floda__notification_placeholder_text_template, exampleString);
+                R.string.floda__notification_placeholder_text_template);
+        Intent notificationIntent = new Intent(context, Starting.class);
 
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
                 // Set appropriate defaults for the notification light, sound,
@@ -97,31 +100,14 @@ public class Floda_notification {
                 // Set the pending intent to be initiated when the user touches
                 // the notification.
                 .setContentIntent(
-                        PendingIntent.getActivity(
-                                context,
-                                0,
-                                new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com")),
-                                PendingIntent.FLAG_UPDATE_CURRENT))
+                        PendingIntent.getActivity(context, 0,
+                                notificationIntent, 0))
 
                 // Example additional actions for this notification. These will
                 // only show on devices running Android 4.1 or later, so you
                 // should ensure that the activity in this notification's
                 // content intent provides access to the same actions in
                 // another way.
-                .addAction(
-                        R.drawable.ic_action_stat_share,
-                        res.getString(R.string.action_share),
-                        PendingIntent.getActivity(
-                                context,
-                                0,
-                                Intent.createChooser(new Intent(Intent.ACTION_SEND)
-                                        .setType("text/plain")
-                                        .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
-                                PendingIntent.FLAG_UPDATE_CURRENT))
-                .addAction(
-                        R.drawable.ic_action_stat_reply,
-                        res.getString(R.string.action_reply),
-                        null)
 
                 // Automatically dismiss the notification when it is touched.
                 .setAutoCancel(true);

@@ -53,7 +53,7 @@ public class User_settings extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(), getResources().getConfiguration().locale.getDisplayLanguage(), Toast.LENGTH_LONG).show();
 
         acceptbutton.setOnClickListener(v -> {
-            Toast.makeText(getBaseContext(), "Saving in progress", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.saving_in_progres), Toast.LENGTH_SHORT).show();
             Resources res = getBaseContext().getResources();
 // Change locale settings in the app.
             DisplayMetrics dm = res.getDisplayMetrics();

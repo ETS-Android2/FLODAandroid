@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
@@ -127,9 +128,23 @@ public class ListOfPlants extends Fragment {
                 return h;
             }
         };
-        q.add(stringRequest);
-        q.start();
+        Thread welcomeThread = new Thread() {
 
+            @Override
+            public void run() {
+                try {
+                    super.run();
+                    stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                    q.add(stringRequest);
+                    q.start();
+                } catch (Exception e) {
+                    Log.e("e", e.toString());
+                }
+            }
+        };
+        welcomeThread.start();
         return w;
     }
     @Override

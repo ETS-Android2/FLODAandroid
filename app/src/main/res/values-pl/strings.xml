@@ -144,4 +144,45 @@
     <string name="add_facebook">Dodaj Facebooka</string>
     <string name="polacz">Połącz</string>
     <string name="mail_sended">Link aktywacyjny został wysłany na maila!</string>
+    <string name="floda__notification_title_template">Jedna z sond wymaga twojej uwagi</string>
+    <string name="floda__notification_placeholder_text_template">Sprawdz stan urzadzenia</string>
+    <string name="sonda_addition_text">Co należy na początku zrobić? \n
+        1. Podłącz swoją sonde do źródła zasilania. \n
+        2. Połącz się z siecią Wi-Fi hostowaną przez sonde, jest to \'Floda eg.\' i twój numer urządzenia. \n
+        3. Następnie kliknij przycisk odswież. \n
+        4. Podłącz swoja sieć Wi-Fi do urzadzenia \n
+        5. Gotowe!</string>    <string name="pierwsze_kroki">Pierwsze kroki</string>
+    <string name="odswiez">odśwież</string>
+    <string name="okres_pomiar_w_w_minutach">Okres pomiarów (w minutach)</string>
+    <string name="has_o_do_sondy">Hasło do SONDY</string>
+    <string name="nowe_has_o_puste_stare">Nowe hasło (puste stare)</string>
+    <string name="zatwierd">ZATWIERDŹ</string>
+    <string name="wilg_ma">Wczorajsza wilgotność była zbyt mała</string>
+    <string name="temp_min">Wczorajsza temperatura była zbyt mała</string>
+    <string name="temp_du">Wczorajsza temperatura była zbyt duża</string>
+    <string name="sun_ok">Wczorajsze nasłonecznienie było odpowiednie</string>
+    <string name="sun_ma">Wczorajsze nasłonecznienie było zbyt małe</string>
+    <string name="sun_du">Wczorajsze nasłonecznienie było zbyt duże</string>
+    <string name="brak">brak</string>
+    <string name="zapostowano">Zapostowano</string>
+    <string name="opis_brak">Brakuje opisu lub tytułu</string>
+    <string name="konfiguracja_sondy">Konfiguracja Sondy</string>
+    <string name="processing">Serwer przetwarza twoje zapytanie</string>
+    <string name="add_new_post">Dodaj nowy post</string>
+    <string name="title">Tytuł</string>
+    <string name="category">Kategoria</string>
+    <string name="description">Opis</string>
+    <string name="sonda_settings">SONDA ustawienia</string>
+    <string name="period">OKRES czasu:</string>
+    <string name="add_comment">Dodaj komentarz</string>
+    <string name="type_there_your_comment">Tutaj wpisz swój kometarz</string>
+    <string name="add">DODAJ</string>
+    <string name="cancel">Anuluj</string>
+    <string name="every">Co</string>
+    <string name="minutes">minut</string>
+    <string name="saving_in_progres">Zapisywanie w toku</string>
+    <string name="wilg_ok">Wczorajsza wilgotność była odpowiednia</string>
+    <string name="wilg_du">Wczorajsza wilgotność była zbyt duża</string>
+    <string name="temp_ok">Wczorajsza temperatura była odpowiednia</string>
+
 </resources>
