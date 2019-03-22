@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/nova_square"
+            android:fontFamily="@font/molengo"
             android:text="@string/dodawanie_nowej_ro_liny"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="192dp"
@@ -64,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/molengo"
                 android:hint="@string/nazwa"
+                android:textColor="@color/colorAccent"
                 android:textColorHighlight="@android:color/background_light"
                 android:textColorLink="@android:color/background_light" />
         </android.support.design.widget.TextInputLayout>
@@ -129,9 +130,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:fontFamily="@font/arvo"
+            android:backgroundTint="@color/BUTTONS"
+            android:fontFamily="@font/molengo"
             android:gravity="center"
             android:text="@string/test"
+            android:textColor="@color/FONTCOLOR"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="148dp" />
 
     </LinearLayout>
@@ -145,9 +149,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/BUTTONS"
-        android:fontFamily="@font/arvo"
+        android:fontFamily="@font/molengo"
         android:padding="20dp"
         android:text="@string/dodajros"
+        android:textColor="@color/FONTCOLOR"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -174,8 +179,11 @@
             android:layout_height="75dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:fontFamily="@font/arvo"
-            android:text="@string/wybierz_gatunek_z_listy" />
+            android:backgroundTint="@color/BUTTONS"
+            android:fontFamily="@font/molengo"
+            android:text="@string/wybierz_gatunek_z_listy"
+            android:textColor="@color/FONTCOLOR"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/new_genre_dod_rosl"
@@ -183,8 +191,11 @@
             android:layout_height="75dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:fontFamily="@font/arvo"
-            android:text="@string/dodaj_nowy_gatunek" />
+            android:backgroundTint="@color/BUTTONS"
+            android:fontFamily="@font/molengo"
+            android:text="@string/dodaj_nowy_gatunek"
+            android:textColor="@color/FONTCOLOR"
+            android:textSize="15sp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

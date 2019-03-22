@@ -233,7 +233,10 @@ public class PlantDetail extends AppCompatActivity {
                 View v6 = l6.inflate(R.layout.loading, null);
                 builder5.setView(v6);
                 alertDialog6 = builder5.create();
-
+                Button next = v3.findViewById(R.id.sndok);
+                next.setOnClickListener(v -> {
+                    alertDialog3.hide();
+                });
                 //--------------------------
 
                 StringRequest ss = new StringRequest(Request.Method.GET, url, response -> {
@@ -249,10 +252,8 @@ public class PlantDetail extends AppCompatActivity {
                     ide = v3.findViewById(R.id.sndid);
                     ipe = v3.findViewById(R.id.sndip);
                     dele = v3.findViewById(R.id.sndper);
-                    Button next = v3.findViewById(R.id.sndok);
-                    next.setOnClickListener(v -> {
-                        alertDialog3.hide();
-                    });
+
+
                     try {
                         ide.setText(o.getString("id"));
                         if (o.getString("ip")!="null") {
@@ -632,13 +633,14 @@ public class PlantDetail extends AppCompatActivity {
         LineDataSet set = new LineDataSet(nmax, getString(R.string.potrz_podl));
         set.setCircleRadius(1f);
         set.setLineWidth(2.5f);
-        set.setColor(Color.RED);
+        set.setColor(getColor(R.color.red));
         set.setFillColor(Color.WHITE);
         set.setDrawValues(false);
         nawo.addDataSet(set);
         BarDataSet d = new BarDataSet(datanawodnienie, getString(R.string.units));
-        d.setColor(Color.BLUE);
-        d.setBarBorderWidth(1f);
+        d.setColor(getColor(R.color.barColor));
+        d.setBarShadowColor(getColor(R.color.barColor));
+        d.setBarBorderWidth(0f);
         d.setBarBorderColor(Color.WHITE);
         d.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.setValueTextColor(Color.WHITE);
@@ -696,19 +698,20 @@ public class PlantDetail extends AppCompatActivity {
         LineDataSet min = new LineDataSet(smin, getString(R.string.min_slon));
         max.setCircleRadius(1f);
         max.setLineWidth(2.5f);
-        max.setColor(Color.YELLOW);
+        max.setColor(getColor(R.color.red));
         max.setFillColor(Color.WHITE);
         max.setDrawValues(false);
         slo.addDataSet(max);
         min.setCircleRadius(.1f);
         min.setLineWidth(2.5f);
-        min.setColor(Color.RED);
+        min.setColor(getColor(R.color.red));
         min.setFillColor(Color.WHITE);
         min.setDrawValues(false);
         slo.addDataSet(min);
         BarDataSet d = new BarDataSet(datanaslonecznienie, "LUX");
-        d.setColor(Color.BLUE);
-        d.setBarBorderWidth(1f);
+        d.setColor(getColor(R.color.barColor));
+        d.setBarShadowColor(getColor(R.color.barColor));
+        d.setBarBorderWidth(0f);
         d.setBarBorderColor(Color.WHITE);
         d.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.setValueTextColor(Color.WHITE);
@@ -752,6 +755,7 @@ public class PlantDetail extends AppCompatActivity {
         data.setData(setNaslonecznienie());
         data.setData(slo);
         data.setData(slo);
+
         //data.setData();
         xAxis.setAxisMaximum(data.getXMax() + 0.25f);
         naslonecznienie.setData(data);
@@ -767,19 +771,21 @@ public class PlantDetail extends AppCompatActivity {
         LineDataSet min = new LineDataSet(tmin, getString(R.string.min_temp));
         max.setCircleRadius(1f);
         max.setLineWidth(2.5f);
-        max.setColor(Color.RED);
+        max.setColor(getColor(R.color.red));
         max.setFillColor(Color.WHITE);
         max.setDrawValues(false);
         temp.addDataSet(max);
         min.setCircleRadius(.1f);
         min.setLineWidth(2.5f);
-        min.setColor(Color.RED);
+        min.setColor(getColor(R.color.red));
         min.setFillColor(Color.WHITE);
         min.setDrawValues(false);
         temp.addDataSet(min);
         BarDataSet d = new BarDataSet(datatemperatura, "°C");
-        d.setColor(Color.BLUE);
-        d.setBarBorderWidth(1f);
+        d.setColor(getColor(R.color.barColor));
+
+        d.setBarShadowColor(getColor(R.color.barColor));
+        d.setBarBorderWidth(0f);
         d.setBarBorderColor(Color.WHITE);
         d.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.setValueTextColor(Color.WHITE);
@@ -837,19 +843,20 @@ public class PlantDetail extends AppCompatActivity {
         LineDataSet min = new LineDataSet(wmin, getString(R.string.min_wilg));
         max.setCircleRadius(1f);
         max.setLineWidth(2.5f);
-        max.setColor(Color.YELLOW);
+        max.setColor(getColor(R.color.red));
         max.setFillColor(Color.WHITE);
         max.setDrawValues(false);
         wilg.addDataSet(max);
         min.setCircleRadius(.1f);
         min.setLineWidth(2.5f);
-        min.setColor(Color.RED);
+        min.setColor(getColor(R.color.red));
         min.setFillColor(Color.WHITE);
         min.setDrawValues(false);
         wilg.addDataSet(min);
         BarDataSet d = new BarDataSet(datawilgotnosc, "%");
-        d.setColor(Color.BLUE);
-        d.setBarBorderWidth(1f);
+        d.setColor(getColor(R.color.barColor));
+        d.setBarShadowColor(getColor(R.color.barColor));
+        d.setBarBorderWidth(0f);
         d.setBarBorderColor(Color.WHITE);
         d.setAxisDependency(YAxis.AxisDependency.LEFT);
         d.setValueTextColor(Color.WHITE);

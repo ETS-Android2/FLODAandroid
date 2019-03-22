@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="@font/nova_square"
+        android:fontFamily="@font/molengo"
         android:text="@string/dodawanie_nowego_gatunku"
         android:textColor="@android:color/background_light"
         android:textSize="24sp"
@@ -66,7 +66,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/formbackgroundstrong"
+                android:background="@drawable/formbackgroundlight"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,14 +81,14 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/arvo"
+                    android:fontFamily="@font/molengo"
                     android:padding="4dp">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/genre_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/arvo"
+                        android:fontFamily="@font/molengo"
 
                         android:hint="@string/nazwa_nowego_gatunku"
                         android:textColorHighlight="@android:color/background_light"
@@ -104,7 +104,7 @@
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
                     android:layout_marginBottom="4dp"
-                    android:fontFamily="@font/arvo"
+                    android:fontFamily="@font/molengo"
                     android:paddingLeft="9dp"
                     android:paddingBottom="7dp"
                     android:text="@string/najlepiej_by_by_a_pisana_aci_skim_odpowiednikiem"
@@ -137,12 +137,12 @@
 
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/nova_square"
+                    android:fontFamily="@font/molengo"
                     android:padding="4dp"
                     android:text="Podlewanie"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -165,7 +165,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/arvo"
+                            android:fontFamily="@font/molengo"
                             android:text="@string/co_ile_dni" />
 
                         <RadioButton
@@ -173,7 +173,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/arvo"
+                            android:fontFamily="@font/molengo"
 
                             android:text="@string/powiadom_gdy" />
                     </RadioGroup>
@@ -193,7 +193,7 @@
                             android:layout_marginTop="4dp"
                             android:layout_marginEnd="4dp"
                             android:ems="10"
-                            android:fontFamily="@font/arvo"
+                            android:fontFamily="@font/molengo"
 
 
                             android:hint="@string/liczba_dni"
@@ -259,13 +259,13 @@
 
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/nova_square"
+                    android:fontFamily="@font/molengo"
                     android:padding="4dp"
 
                     android:text="@string/temperatura"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -286,6 +286,7 @@
                         android:layout_marginBottom="8dp"
                         android:layout_weight="1"
                         android:ems="10"
+                        android:fontFamily="@font/molengo"
                         android:hint="--°C"
                         android:inputType="number"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -301,6 +302,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         android:ems="10"
+                        android:fontFamily="@font/molengo"
                         android:hint="--°C"
                         android:inputType="number"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -327,7 +329,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:fontFamily="@font/arvo"
+                        android:fontFamily="@font/molengo"
                         android:text="@string/od"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
@@ -340,7 +342,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:fontFamily="@font/arvo"
+                        android:fontFamily="@font/molengo"
                         android:text="@string/_do"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
@@ -394,13 +396,13 @@
 
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/nova_square"
+                    android:fontFamily="@font/molengo"
                     android:padding="4dp"
 
                     android:text="@string/nas_onecznienie"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -423,7 +425,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/arvo"
+                            android:fontFamily="@font/molengo"
                             android:text="@string/ustawienie_reczne" />
 
                         <RadioButton
@@ -431,7 +433,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:fontFamily="@font/arvo"
+                            android:fontFamily="@font/molengo"
                             android:text="@string/predefiniowane_ustawienia" />
                     </RadioGroup>
                 </LinearLayout>
@@ -458,7 +460,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/arvo"
+                        android:fontFamily="@font/molengo"
                         android:text="Do:"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
@@ -477,7 +479,7 @@
                         android:layout_marginBottom="8dp"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:fontFamily="@font/arvo"
+                        android:fontFamily="@font/molengo"
                         android:hint="--lux"
                         android:inputType="number"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -506,7 +508,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/arvo"
+                        android:fontFamily="@font/molengo"
                         android:text="@string/od"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
@@ -525,7 +527,7 @@
                         android:layout_marginBottom="8dp"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:fontFamily="@font/arvo"
+                        android:fontFamily="@font/molengo"
                         android:hint="--lux"
                         android:importantForAutofill="no"
                         android:inputType="number"
@@ -596,13 +598,13 @@
 
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/nova_square"
+                    android:fontFamily="@font/molengo"
                     android:padding="4dp"
 
                     android:text="@string/wilgotnosc"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -621,6 +623,7 @@
                         android:layout_marginBottom="8dp"
                         android:layout_weight="1"
                         android:ems="10"
+                        android:fontFamily="@font/molengo"
                         android:hint="--%"
                         android:inputType="number"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -638,6 +641,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         android:ems="10"
+                        android:fontFamily="@font/molengo"
                         android:hint="--%"
                         android:inputType="number"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -664,7 +668,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:fontFamily="@font/arvo"
+                        android:fontFamily="@font/molengo"
                         android:text="@string/od"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
@@ -677,7 +681,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:fontFamily="@font/arvo"
+                        android:fontFamily="@font/molengo"
                         android:text="@string/_do"
                         android:textColor="@android:color/background_light"
                         android:textSize="18sp"
@@ -727,13 +731,13 @@
 
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
-                    android:fontFamily="@font/nova_square"
+                    android:fontFamily="@font/molengo"
                     android:padding="4dp"
 
                     android:text="@string/link_do_poradnika"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_light"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -745,6 +749,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
+                        android:fontFamily="@font/molengo"
                         android:hint="@string/_link"
                         android:text="http://www." />
                 </android.support.design.widget.TextInputLayout>
@@ -777,7 +782,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/formbackgroundstrongdeactivated"
                 android:enabled="false"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:text="@string/dodaj"
                 android:textSize="24sp" />
         </LinearLayout>

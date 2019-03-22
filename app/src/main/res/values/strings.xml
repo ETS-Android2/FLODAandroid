@@ -69,7 +69,7 @@
     <string name="nr_sondy">Nr sondy</string>
     <string name="haslo_sondy">Hasło sondy</string>
     <string name="test">TESTUJ</string>
-    <string name="dodajros">Dodaj!</string>
+    <string name="dodajros">Dodaj</string>
     <string name="wybierz_gatunek_z_listy">Wybierz gatunek z listy</string>
     <string name="dodaj_nowy_gatunek">Dodaj nowy gatunek</string>
     <string name="wybierz_gatunek">Wybierz gatunek</string>
@@ -163,13 +163,13 @@
 
     <!-- TODO: remove this placeholder text -->
     <string name="floda__notification_placeholder_text_template">Sprawdz stan urzadzenia</string>
-    <string name="sonda_addition_text">Co należy na początku zrobić? \n
+    <string name="sonda_addition_text" translatable="false">Co należy na początku zrobić? \n
         1. Podłącz swoją sonde do źródła zasilania. \n
         2. Połącz się z siecią Wi-Fi hostowaną przez sonde, jest to \'Floda eg.\' i twój numer urządzenia. \n
         3. Następnie kliknij przycisk odswież. \n
         4. Podłącz swoja sieć Wi-Fi do urzadzenia. \n
         5. Gotowe!</string>
-    <string name="pierwsze_kroki">Pierwsze kroki</string>
+    <string name="pierwsze_kroki" translatable="false">Pierwsze kroki</string>
     <string name="odswiez">odśwież</string>
     <string name="polski">Polski</string>
     <string name="okres_pomiar_w_w_minutach">Okres pomiarów (w minutach)</string>
@@ -201,8 +201,8 @@
     <string name="type_there_your_comment">Tutaj wpisz swój kometarz</string>
     <string name="add">DODAJ</string>
     <string name="cancel">Anuluj</string>
-    <string name="every">Co</string>
-    <string name="minutes">minut</string>
+    <string name="every">"Co "</string>
+    <string name="minutes">" minut"</string>
     <string name="saving_in_progres">Zapisywanie w toku...</string>
 
 </resources>

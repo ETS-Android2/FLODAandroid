@@ -65,6 +65,7 @@ public class Floda_sonda_to_web extends Fragment {
             alertDialog.show();
             Button re =dialog.findViewById(R.id.add_refresh);
             re.setOnClickListener(v->{
+                alertDialog.hide();
                 isFloda(ssid);
             });
         }

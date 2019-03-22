@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -52,10 +53,13 @@ public class ListOfPlants extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     StringRequest stringRequest;
     RequestQueue q;
+
     public ListOfPlants() {
         // Required empty public constructor
     }
+
     SwipeRefreshLayout mSwipeRefreshLayout;
+    static int r;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,13 +72,13 @@ public class ListOfPlants extends Fragment {
         mRecycleView.setHasFixedSize(true);
         ProgressBar bar = w.findViewById(R.id.progressBar2);
         bar.setVisibility(View.VISIBLE);
+        r = getResources().getColor(R.color.red);
         mLayoutManager = new LinearLayoutManager(getContext());
         mSwipeRefreshLayout = w.findViewById(R.id.swipeRefreshLayout);
         data = new ArrayList<>();
-        if(getActivity().getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT && getActivity().getResources().getConfiguration().screenWidthDp>750){
+        if (getActivity().getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT && getActivity().getResources().getConfiguration().screenWidthDp > 750) {
             mRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        }
-        else{
+        } else {
             mRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         }
         String url = "http://serwer1727017.home.pl/2ti/floda/floda_list.php";
@@ -88,7 +92,7 @@ public class ListOfPlants extends Fragment {
 
         });
         Log.e("e", String.valueOf(getActivity().getResources().getConfiguration().screenWidthDp));
-         stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+        stringRequest = new StringRequest(Request.Method.POST, url, response -> {
             bar.setVisibility(View.INVISIBLE);
             try {
                 data.clear();
@@ -115,7 +119,7 @@ public class ListOfPlants extends Fragment {
             });
 
             mRecycleView.setAdapter(mAdapter);
-             mSwipeRefreshLayout.setRefreshing(false);
+            mSwipeRefreshLayout.setRefreshing(false);
         }, error -> {
             Log.e("error", error.toString());
             //todo: zrobic snackbar ze bład z polaczeniem
@@ -147,18 +151,19 @@ public class ListOfPlants extends Fragment {
         welcomeThread.start();
         return w;
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        if(getActivity().getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT && getActivity().getResources().getConfiguration().screenWidthDp>750){
+        if (getActivity().getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT && getActivity().getResources().getConfiguration().screenWidthDp > 750) {
             mRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        }
-        else{
+        } else {
             mRecycleView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         }
     }
+
     public static class Listplants extends RecyclerView.Adapter<Listplants.MyViewHolder> {
         List<pData> pdata;
         OnItemClickListener listener;
@@ -180,12 +185,11 @@ public class ListOfPlants extends Fragment {
         public void onBindViewHolder(@NonNull Listplants.MyViewHolder myViewHolder, int i) {
             myViewHolder.cname.setText(pdata.get(i).pname);
             myViewHolder.cgenre.setText("(" + pdata.get(i).pgenre + ")");
-            myViewHolder.cstatus.setText(pdata.get(i).pstatus);
-            myViewHolder.cv.setCardBackgroundColor(pdata.get(i).pstatus.contains("on") ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
-            myViewHolder.ctemp.setBackgroundColor(pdata.get(i).temp ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
-            myViewHolder.csoil.setBackgroundColor(pdata.get(i).pod ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
-            myViewHolder.csun.setBackgroundColor(pdata.get(i).sun ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
-            myViewHolder.cwilg.setBackgroundColor(pdata.get(i).wilg ? Color.parseColor("#ff669900") : Color.parseColor("#af2d34"));
+            myViewHolder.cstatus.setVisibility((!pdata.get(i).pstatus.contains("on")) ? View.VISIBLE : View.INVISIBLE);
+            myViewHolder.ctemp.setVisibility(pdata.get(i).temp ? View.VISIBLE : View.INVISIBLE);
+            myViewHolder.csoil.setVisibility(pdata.get(i).pod ? View.VISIBLE : View.INVISIBLE);
+            myViewHolder.csun.setVisibility(pdata.get(i).sun ? View.VISIBLE : View.INVISIBLE);
+            myViewHolder.cwilg.setVisibility(pdata.get(i).wilg ? View.VISIBLE : View.INVISIBLE);
             myViewHolder.bind(pdata.get(i), listener);
         }
 
@@ -207,7 +211,7 @@ public class ListOfPlants extends Fragment {
             CardView cv;
             TextView cname;
             TextView cgenre;
-            TextView cstatus;
+            ImageView cstatus;
             ImageView cwilg;
             ImageView csun;
             ImageView ctemp;
@@ -218,11 +222,11 @@ public class ListOfPlants extends Fragment {
                 cv = v.findViewById(R.id.card_view);
                 cname = v.findViewById(R.id.plant_name);
                 cgenre = v.findViewById(R.id.lgenre);
-                cstatus = v.findViewById(R.id.esponoff);
-                cwilg = v.findViewById(R.id.indicatort);
-                csun = v.findViewById(R.id.indicatorh);
-                ctemp = v.findViewById(R.id.indicatorw);
-                csoil = v.findViewById(R.id.indicators);
+                cstatus = v.findViewById(R.id.powerind);
+                cwilg = v.findViewById(R.id.humidind);
+                csun = v.findViewById(R.id.sunind);
+                ctemp = v.findViewById(R.id.tempind);
+                csoil = v.findViewById(R.id.waterind);
             }
 
             public void bind(final pData item, final OnItemClickListener listener) {
@@ -243,7 +247,8 @@ public class ListOfPlants extends Fragment {
         boolean sun;
         boolean temp;
         boolean pod;
-        public pData( String pname, String pgenre, String pstatus, String ID, String nr, String wilg, String sun, String temp, String pod) {
+
+        public pData(String pname, String pgenre, String pstatus, String ID, String nr, String wilg, String sun, String temp, String pod) {
             this.pname = pname;
             this.pgenre = pgenre;
             this.pstatus = pstatus;

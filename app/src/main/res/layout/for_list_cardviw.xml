@@ -12,7 +12,7 @@
         android:clickable="true"
 
         android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="?attr/colorButtonNormal"
+        card_view:cardBackgroundColor="@color/colorPrimaryDark"
         card_view:cardCornerRadius="2dp"
         card_view:cardElevation="1dp"
         card_view:cardMaxElevation="1dp"

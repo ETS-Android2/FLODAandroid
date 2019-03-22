@@ -29,6 +29,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:fontFamily="@font/molengo"
         android:hint="@string/title"
         android:inputType="textMultiLine"
         android:textColorHint="@android:color/background_light"
@@ -44,6 +45,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:fontFamily="@font/molengo"
         android:hint="@string/description"
         android:inputType="textMultiLine"
         android:textColorHint="@android:color/background_light"
@@ -59,6 +61,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:fontFamily="@font/molengo"
         android:hint="@string/category"
         android:inputType="textPersonName"
         android:textColorHint="@android:color/background_light"
@@ -74,6 +77,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/dodaj"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/for_cat"
         app:layout_constraintTop_toBottomOf="@+id/for_cat" />
 
@@ -85,6 +89,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/anuluj"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/for_cat"
         app:layout_constraintTop_toBottomOf="@+id/for_cat" />
 </android.support.constraint.ConstraintLayout>

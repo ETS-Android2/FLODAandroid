@@ -12,7 +12,7 @@
         android:clickable="true"
 
         android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="?attr/colorButtonNormal"
+        card_view:cardBackgroundColor="@color/colorPrimaryDark"
         card_view:cardCornerRadius="2dp"
         card_view:cardElevation="1dp"
         card_view:cardMaxElevation="1dp"
@@ -37,6 +37,7 @@
                 android:fontFamily="@font/molengo"
                 android:scrollHorizontally="false"
                 android:text="test"
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:textStyle="normal"
                 card_view:layout_constraintBottom_toBottomOf="parent"
@@ -56,6 +57,7 @@
                 android:fontFamily="@font/molengo"
                 android:paddingBottom="4dp"
                 android:text="test"
+                android:textColor="@color/colorAccent"
                 android:textStyle="italic"
                 card_view:layout_constraintStart_toStartOf="@+id/memb_name"
                 card_view:layout_constraintTop_toBottomOf="@+id/memb_name" />

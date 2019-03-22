@@ -32,6 +32,8 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/molengo"
         android:text="OK"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sndip" />
@@ -85,16 +87,14 @@
         android:id="@+id/textView20"
         android:layout_width="58dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:fontFamily="@font/molengo"
-        android:text="ID:"
-        android:textColor="@android:color/white"
 
+        android:text="ID:"
         android:textAlignment="textEnd"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/sndid"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sndid" />
+        android:textColor="@android:color/white"
+        android:textStyle="normal"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="64dp" />
 
     <TextView
         android:id="@+id/textView21"
@@ -103,10 +103,9 @@
         android:layout_marginStart="8dp"
         android:fontFamily="@font/molengo"
         android:text="@string/period"
-        android:textColor="@android:color/white"
-
         android:textAlignment="textEnd"
-        android:textStyle="bold"
+
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/sndper"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sndper" />
@@ -115,13 +114,13 @@
         android:id="@+id/textView22"
         android:layout_width="58dp"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-
         android:layout_marginStart="8dp"
+
         android:fontFamily="@font/molengo"
         android:text="LAST IP:"
         android:textAlignment="textEnd"
-        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/sndip"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sndip" />

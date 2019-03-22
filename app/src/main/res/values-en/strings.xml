@@ -33,7 +33,7 @@
     <string name="nr_sondy">SONDA no.</string>
     <string name="haslo_sondy">SONDA password</string>
     <string name="test">TEST</string>
-    <string name="dodajros">Add!</string>
+    <string name="dodajros">Add</string>
     <string name="wybierz_gatunek_z_listy">Choose genre from list</string>
     <string name="dodaj_nowy_gatunek">Add new genre</string>
     <string name="wybierz_gatunek">Choose genre</string>
@@ -147,10 +147,9 @@
     <string name="type_there_your_comment">Type there your comment...</string>
     <string name="add">ADD</string>
     <string name="cancel">Cancel</string>
-    <string name="every">Every</string>
-    <string name="minutes">minutes</string>
+    <string name="every">"Every "</string>
+    <string name="minutes">" minutes"</string>
     <string name="saving_in_progres">Saving in progress...</string>
-    <string name="pierwsze_kroki">First steeps</string>
     <string name="odswiez">refresh</string>
     <string name="okres_pomiar_w_w_minutach">Sond period (minutes)</string>
     <string name="has_o_do_sondy">SONDA password</string>
@@ -161,13 +160,12 @@
     <string name="wilg_du">Yesterday humidity was too height</string>
     <string name="temp_min">Yesterday temperature was too low</string>
     <string name="sun_ma">Yesterday insolation was too weak</string>
-    <string name="temp_ok">Yesterday tempetature was right</string>
+    <string name="temp_ok">Yesterday temperature was right</string>
     <string name="sun_ok">Yesterday insolation was right</string>
     <string name="temp_du">Yesterday temperature was too height</string>
     <string name="sun_du">Yesterday insolation was too strength</string>
     <string name="brak">none</string>
     <string name="zapostowano">Posted</string>
-    <string name="opis_brak">Empty describtion or title</string>
+    <string name="opis_brak">Empty description or title</string>
     <string name="konfiguracja_sondy">SONDA configuration</string>
-    <string name="sonda_addition_text">*</string>
 </resources>

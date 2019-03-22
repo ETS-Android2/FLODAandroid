@@ -39,7 +39,7 @@ public class Floda_member_list extends Fragment {
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
+    static int color;
     public Floda_member_list() {
         // Required empty public constructor
     }
@@ -60,6 +60,7 @@ public class Floda_member_list extends Fragment {
         builder5.setView(v5);
         alertDialog5 = builder5.create();
         alertDialog5.show();
+        color =getResources().getColor(R.color.red);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecycleView.setLayoutManager(mLayoutManager);
         data = new ArrayList<>();
@@ -112,7 +113,7 @@ public class Floda_member_list extends Fragment {
             myViewHolder.email.setText(uData.get(i).email);
             myViewHolder.name.setText(uData.get(i).name);
             if (uData.get(i).su==1) {
-                myViewHolder.cv.setBackgroundColor(R.color.red);
+                myViewHolder.cv.setCardBackgroundColor(color);
             }
         }
 

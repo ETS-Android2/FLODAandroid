@@ -13,12 +13,12 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/center"
-        android:backgroundTint="@color/center"
-        android:fontFamily="@font/arvo"
+        android:background="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:fontFamily="@font/molengo"
         android:text="@string/dodaj_nowa_sonde"
-        android:textColor="@android:color/background_light"
 
+        android:textColor="@android:color/background_light"
         android:textSize="18sp" />
 
     <Button
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:backgroundTint="@color/colorPrimary"
-        android:fontFamily="@font/arvo"
+        android:fontFamily="@font/molengo"
         android:text="@string/dodaj_nowy_gatunek"
         android:textColor="@android:color/background_light"
         android:textSize="18sp" />

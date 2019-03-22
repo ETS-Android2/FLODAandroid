@@ -19,7 +19,7 @@
         <activity
             android:name=".Floda_LOGIN"
             android:screenOrientation="portrait"
-            android:theme="@style/NOACTIO" />
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -35,7 +35,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Starting"
-            android:theme="@style/NOACTIO">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

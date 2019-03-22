@@ -5,8 +5,12 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">#ffff</item>
+        <item name="colorAccent">?android:attr/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:colorBackground">@color/background_material_dark</item>
+        <item name="android:colorForeground">@color/colorAccent</item>
+        <item name="android:textColorHighlight">@color/background_material_dark</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
     <style name="AppThemeact" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->

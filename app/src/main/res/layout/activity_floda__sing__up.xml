@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    >
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/textView2"
@@ -14,7 +13,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:fontFamily="@font/arvo"
+        android:fontFamily="@font/molengo"
         android:paddingBottom="5dp"
         android:text="@string/sing_up"
         android:textAlignment="center"
@@ -50,6 +49,7 @@
                     android:id="@+id/sing_nick"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/molengo"
                     android:hint="@string/nick"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
@@ -65,6 +65,8 @@
                     android:id="@+id/sing_mail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/molengo"
+
                     android:hint="@string/e_mail"
                     android:singleLine="true" />
 
@@ -81,6 +83,8 @@
                     android:id="@+id/sing_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/molengo"
+
                     android:hint="@string/name"
                     android:singleLine="true" />
 
@@ -97,6 +101,8 @@
                     android:id="@+id/sing_surname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/molengo"
+
                     android:hint="@string/surname"
                     android:singleLine="true" />
 
@@ -113,6 +119,8 @@
                     android:id="@+id/sing_pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/molengo"
+
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:singleLine="true" />
@@ -130,6 +138,8 @@
                     android:id="@+id/sing_repass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/molengo"
+
                     android:hint="@string/repeat_your_password"
                     android:inputType="textPassword"
                     android:singleLine="true" />
@@ -143,6 +153,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+
+                android:fontFamily="@font/molengo"
                 android:text="@string/do_you_agree_with_our_privacy_policy" />
 
             <Button
@@ -154,9 +166,10 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/BUTTONS"
-                android:fontFamily="@font/arvo"
+
+                android:fontFamily="@font/molengo"
                 android:text="@string/send_your_request"
-                android:textColor="@android:color/white"
+                android:textColor="@color/FONTCOLOR"
                 android:textSize="24sp" />
 
         </LinearLayout>

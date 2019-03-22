@@ -14,12 +14,13 @@
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        card_view:cardBackgroundColor="@android:color/holo_green_dark"
+        card_view:cardBackgroundColor="@color/colorPrimaryDark"
         card_view:cardCornerRadius="5dp"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintHorizontal_bias="0.0"
         card_view:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,18 +34,19 @@
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:text="Gatunek"
                 android:textAlignment="center"
                 android:textColor="@android:color/background_light"
                 android:textSize="24sp"
+                android:textStyle="bold"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView10"
+                android:id="@+id/tempclip"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
@@ -55,20 +57,20 @@
                 card_view:layout_constraintTop_toBottomOf="@+id/lgenre" />
 
             <ImageView
-                android:id="@+id/imageView11"
+                android:id="@+id/waterclip"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="8dp"
                 android:padding="4dp"
                 app:srcCompat="@drawable/ic_format_color_fill_black_24dp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="@+id/imageView10"
-                card_view:layout_constraintStart_toStartOf="@+id/imageView10"
-                card_view:layout_constraintTop_toBottomOf="@+id/imageView10"
+                card_view:layout_constraintEnd_toEndOf="@+id/tempclip"
+                card_view:layout_constraintStart_toStartOf="@+id/tempclip"
+                card_view:layout_constraintTop_toBottomOf="@+id/tempclip"
                 card_view:layout_constraintVertical_bias="1.0" />
 
             <ImageView
-                android:id="@+id/imageView12"
+                android:id="@+id/sunclip"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
@@ -79,7 +81,7 @@
                 card_view:layout_constraintTop_toBottomOf="@+id/lgenre" />
 
             <ImageView
-                android:id="@+id/imageView13"
+                android:id="@+id/humidclip"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
@@ -87,10 +89,10 @@
                 android:padding="4dp"
                 app:srcCompat="@drawable/wi_humidity"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="@+id/imageView12"
+                card_view:layout_constraintEnd_toEndOf="@+id/sunclip"
                 card_view:layout_constraintHorizontal_bias="0.0"
-                card_view:layout_constraintStart_toStartOf="@+id/imageView12"
-                card_view:layout_constraintTop_toBottomOf="@+id/imageView12"
+                card_view:layout_constraintStart_toStartOf="@+id/sunclip"
+                card_view:layout_constraintTop_toBottomOf="@+id/sunclip"
                 card_view:layout_constraintVertical_bias="1.0" />
 
             <View
@@ -113,14 +115,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:text="TextView"
                 android:textColor="@android:color/background_light"
                 android:textSize="18sp"
-                card_view:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                card_view:layout_constraintBottom_toBottomOf="@+id/tempclip"
                 card_view:layout_constraintEnd_toStartOf="@+id/divider"
-                card_view:layout_constraintStart_toEndOf="@+id/imageView10"
-                card_view:layout_constraintTop_toTopOf="@+id/imageView10" />
+                card_view:layout_constraintStart_toEndOf="@+id/tempclip"
+                card_view:layout_constraintTop_toTopOf="@+id/tempclip" />
 
             <TextView
                 android:id="@+id/waterindi"
@@ -128,14 +130,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:text="TextView"
                 android:textColor="@android:color/background_light"
                 android:textSize="18sp"
-                card_view:layout_constraintBottom_toBottomOf="@+id/imageView11"
+                card_view:layout_constraintBottom_toBottomOf="@+id/waterclip"
                 card_view:layout_constraintEnd_toStartOf="@+id/divider"
-                card_view:layout_constraintStart_toEndOf="@+id/imageView11"
-                card_view:layout_constraintTop_toTopOf="@+id/imageView11" />
+                card_view:layout_constraintStart_toEndOf="@+id/waterclip"
+                card_view:layout_constraintTop_toTopOf="@+id/waterclip" />
 
             <TextView
                 android:id="@+id/sunindi"
@@ -143,15 +145,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:text="TextView"
                 android:textAlignment="textEnd"
                 android:textColor="@android:color/background_light"
                 android:textSize="18sp"
-                card_view:layout_constraintBottom_toBottomOf="@+id/imageView12"
-                card_view:layout_constraintEnd_toStartOf="@+id/imageView12"
+                card_view:layout_constraintBottom_toBottomOf="@+id/sunclip"
+                card_view:layout_constraintEnd_toStartOf="@+id/sunclip"
                 card_view:layout_constraintStart_toEndOf="@+id/divider"
-                card_view:layout_constraintTop_toTopOf="@+id/imageView12" />
+                card_view:layout_constraintTop_toTopOf="@+id/sunclip" />
 
             <TextView
                 android:id="@+id/humidindi"
@@ -159,15 +161,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="@font/arvo"
+                android:fontFamily="@font/molengo"
                 android:text="TextView"
                 android:textAlignment="textEnd"
                 android:textColor="@android:color/background_light"
                 android:textSize="18sp"
-                card_view:layout_constraintBottom_toBottomOf="@+id/imageView13"
-                card_view:layout_constraintEnd_toStartOf="@+id/imageView13"
+                card_view:layout_constraintBottom_toBottomOf="@+id/humidclip"
+                card_view:layout_constraintEnd_toStartOf="@+id/humidclip"
                 card_view:layout_constraintStart_toEndOf="@+id/divider"
-                card_view:layout_constraintTop_toTopOf="@+id/imageView13" />
+                card_view:layout_constraintTop_toTopOf="@+id/humidclip" />
 
         </android.support.constraint.ConstraintLayout>
 

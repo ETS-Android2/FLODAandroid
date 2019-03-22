@@ -54,6 +54,7 @@ public class FLODA_forum extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     EditText search;
+    static int color,color2;
 
     public FLODA_forum() {
         // Required empty public constructor
@@ -62,6 +63,8 @@ public class FLODA_forum extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        color = getResources().getColor(R.color.red);
+        color2= getResources().getColor(R.color.BUTTONS);
         List<fData> data;
         w = inflater.inflate(R.layout.fragment_floda_forum, container, false);
         search = w.findViewById(R.id.formumsearch);
@@ -210,7 +213,7 @@ public class FLODA_forum extends Fragment {
             myViewHolder.title.setText(fData.get(i).title);
             myViewHolder.category.setText(fData.get(i).category);
             myViewHolder.score.setText(fData.get(i).score);
-            myViewHolder.color.setBackgroundColor(Integer.valueOf(fData.get(i).score) < 0 ? Color.rgb(122,31,36) : Color.rgb(46,102,10));
+            myViewHolder.color.setBackgroundColor(Integer.valueOf(fData.get(i).score) < 0 ? color : color2);
             myViewHolder.bind(fData.get(i), listener1);
 
             if (Integer.valueOf(fData.get(i).score) < 0) {

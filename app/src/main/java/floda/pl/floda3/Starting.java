@@ -30,7 +30,7 @@ public class Starting extends AppCompatActivity {
 runOnUiThread(()->{
 AnimationDrawable anim;
     anim = (AnimationDrawable) constraintLayout.getBackground();
-    anim.setEnterFadeDuration(6000);
+    anim.setEnterFadeDuration(4000);
     anim.setExitFadeDuration(1000);
     anim.start();
 });
