@@ -166,8 +166,8 @@ public class Floda_add_plant extends AppCompatActivity {
                 id_genre = data.getStringExtra("ID");
                 /*Toast d = Toast.makeText(this,id_genre,Toast.LENGTH_LONG);
                  d.show();*/
+                new_genre_dod_rosl.setText(getString(R.string.dodaj_nowy_gatunek));
                 list.setText(getString(R.string.choosen_genre) + id_genre);
-                list.setBackgroundColor(getColor(R.color.center));
             }
         }
         if (requestCode == 2) {
@@ -176,8 +176,8 @@ public class Floda_add_plant extends AppCompatActivity {
                 /*Toast d = Toast.makeText(this,id_genre,Toast.LENGTH_LONG);
                  d.show();*/
                 new_genre_dod_rosl.setText(getString(R.string.choosen_genre) + id_genre);
-                new_genre_dod_rosl.setBackgroundColor(getColor(R.color.center));
                 list.setEnabled(false);
+                list.setText(getString(R.string.wybierz_gatunek_z_listy));
                 new_genre_dod_rosl.setEnabled(false);
             }
         }

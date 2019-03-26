@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +76,7 @@ public class PlantDetail extends AppCompatActivity {
     String fod = "", fdo = ""; //dane wizualne
     RequestQueue q;
     StringRequest stringRequest;
+    LinearLayout komunikat;
     boolean filtrch = false;
 
 
@@ -86,6 +88,8 @@ public class PlantDetail extends AppCompatActivity {
         ostatnie = findViewById(R.id.nw2);
         timeof = new ArrayList<>();
         id = i.getStringExtra("ID");
+        boolean sonda_indicator= i.getBooleanExtra("sonda",false);
+
         q = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
         Log.e("id", id);
         ID = id;
@@ -103,7 +107,13 @@ public class PlantDetail extends AppCompatActivity {
         tmin = new ArrayList<>();
         wmax = new ArrayList<>();
         wmin = new ArrayList<>();
+        komunikat= findViewById(R.id.detail_indicator);
         databaseGet(id, tryb);
+        if (sonda_indicator){
+            komunikat.setVisibility(View.VISIBLE);
+        }else{
+            komunikat.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

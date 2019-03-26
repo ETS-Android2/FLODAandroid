@@ -13,9 +13,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class Starting extends AppCompatActivity {
 
@@ -27,13 +39,13 @@ public class Starting extends AppCompatActivity {
         ConstraintLayout constraintLayout = findViewById(R.id.startingbck);
         AnimationDrawable drawable = (AnimationDrawable) constraintLayout.getBackground();
 
-runOnUiThread(()->{
-AnimationDrawable anim;
-    anim = (AnimationDrawable) constraintLayout.getBackground();
-    anim.setEnterFadeDuration(4000);
-    anim.setExitFadeDuration(1000);
-    anim.start();
-});
+        runOnUiThread(() -> {
+            AnimationDrawable anim;
+            anim = (AnimationDrawable) constraintLayout.getBackground();
+            anim.setEnterFadeDuration(4000);
+            anim.setExitFadeDuration(1000);
+            anim.start();
+        });
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         String id = preferences.getString("ID", "0");
         Log.e("Id", id);
@@ -46,8 +58,27 @@ AnimationDrawable anim;
             conf.locale = new Locale(lang); // API 17+ only.
             res.updateConfiguration(conf, dm);
         }
-
-
+        String url="http://serwer1727017.home.pl/2ti/floda/checkinglogin.php";
+        StringRequest s = new StringRequest(Request.Method.POST, url, (Response.Listener<String>) response -> {
+            assert id != null;
+            if (!id.equals("0") && !response.contains("0")) {
+                Intent i = new Intent(getBaseContext(), Floda_main.class);
+                i.putExtra("ID", id);
+                startActivity(i);
+            } else {
+                Intent i = new Intent(getBaseContext(), Floda_LOGIN.class);
+                //i.putExtra("ID",id);
+                startActivity(i);
+            }
+            finish();
+        }, error -> { }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> h = new HashMap<>();
+                h.put("login", id);
+                return h;
+            }
+        };
         Thread welcomeThread = new Thread() {
 
             @Override
@@ -58,23 +89,16 @@ AnimationDrawable anim;
                     sleep(2000);  //Delay of 2 seconds
                 } catch (Exception e) {
                     Log.e("e", e.toString());
-                } finally {
+                }finally {
+                    RequestQueue q = new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
+                    q.add(s);
 
-                    assert id != null;
-                    if (!id.equals("0")) {
-                        Intent i = new Intent(getBaseContext(), Floda_main.class);
-                        i.putExtra("ID", id);
-                        startActivity(i);
-                    } else {
-                        Intent i = new Intent(getBaseContext(), Floda_LOGIN.class);
-                        //i.putExtra("ID",id);
-                        startActivity(i);
-                    }
-                    finish();
+                    q.start();
                 }
             }
         };
 
         welcomeThread.start();
+
     }
 }

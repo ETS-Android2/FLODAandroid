@@ -10,15 +10,15 @@
 	$conn->query($sql);
 	
 	if($nick=="" || $name=="" || $surname==""){
-		echo("Uzupelnij wszystkie pola");
+		echo("Uzupełnij wszystkie pola");
 	}
 	else{
 		if($conn->affected_rows<1){
 
-			echo ("Nie zmieniono zadnych danych");
+			echo ("Nie zmieniono żadnych danych");
 			
 		}else{
-			echo ("Zmieniono dane uzytkownika");
+			echo ("Zmieniono dane użytkownika");
 		} 
 	}
 ?>

@@ -115,6 +115,7 @@ public class ListOfPlants extends Fragment {
             mAdapter = new Listplants(data, item -> {
                 Intent i = new Intent(getContext(), PlantDetail.class);
                 i.putExtra("ID", item.ID);
+                i.putExtra("sonda",!item.pstatus.contains("on"));
                 startActivity(i);
             });
 

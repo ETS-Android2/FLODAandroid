@@ -253,7 +253,7 @@ public class Floda_main extends AppCompatActivity
                 e.setText(o.getString("email"));
                 Log.e("id", o.getString("email"));
                 if (o.getString("su").contentEquals("1")) {
-                    t.setTextColor(Color.RED);
+                    t.setTextColor(getResources().getColor(R.color.red));
                 }
             } catch (JSONException e) {
                 Log.e("json", e.toString());

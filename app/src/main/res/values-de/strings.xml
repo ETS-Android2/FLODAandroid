@@ -147,4 +147,5 @@
     <string name="add_new_post">Neuen Beitrag hinzufügen</string>
     <string name="title">Titel</string>
     <string name="category">Kategorie</string>
+    <string name="twoje_urz_dzenie_nie_wykazuje_aktywnosci">Deine sonda ist kaput</string>
 </resources>

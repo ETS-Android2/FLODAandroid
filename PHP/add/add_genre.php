@@ -33,7 +33,7 @@
 		if(isset($_GET["naslonecznieniemin"]) AND isset($_GET["naslonecznieniemax"])){
 			$foo=$_GET["naslonecznieniemin"];
 			$foo2=$_GET["naslonecznieniemax"];
-			$conn->query("update FLODA_main_database set s_d_t=$foo,s_d_t_x=$foo2 where ID=$ID");
+			$conn->query("update FLODA_main_database set s_d_s=$foo,s_d_s_x=$foo2 where ID=$ID");
 		}
 		if(isset($_GET["naslonecznienieZ"])){
 			$foo=$_GET["naslonecznienieZ"];
@@ -54,7 +54,7 @@
 		}
 		if(isset($_GET["www"])){
 			$foo=$_GET["www"];
-			$conn->query("update FLODA_main_database set www=$foo) where ID=$ID");
+			$conn->query("update FLODA_main_database set www='$foo' where ID=$ID");
 		}
 		echo("z".$ID);
 	}else{

@@ -15,10 +15,10 @@ if ($mysqli->connect_errno) {
         exit();
     }
 $ID=null;
-$result=$conn->query("select ID,Nick,Name,Surname,Email,su from floda_user_detail where blocked=0 and activated=1 and Nick='$login' and passwd=md5('$passwd')");
+$result=$conn->query("select s.ID as ID,a.lang as lang from floda_user_detail s left join floda_user_stats a on a.id_kto=s.ID where blocked=0 and activated=1 and Nick='$login' and passwd=md5('$passwd')");
 $array =  array();
 while($row=$result->fetch_assoc()){
-    $array[]=array(id=>$row["ID"]);
+    $array[]=array(id=>$row["ID"],lang=>$row["lang"]);
 }
 if($conn->affected_rows<1){
 	$array[]=array(id=>"0");

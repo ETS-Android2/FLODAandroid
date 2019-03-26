@@ -204,5 +204,6 @@
     <string name="every">"Co "</string>
     <string name="minutes">" minut"</string>
     <string name="saving_in_progres">Zapisywanie w toku...</string>
+    <string name="twoje_urz_dzenie_nie_wykazuje_aktywnosci">Twoje urządzenie nie wykazuje aktywnosci</string>
 
 </resources>

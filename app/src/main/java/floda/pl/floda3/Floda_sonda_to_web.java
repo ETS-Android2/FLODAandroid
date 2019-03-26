@@ -42,6 +42,7 @@ public class Floda_sonda_to_web extends Fragment {
                 WifiManager wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 WifiInfo info = wifiManager.getConnectionInfo();
                 String ssid = info.getSSID();
+                Log.e("d",ssid);
                 isFloda(ssid);
             });
         }catch (Exception e){
@@ -50,7 +51,7 @@ public class Floda_sonda_to_web extends Fragment {
         return v;
     }
     void isFloda(String ssid){
-        if(ssid.contains("Floda")) {
+        if(ssid.contains("FLODA")) {
         /*JSInterface = new JavaScriptInterface(this);
         wv.addJavascriptInterface(JSInterface, "JSInterface");*/
             w.setWebViewClient(new WebViewClient());

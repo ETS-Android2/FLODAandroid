@@ -16,8 +16,10 @@
 		echo ("Takie konto już istnieje");
 		
 	}else{
-		mail($mail,"Witamy $nick, w beta testach projektu FLODA!","Potwierdź swoje konto w projekcie dzięki temu linkowi \n http://serwer1727017.home.pl/2ti/floda/app/confirmmail.php?mail=$mail"); 
-		echo ('Link potwierdzający został wysłany na maila');
+		$sql="INSERT INTO floda_user_stats(id_kto,lang,default_server) values ($last_id,'pl','http://serwer1727017.home.pl/2ti'";
+	$conn->query($sql);
+		mail($mail,"Witamy $nick!, w beta testach projektu FLODA!","Potwierdź swoje konto w projekcie dzięki temu łączu \n http://serwer1727017.home.pl/2ti/floda/app/confirmmail.php?mail=$mail"); 
+		echo ('1');
 	} 
 	}else{
 		echo "brak parametru";

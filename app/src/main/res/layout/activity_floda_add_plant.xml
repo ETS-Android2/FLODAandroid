@@ -66,6 +66,8 @@
                 android:hint="@string/nazwa"
                 android:textColor="@color/colorAccent"
                 android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorAccent"
+                android:outlineSpotShadowColor="@color/colorAccent"
                 android:textColorLink="@android:color/background_light" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -101,6 +103,7 @@
                 android:hint="@string/nr_sondy"
                 android:inputType="number"
                 android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorAccent"
                 android:textColorLink="@android:color/background_light" />
         </android.support.design.widget.TextInputLayout>
 
@@ -121,6 +124,7 @@
                 android:hint="@string/haslo_sondy"
                 android:inputType="textPassword"
                 android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@color/colorAccent"
                 android:textColorLink="@android:color/background_light" />
 
         </android.support.design.widget.TextInputLayout>

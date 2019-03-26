@@ -14,15 +14,15 @@
 	$conn->query($sql);
 	
 	if($nazwa=="" || $s_d_s=="" || $a_w_g=="" || $c_k_p=="" || $s_d_t=="" || $s_d_w=="" || $www==""){
-		echo("Uzupelnij wszystkie pola");
+		echo("Uzupełnij wszystkie pola");
 	}
 	else{
 		if($conn->affected_rows<1){
 
-			echo ("Taka nazwa juz istnieje!");
+			echo ("Taka nazwa już istnieje");
 			
 		}else{
-			echo ("Dodano nowy gatunek. Zaloguj sie ponownie, aby moc go przypisac do swoich kwiatkow");
+			echo ("Dodano nowy gatunek");
 	}
 	}	
 	

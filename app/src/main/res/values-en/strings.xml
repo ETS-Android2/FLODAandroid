@@ -168,4 +168,5 @@
     <string name="zapostowano">Posted</string>
     <string name="opis_brak">Empty description or title</string>
     <string name="konfiguracja_sondy">SONDA configuration</string>
+    <string name="twoje_urz_dzenie_nie_wykazuje_aktywnosci">Your device is turned off</string>
 </resources>

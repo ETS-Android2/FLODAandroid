@@ -12,26 +12,26 @@
 	
 	if($oldPass=="" || $newPass=="" || $conPass=="")
 	{
-		echo ('Uzupelnij wszyskie pola');
+		echo ('Uzupełnij wszyskie pola');
 	}
 	else{
 		if($newPass!=$conPass){
-			echo ("Bledne potwierdzenie hasla");
+			echo ("Nieprawidłowe potwierdzenie hasła");
 		}
 		else{
 			if($conn->affected_rows<1){
 
-				echo ('Zle haslo!');
+				echo ('Niepoprawne hasło!');
 			}else{
 				
 				$sql="UPDATE `floda_user_detail` SET `passwd` = md5('$newPass') WHERE `ID`='$id'";
 				$result=$conn->query($sql);
 				if($conn->affected_rows<1){
 
-					echo ("Nowe haslo musi sie roznic od starego");
+					echo ("Nowe hasło musi się różnić od starego");
 			
 				}else{
-					echo ('Zmieniono haslo');
+					echo ("Zmieniono hasło");
 		
 				}
 			}

@@ -217,10 +217,10 @@ public class FLODA_forum extends Fragment {
             myViewHolder.bind(fData.get(i), listener1);
 
             if (Integer.valueOf(fData.get(i).score) < 0) {
-                myViewHolder.color.setBackgroundColor(Color.RED);
+                myViewHolder.color.setBackgroundColor(color);
             } else {
                 if (Integer.valueOf(fData.get(i).score) > 0) {
-                    myViewHolder.color.setBackgroundColor(Color.GREEN);
+                    myViewHolder.color.setBackgroundColor(color2);
                 }
             }
 
