@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="floda.pl.floda3">
+    package="floda.pl.floda">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,9 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".Floda_LOGIN"
+            android:name="floda.pl.floda.activities.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
@@ -26,15 +27,15 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".Floda_SING_UP"
+            android:name="floda.pl.floda.activities.RegistrationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NOACTIO" />
         <activity
-            android:name=".Floda_main"
+            android:name="floda.pl.floda.activities.MenuActivity"
             android:label="@string/title_activity_floda_main"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Starting"
+            android:name="floda.pl.floda.activities.InitializationActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,15 +44,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PlantDetail"
+            android:name="floda.pl.floda.activities.PlantOverviewActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".add.Floda_add_plant"
+            android:name="floda.pl.floda.activities.NewPlantActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".add.Floda_list_genre" />
-        <activity android:name=".add.FLODA_add_new_genre" />
-        <activity android:name=".settings.User_settings" />
-        <activity android:name=".FORUM.FLODA_forum" />
+        <activity android:name="floda.pl.floda.activities.ListGenreActivity" />
+        <activity android:name="floda.pl.floda.activities.NewGenreActivity" />
+        <activity android:name="floda.pl.floda.activities.UserSettingsActivity" />
+        <activity android:name="floda.pl.floda.fragments.ForumFragment"
+            tools:ignore="Instantiatable" />
 
     </application>
 

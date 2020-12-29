@@ -1,0 +1,153 @@
+package floda.pl.floda.fragments;
+
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import floda.pl.floda.R;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class MemberListFragment extends Fragment {
+    View w;
+    private RecyclerView mRecycleView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    static int color;
+    public MemberListFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        List<MemberListFragment.uData> data;
+        w = inflater.inflate(R.layout.fragment_floda_member_list, container, false);
+        mRecycleView = w.findViewById(R.id.member_recycleview);
+        mRecycleView.setHasFixedSize(true);
+        AlertDialog alertDialog5;
+        AlertDialog.Builder builder5 = new AlertDialog.Builder(getContext());
+        LayoutInflater l5 = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
+        View v5 = l5.inflate(R.layout.loading, null);
+        builder5.setView(v5);
+        alertDialog5 = builder5.create();
+        alertDialog5.show();
+        color =getResources().getColor(R.color.red);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecycleView.setLayoutManager(mLayoutManager);
+        data = new ArrayList<>();
+        String url = "http://serwer1727017.home.pl/2ti/floda/detail/member_list.php";
+        StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
+            data.clear();
+            try {
+                JSONArray o = new JSONArray(response);
+                for (int i = 0; i < o.length(); i++) {
+                    JSONObject foo = o.getJSONObject(i);
+                    data.add(new MemberListFragment.uData(foo.getInt("su"), foo.getString("name"), foo.getString("ID"), foo.getString("email")));
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mAdapter = new MemberListFragment.ForumCRDV(data);
+
+            mRecycleView.setAdapter(mAdapter);
+            alertDialog5.hide();
+        }, error -> {
+        });
+        RequestQueue q = new RequestQueue(new DiskBasedCache(getActivity().getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack()));
+        q.add(request);
+        q.start();
+        return w;
+    }
+
+
+    public static class ForumCRDV extends RecyclerView.Adapter<MemberListFragment.ForumCRDV.MyViewHolder> {
+        List<MemberListFragment.uData> uData;
+
+        public ForumCRDV(List<MemberListFragment.uData> mDataset) {
+            //uData = new ArrayList<>();
+            this.uData = mDataset;
+        }
+
+        @NonNull
+        @Override
+        public MemberListFragment.ForumCRDV.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.memb_list_cardviw, viewGroup, false);
+
+            return new MemberListFragment.ForumCRDV.MyViewHolder(v);
+        }
+
+
+        @SuppressLint("ResourceAsColor")
+        @Override
+        public void onBindViewHolder(@NonNull MemberListFragment.ForumCRDV.MyViewHolder myViewHolder, int i) {
+            myViewHolder.email.setText(uData.get(i).email);
+            myViewHolder.name.setText(uData.get(i).name);
+            if (uData.get(i).su==1) {
+                myViewHolder.cv.setCardBackgroundColor(color);
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return uData.size();
+        }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+            CardView cv;
+            TextView name;
+            TextView email;
+
+            public MyViewHolder(@NonNull View itemView) {
+                super(itemView);
+                cv = itemView.findViewById(R.id.membcv);
+                name = itemView.findViewById(R.id.memb_name);
+                email = itemView.findViewById(R.id.memb_email);
+
+            }
+        }
+    }
+
+    class uData {
+        public String name, ID, email;
+        int su;
+
+        uData(int su, String name, String ID, String email) {
+            this.ID = ID;
+            this.su = su;
+            this.name = name;
+            this.email = email;
+        }
+
+    }
+
+
+}

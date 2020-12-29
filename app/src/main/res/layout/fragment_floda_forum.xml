@@ -33,7 +33,7 @@
         android:textColor="@android:color/background_dark"
         android:textColorHint="@android:color/black" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/forum_recycleview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         android:clickable="true"
         android:layout_marginBottom="0dp" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/forum_add_butt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

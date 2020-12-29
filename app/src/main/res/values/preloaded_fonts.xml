@@ -6,6 +6,10 @@
 
         <item>@font/bungee_hairline</item>
 
+        <item>@font/lato</item>
+        <item>@font/lato_bold</item>
+        <item>@font/lato_light</item>
+        <item>@font/lato_thin</item>
         <item>@font/molengo</item>
         <item>@font/nova_square</item>
     </array>

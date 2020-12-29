@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -33,6 +33,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/flag_zmiana"
             app:layout_constraintStart_toEndOf="@+id/flag_zmiana"
             app:layout_constraintTop_toTopOf="@+id/flag_zmiana" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
