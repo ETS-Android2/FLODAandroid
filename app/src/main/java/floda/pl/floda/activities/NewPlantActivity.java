@@ -48,7 +48,7 @@ public class NewPlantActivity extends AppCompatActivity {
         stringRequest = new StringRequest(Request.Method.POST, sql, response -> {
             Log.e("d", response);
             if (response.contains("1")) {
-                test.setBackgroundColor(getResources().getColor(R.color.center));
+                test.setBackgroundColor(getResources().getColor(R.color.accent));
                 test.setText(getString(R.string.Ok));
                 spoko = true;
             } else {

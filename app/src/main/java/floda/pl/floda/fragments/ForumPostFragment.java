@@ -200,7 +200,7 @@ public class ForumPostFragment extends Fragment {
 
         public ForumCRDV(List<ForumPostFragment.fData> mDataset) {
             fpData = new ArrayList<>();
-            this.fpData = mDataset;
+            fpData = mDataset;
         }
 
         @NonNull

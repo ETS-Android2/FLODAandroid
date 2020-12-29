@@ -255,10 +255,10 @@ public class PlantDBActivity extends Fragment {
             this.pstatus = pstatus;
             this.ID = ID;
             this.nr = nr;
-            this.wilg = wilg.startsWith("1") ? true : false;
-            this.sun = sun.startsWith("1") ? true : false;
-            this.temp = temp.startsWith("1") ? true : false;
-            this.pod = pod.startsWith("1") ? true : false;
+            this.wilg = wilg.startsWith("1");
+            this.sun = sun.startsWith("1");
+            this.temp = temp.startsWith("1");
+            this.pod = pod.startsWith("1");
         }
 
         public String getPgenre() {

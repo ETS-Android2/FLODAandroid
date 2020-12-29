@@ -70,11 +70,7 @@ public class MenuActivity extends AppCompatActivity
         String urlr = "http://serwer1727017.home.pl/2ti/floda/floda_list.php?ID=" + idd;
         AtomicBoolean raised_not = new AtomicBoolean(false);
         StringRequest notifi = new StringRequest(Request.Method.GET, urlr, response -> {
-            if (!Objects.equals(response, "0")&&!raised_not.get()) {
-                raised_not.set(true);
-            } else {
-                raised_not.set(false);
-            }
+            raised_not.set(!Objects.equals(response, "0") && !raised_not.get());
         }, error -> {
         });
         Thread notif = new Thread() {

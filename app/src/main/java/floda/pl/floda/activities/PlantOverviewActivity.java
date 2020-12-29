@@ -613,7 +613,7 @@ public class PlantOverviewActivity extends AppCompatActivity {
                     www = det.getString("www");
                     Log.e("response", response);
                 } catch (Exception e) {
-                    Log.e("Ustawianie danych", String.valueOf(e) + response);
+                    Log.e("Ustawianie danych", e + response);
                 }
                 if(il_danych.get()>1) {
                     nawodnienie();

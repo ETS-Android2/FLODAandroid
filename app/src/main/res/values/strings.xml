@@ -87,7 +87,7 @@
     <string name="password">Hasło</string>
     <string name="login_za">Zaloguj</string>
     <string name="nick" translatable="false">Nick</string>
-    <string name="e_mail" translatable="false">E-mail</string>
+    <string name="e_mail" translatable="false">Email</string>
     <string name="name">Imię</string>
     <string name="surname">Nazwisko</string>
     <string name="repeat_your_password">Powtórz swoje hasło</string>

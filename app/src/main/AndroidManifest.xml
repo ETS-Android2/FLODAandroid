@@ -35,8 +35,8 @@
             android:label="@string/title_activity_floda_main"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="floda.pl.floda.activities.InitializationActivity"
-            android:theme="@style/AppTheme">
+            android:name="floda.pl.floda.activities.SplashScreenActivity"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

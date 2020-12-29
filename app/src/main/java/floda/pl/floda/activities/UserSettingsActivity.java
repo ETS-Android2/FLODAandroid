@@ -31,7 +31,7 @@ import floda.pl.floda.R;
 
 public class UserSettingsActivity extends AppCompatActivity {
     Spinner language;
-    int vicon[];
+    int[] vicon;
     String[] vcode;
     int option_lang = 0;
     TextView ust_password, ust_repassword;

@@ -83,7 +83,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/start"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:fontFamily="@font/molengo"
             android:text="@string/akceptuj"
             android:textColor="@android:color/background_light"
