@@ -1,10 +1,11 @@
 package floda.pl.floda.activities;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
@@ -27,10 +28,6 @@ import floda.pl.floda.R;
 import floda.pl.floda.dao.GetBasicIdUserDataByCredentialsDAO;
 
 public class LoginActivity extends AppCompatActivity {
-    @Override
-    public void onBackPressed() {
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,32 +41,39 @@ public class LoginActivity extends AppCompatActivity {
         textViewLoginFailedLoginActivity.setVisibility(View.INVISIBLE);
         buttonLogin.setOnClickListener(v -> {
             GetBasicIdUserDataByCredentialsDAO getBasicIdUserDataByCredentialsDAO = new GetBasicIdUserDataByCredentialsDAO();
-            String[] data = getBasicIdUserDataByCredentialsDAO.getBasicIdUserDataByCredentialsDAO(editTextLoginLoginActivity.getText().toString(), editTextPasswordLoginActivity.getText().toString(), new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
-            if (data[0].equals("0")) {
+            RequestQueue q = getBasicIdUserDataByCredentialsDAO.getBasicIdUserDataByCredentialsDAO(editTextLoginLoginActivity.getText().toString(), editTextPasswordLoginActivity.getText().toString(), new RequestQueue(new DiskBasedCache(getCacheDir(), 1024 * 1024), new BasicNetwork(new HurlStack())));
+            q.addRequestFinishedListener(listener -> {
+                String[] data = getBasicIdUserDataByCredentialsDAO.getData();
 
-                textViewLoginFailedLoginActivity.setVisibility(View.VISIBLE);
-                editTextLoginLoginActivity.setError("Dane logowania niepoprawne");
-                editTextPasswordLoginActivity.setError("Dane logowania niepoprawne");
+                if (data[0].equals("0")) {
 
-            } else {
-                Intent i = new Intent(getBaseContext(), MenuActivity.class);
-                i.putExtra("ID", data[0]);
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("ID", data[0]);
-                editor.putString("language", data[1]);
-                editor.apply();
-                Resources res = getBaseContext().getResources();
-                DisplayMetrics dm = res.getDisplayMetrics();
-                Configuration conf = res.getConfiguration();
-                conf.locale = new Locale(data[1]);
-                res.updateConfiguration(conf, dm);
-                startActivity(i);
-            }
+                    textViewLoginFailedLoginActivity.setVisibility(View.VISIBLE);
+                    editTextLoginLoginActivity.getBackground().mutate().setColorFilter(Color.parseColor("#f8542b"), PorterDuff.Mode.ADD);
+                    editTextPasswordLoginActivity.getBackground().mutate().setColorFilter(Color.parseColor("#f8542b"), PorterDuff.Mode.ADD);
+
+                } else {
+
+                    Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                    i.putExtra("ID", data[0]);
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("ID", data[0]);
+                    editor.putString("language", data[1]);
+                    editor.apply();
+                    Resources res = getBaseContext().getResources();
+                    DisplayMetrics dm = res.getDisplayMetrics();
+                    Configuration conf = res.getConfiguration();
+                    conf.locale = new Locale(data[1]);
+                    res.updateConfiguration(conf, dm);
+                    startActivity(i);
+
+                }
+            });
+            q.start();
         });
 
         buttonSign.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(), RegistrationActivity.class);
+            Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
             startActivity(i);
         });
 

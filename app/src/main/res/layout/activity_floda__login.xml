@@ -41,7 +41,7 @@
             android:inputType="textEmailAddress"
             android:textColor="#f3f2f5"
             android:textColorHint="#f3f2f5"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,7 +95,7 @@
             android:inputType="textPassword"
             android:textColor="#f3f2f5"
             android:textColorHint="#f3f2f5"
-            android:textSize="20dp" />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

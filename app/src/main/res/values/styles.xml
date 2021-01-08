@@ -11,6 +11,34 @@
         <item name="android:colorForeground">@color/colorAccent</item>
         <item name="android:textColorHighlight">@color/background_material_dark</item>
         <item name="android:textColor">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+
+    </style>
+    <style name="AppThemeLogin" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">?android:attr/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">#d5e1e2</item>
+        <item name="android:colorBackground">@color/background_material_dark</item>
+        <item name="android:colorForeground">@color/colorAccent</item>
+        <item name="android:textColorHighlight">@color/background_material_dark</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+
+    </style>
+    <style name="AppThemeRegister" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/accent</item>
+        <item name="colorAccent">?android:attr/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/accent</item>
+        <item name="android:colorBackground">@color/background_material_dark</item>
+        <item name="android:colorForeground">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="android:textColorHighlight">@color/background_material_dark</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
     </style>
     <style name="AppThemeact" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
@@ -47,5 +75,8 @@
     </style>
     <style name="SplashScreenTheme" parent = "Theme.AppCompat.NoActionBar">
     <item  name="android:windowBackground">@drawable/splash_screen_background</item>
-</style>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+
+    </style>
 </resources>

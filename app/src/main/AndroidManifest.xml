@@ -20,16 +20,16 @@
         <activity
             android:name="floda.pl.floda.activities.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppThemeLogin" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name="floda.pl.floda.activities.RegistrationActivity"
+            android:name="floda.pl.floda.activities.RegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NOACTIO" />
+            android:theme="@style/AppThemeRegister"  />
         <activity
             android:name="floda.pl.floda.activities.MenuActivity"
             android:label="@string/title_activity_floda_main"

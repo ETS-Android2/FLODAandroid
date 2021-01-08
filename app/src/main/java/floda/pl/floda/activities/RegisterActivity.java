@@ -22,16 +22,15 @@ import java.util.regex.Pattern;
 
 import floda.pl.floda.R;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_floda__sing__up);
-        Button req =  findViewById(R.id.sing_up_butt);
+        Button req =  findViewById(R.id.registerButtonRegisterActivity);
 
-        final EditText name =  findViewById(R.id.sing_name);
-        final EditText surname =  findViewById(R.id.sing_surname);
+
         final EditText nick =  findViewById(R.id.sing_nick);
         final EditText mail =  findViewById(R.id.sing_mail);
         final EditText pass = findViewById(R.id.sing_pass);
@@ -40,18 +39,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
         req.setOnClickListener(v -> {
             final EditText[] data = new EditText[6];
-            data[0] = name;
-            data[1] = surname;
             data[2] = nick;
             data[3] = mail;
             data[4] = pass;
             data[5] = repass;
-            //data[6]=agree.isChecked()==true? "1":"0";
             boolean correct = true;
-            Log.d("c", String.valueOf(name.getText()));
             StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.serwer1727017.home.pl/2ti/floda/app/singup.php", response -> {
                 if(response.contains("1")){
-                    AlertDialog.Builder b = new AlertDialog.Builder(RegistrationActivity.this);
+                    AlertDialog.Builder b = new AlertDialog.Builder(RegisterActivity.this);
                     b.setMessage(R.string.mail_sended).setTitle(R.string.success).setPositiveButton((R.string.superr), (dialog, which) -> onBackPressed()).setOnKeyListener((dialog, keyCode, event) -> {
                         if (keyCode == KeyEvent.KEYCODE_BACK) {
                             onBackPressed();
@@ -64,8 +59,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams()  {
                     Map<String, String> d = new HashMap<>();
-                    d.put("name", data[0].getText().toString());
-                    d.put("surname", data[1].getText().toString());
                     d.put("nick", data[2].getText().toString());
                     d.put("mail", data[3].getText().toString());
                     d.put("password", data[4].getText().toString());
