@@ -129,7 +129,7 @@ public class PlantDBActivity extends Fragment {
             protected Map<String, String> getParams() {
                 Map<String, String> h = new HashMap<>();
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                h.put("ID", Objects.requireNonNull(sharedPreferences.getString("ID", "0")));
+                h.put("ID", String.valueOf(1));
                 return h;
             }
         };

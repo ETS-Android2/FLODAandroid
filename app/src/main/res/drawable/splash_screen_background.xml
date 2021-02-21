@@ -4,5 +4,5 @@
     <bitmap
 
         android:gravity="clip_horizontal|clip_vertical"
-        android:src="@drawable/logo" />
+        android:src="@drawable/splash_background" />
 </item></layer-list>

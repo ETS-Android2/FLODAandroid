@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65" />
+        app:layout_constraintVertical_bias="0.51" />
 
     <TextView
         android:id="@+id/textView28"
@@ -108,14 +108,14 @@
         android:text="@string/login"
         android:textColor="#f3f2f5"
         android:textSize="18sp"
-        app:backgroundTint="@android:color/transparent"
-        app:cornerRadius="2dp"
+        app:backgroundTint="@color/accent"
+        app:cornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="@+id/view6"
         app:layout_constraintStart_toStartOf="@+id/view6"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5"
-        app:rippleColor="#f3f2f5"
-        app:strokeColor="#f3f2f5"
-        app:strokeWidth="2dp" />
+        app:rippleColor="@color/accent"
+        app:strokeColor="@color/accent"
+        app:strokeWidth="0dp" />
 
     <Button
         android:id="@+id/button6"
@@ -163,10 +163,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logoImageLoginActivity"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="70dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toTopOf="@+id/textView28"
         app:layout_constraintEnd_toEndOf="parent"

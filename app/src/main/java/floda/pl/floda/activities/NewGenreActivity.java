@@ -40,7 +40,7 @@ public class NewGenreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_floda_add_new_genre);
+        setContentView(R.layout.activity_new_genre);
         sun_min = findViewById(R.id.sun_min);
         sun_max = findViewById(R.id.sun_max);
         min_temp = findViewById(R.id.min_temp);

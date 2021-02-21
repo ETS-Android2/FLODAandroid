@@ -56,7 +56,7 @@ public class ListGenreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_floda_list_genre);
+        setContentView(R.layout.activity_list_genre);
         List<ListGenreActivity.pData> data;
         mRecycleView = findViewById(R.id.genrelist);
         mRecycleView.setHasFixedSize(true);

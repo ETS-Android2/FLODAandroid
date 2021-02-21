@@ -36,7 +36,7 @@ public class NewPlantActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_floda_add_plant);
+        setContentView(R.layout.activity_add_plant);
         test = findViewById(R.id.test_add);
         String sql = "http://serwer1727017.home.pl/2ti/floda/add/test.php";
         add_plant_butt = findViewById(R.id.add_plant_butt);
