@@ -52,8 +52,7 @@
         <activity android:name="floda.pl.floda.activities.ListGenreActivity" />
         <activity android:name="floda.pl.floda.activities.NewGenreActivity" />
         <activity android:name="floda.pl.floda.activities.UserSettingsActivity" />
-        <activity android:name="floda.pl.floda.fragments.ForumFragment"
-            tools:ignore="Instantiatable" />
+
 
     </application>
 

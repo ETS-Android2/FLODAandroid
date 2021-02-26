@@ -1,12 +1,14 @@
-package floda.pl.floda.activities;
+package floda.pl.floda.fragments;
 
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.cardview.widget.CardView;
@@ -37,16 +39,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import floda.pl.floda.R;
+import floda.pl.floda.activities.MenuActivity;
+import floda.pl.floda.activities.PlantOverviewActivity;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlantDBActivity extends Fragment {
+public class PlantDBFragment extends Fragment {
     View w;
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
@@ -54,7 +57,7 @@ public class PlantDBActivity extends Fragment {
     StringRequest stringRequest;
     RequestQueue q;
 
-    public PlantDBActivity() {
+    public PlantDBFragment() {
         // Required empty public constructor
     }
 
@@ -68,7 +71,7 @@ public class PlantDBActivity extends Fragment {
         List<pData> data;
         AtomicInteger width_screen = new AtomicInteger();
         w = inflater.inflate(R.layout.fragment_list_of_plants, container, false);
-        mRecycleView = w.findViewById(R.id.listofplantrv);
+        mRecycleView = w.findViewById(R.id.recycleview_plants);
         mRecycleView.setHasFixedSize(true);
         ProgressBar bar = w.findViewById(R.id.progressBar2);
         bar.setVisibility(View.VISIBLE);
@@ -185,8 +188,7 @@ public class PlantDBActivity extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull Listplants.MyViewHolder myViewHolder, int i) {
             myViewHolder.cname.setText(pdata.get(i).pname);
-            myViewHolder.cgenre.setText("(" + pdata.get(i).pgenre + ")");
-            myViewHolder.cstatus.setVisibility((!pdata.get(i).pstatus.contains("on")) ? View.VISIBLE : View.INVISIBLE);
+            myViewHolder.cv.setCardBackgroundColor((!pdata.get(i).pstatus.contains("on")) ? Color.parseColor("#f8542b") : Color.parseColor("#0e7369") );
             myViewHolder.ctemp.setVisibility(pdata.get(i).temp ? View.VISIBLE : View.INVISIBLE);
             myViewHolder.csoil.setVisibility(pdata.get(i).pod ? View.VISIBLE : View.INVISIBLE);
             myViewHolder.csun.setVisibility(pdata.get(i).sun ? View.VISIBLE : View.INVISIBLE);
@@ -223,7 +225,6 @@ public class PlantDBActivity extends Fragment {
                 cv = v.findViewById(R.id.card_view);
                 cname = v.findViewById(R.id.plant_name);
                 cgenre = v.findViewById(R.id.lgenre);
-                cstatus = v.findViewById(R.id.powerind);
                 cwilg = v.findViewById(R.id.humidind);
                 csun = v.findViewById(R.id.sunind);
                 ctemp = v.findViewById(R.id.tempind);

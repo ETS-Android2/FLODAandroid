@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/background_material_dark</item>
         <item name="colorAccent">?android:attr/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/background_material_dark</item>
@@ -75,8 +75,8 @@
     </style>
     <style name="SplashScreenTheme" parent = "Theme.AppCompat.NoActionBar">
     <item  name="android:windowBackground">@drawable/splash_background</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
 
     </style>
 </resources>

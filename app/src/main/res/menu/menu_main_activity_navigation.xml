@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_shop"
-        android:icon="@drawable/_01_atomic"
-        android:title="1" />
+        android:id="@+id/navigation_plants"
+        android:icon="@drawable/_01_heart"
+        android:title="Rośliny" />
 
     <item
-        android:id="@+id/navigation_gifts"
-        android:icon="@drawable/_01_atomic"
-        android:title="2" />
+        android:id="@+id/navigation_device_info"
+        android:icon="@drawable/_01_key_1"
+        android:title="Urządzenia" />
 
     <item
-        android:id="@+id/navigation_cart"
-        android:icon="@drawable/_01_atomic"
-        android:title="3" />
+        android:id="@+id/navigation_spieces_database"
+        android:icon="@drawable/_01_book"
+        android:title="Baza gatunków" />
 
     <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/_01_atomic"
-        android:title="4" />
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/_01_settings"
+        android:title="Ustawienia" />
 
 </menu>

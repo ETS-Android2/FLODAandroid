@@ -23,7 +23,7 @@ public class GetSessionTokenDAO {
 
     public RequestQueue getBasicIdUserDataByCredentialsDAO(String login, String password, SharedPreferences preferences, RequestQueue q) {
 
-        String serverURL = preferences.getString("serverURL", "http://www.serwer1727017.home.pl");
+        String serverURL = preferences.getString("serverURL", "http://192.168.1.101:8000");
         serverURL =  serverURL + "/mobile/login";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, serverURL, response -> {
 

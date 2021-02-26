@@ -6,22 +6,24 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="6dp">
 
-    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        card_view:cardBackgroundColor="@color/colorPrimaryDark"
-        card_view:cardCornerRadius="5dp"
-        card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintHorizontal_bias="1.0"
-        card_view:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="0dp"
-        tools:ignore="MissingConstraints">
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -33,139 +35,112 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="@font/molengo"
+                android:fontFamily="@font/lato"
                 android:text="Roslinka w pokoju"
                 android:textAlignment="center"
                 android:textColor="@android:color/background_light"
                 android:textSize="30sp"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/lgenre"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/arvo"
-                android:text="Gatunek"
-                android:textAlignment="center"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/plant_name" />
-
-            <ImageView
-                android:id="@+id/powerclip"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                app:srcCompat="@drawable/ic_power_black_24dp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/lgenre" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/tempclip"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:padding="4dp"
-                app:srcCompat="@drawable/temperature_24dp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toStartOf="@+id/waterclip"
-                card_view:layout_constraintStart_toEndOf="@+id/powerclip"
-                card_view:layout_constraintTop_toBottomOf="@+id/lgenre"
-                card_view:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/sunclip"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plant_name"
+                app:srcCompat="@drawable/temperature_24dp" />
 
             <ImageView
                 android:id="@+id/waterclip"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:padding="4dp"
-                app:srcCompat="@drawable/ic_format_color_fill_black_24dp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/lgenre"
-                card_view:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/humidclip"
+                app:layout_constraintTop_toBottomOf="@+id/plant_name"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_format_color_fill_black_24dp" />
 
             <ImageView
                 android:id="@+id/sunclip"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
                 android:padding="4dp"
-                app:srcCompat="@drawable/sun_24dp"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toStartOf="@+id/humidclip"
-                card_view:layout_constraintStart_toEndOf="@+id/waterclip"
-                card_view:layout_constraintTop_toBottomOf="@+id/lgenre" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView23"
+                app:layout_constraintTop_toBottomOf="@+id/plant_name"
+                app:srcCompat="@drawable/sun_24dp" />
 
             <ImageView
                 android:id="@+id/humidclip"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:padding="4dp"
-                app:srcCompat="@drawable/wi_humidity"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/lgenre" />
-
-            <ImageView
-                android:id="@+id/powerind"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                app:srcCompat="@drawable/indicator"
-                card_view:layout_constraintEnd_toEndOf="@+id/powerclip"
-                card_view:layout_constraintTop_toTopOf="@+id/powerclip" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView23"
+                app:layout_constraintTop_toBottomOf="@+id/plant_name"
+                app:srcCompat="@drawable/wi_humidity" />
 
             <ImageView
                 android:id="@+id/tempind"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                app:srcCompat="@drawable/indicator"
-                card_view:layout_constraintEnd_toEndOf="@+id/tempclip"
-                card_view:layout_constraintTop_toTopOf="@+id/tempclip" />
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/tempclip"
+                app:layout_constraintTop_toTopOf="@+id/tempclip"
+                app:srcCompat="@drawable/indicator" />
 
             <ImageView
                 android:id="@+id/waterind"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                app:srcCompat="@drawable/indicator"
-                card_view:layout_constraintEnd_toEndOf="@+id/waterclip"
-                card_view:layout_constraintTop_toTopOf="@+id/waterclip" />
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/waterclip"
+                app:layout_constraintTop_toTopOf="@+id/waterclip"
+                app:srcCompat="@drawable/indicator" />
 
             <ImageView
                 android:id="@+id/sunind"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                app:srcCompat="@drawable/indicator"
-                card_view:layout_constraintEnd_toEndOf="@+id/sunclip"
-                card_view:layout_constraintTop_toTopOf="@+id/sunclip" />
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/sunclip"
+                app:layout_constraintTop_toTopOf="@+id/sunclip"
+                app:srcCompat="@drawable/indicator" />
 
             <ImageView
                 android:id="@+id/humidind"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                app:srcCompat="@drawable/indicator"
-                card_view:layout_constraintEnd_toEndOf="@+id/humidclip"
-                card_view:layout_constraintTop_toTopOf="@+id/humidclip" />
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/humidclip"
+                app:layout_constraintTop_toTopOf="@+id/humidclip"
+                app:srcCompat="@drawable/indicator" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plant_name" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
