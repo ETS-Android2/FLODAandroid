@@ -47,6 +47,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         String url="http://serwer1727017.home.pl/2ti/floda/checkinglogin.php";
         StringRequest s = new StringRequest(Request.Method.POST, url, response -> {
             assert id != null;
+
             if (!id.equals("0") && !response.contains("0")) {
                 Intent i = new Intent(getBaseContext(), MenuActivity.class);
                 i.putExtra("ID", id);
@@ -57,7 +58,13 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivity(i);
             }
             finish();
-        }, error -> { }) {
+        }, error -> {
+            if(error.networkResponse.statusCode==404){
+                Intent i = new Intent(getBaseContext(), LoginActivity.class);
+                //i.putExtra("ID",id);
+                startActivity(i);
+            }
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> h = new HashMap<>();
